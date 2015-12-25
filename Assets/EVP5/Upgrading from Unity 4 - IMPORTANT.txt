@@ -1,0 +1,21 @@
+
+Edy's Vehicle Physics for Unity 5
+http://www.edy.es/dev/vehicle-physics
+------------------------------------------------
+
+UPGRADING FROM UNITY 4
+
+MOST IMPORTANT:
+There is no direct upgrade path for projects using Edy's Vehicle Physics 4.4 or earlier.
+
+Unfortunately, the major changes in the physics in Unity 5 makes impossible to directly upgrade a
+project in Unity 4 to work the same in Unity 5.
+
+New projects will be working from the beginning, but projects coming from Unity 4 require an
+important upgrade process at both scripts and vehicle configuration. The vehicle behavior and
+gameplay require to be configured and fine-tuned again.
+
+However, the new package for Unity 5 has a much better design and vehicles can be composed and
+configured much faster. Please take a look a the new documentation for Unity 5:
+
+http://www.edy.es/dev/vehicle-physics
