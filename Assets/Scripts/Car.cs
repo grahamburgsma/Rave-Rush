@@ -45,7 +45,7 @@ namespace LittleRocketLeague {
 		//Physics updates - more frequent
 		void FixedUpdate() {
 			float torque = Input.GetAxis("Vertical") * enginePower;
-			float turnSpeed = Input.GetAxis("Horizontal") * turnPower;
+			float turnSpeed = Input.GetAxis("Horizontal") * turnPower * 2;
 			float brake = Input.GetAxis("Jump") * brakePower;
 			int jump = 0;
 
