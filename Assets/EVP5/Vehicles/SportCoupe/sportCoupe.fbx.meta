@@ -1,0 +1,232 @@
+fileFormatVersion: 2
+guid: 55fcadb7aec577541a68acb962b05a10
+labels:
+- car
+- vehicle
+- wheel
+- tire
+- physics
+- bus
+- truck
+- suspension
+- skidmark
+- pickup
+- carpaint
+- driving
+ModelImporter:
+  fileIDToRecycleName:
+    4300000: Tire_FL
+    4300002: Tire_FR
+    4300004: Tire_RL_01
+    4300006: Tire_RL_02
+    4300008: Tire_RR_01
+    4300010: Tire_RR_02
+    4300012: BTire_FL
+    4300014: BTire_FR
+    4300016: BTire_RR
+    4300018: BTire_RL
+    4300020: SportCoupe
+    4300022: SCTire_FL
+    4300024: SCTire_FR
+    4300026: SCTire_RR
+    4300028: SCTire_RL
+    4300030: SCBrake_RL
+    4300032: SCBrake_FL
+    4300034: SCBrake_FR
+    4300036: SCBrake_RR
+    4300038: Tire_RR
+    4300040: Tire_RL
+    4300042: SportCoupe_Bonnet
+    4300044: SportCoupe_Boot
+    4300046: SportCoupe_Front_Bumper
+    4300048: SportCoupe_FogLight1
+    4300050: SportCoupe_FogLight2
+    4300052: SportCoupe_Rear_Bumper
+    4300054: SportCoupe_RearFog1
+    4300056: SportCoupe_RearFog2
+    4300058: SportCoupe_Front_grill
+    4300060: SportCoupe_DoorL
+    4300062: SportCoupe_window_FL
+    4300064: SportCoupe_Mirror_L
+    4300066: SportCoupe_DoorR
+    4300068: SportCoupe_window_FR
+    4300070: SportCoupe_Mirror_R
+    4300072: SportCoupe_SteeringWheel
+    4300074: SportCoupe_window_Rear
+    4300076: SportCoupe_window_Front
+    4300078: SportCoupe_window_L
+    4300080: SportCoupe_window_R
+    4300082: SportCoupe_headlight_L
+    4300084: SportCoupe_headlight_R
+    4300086: SportCoupe_Taillight_L
+    4300088: SportCoupe_Taillight_R
+    4300090: SportCoupe_exhaust_L
+    4300092: SportCoupe_exhaust_R
+    100100000: DataTemplate __Singleton__
+  serializedVersion: 10
+  materials:
+    importMaterials: 1
+    materialName: 3
+    materialSearch: 1
+  animations:
+    generateAnimations: 3
+    bakeSimulation: 0
+    splitAnimations: 1
+    animationCompression: 1
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    clipAnimations: []
+  meshes:
+    lODScreenPercentages: []
+    globalScale: .00999999978
+    meshCompression: 0
+    addColliders: 0
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMesh: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+  tangentSpace:
+    normalSmoothAngle: 60
+    splitTangentsAcrossUV: 1
+    normalImportMode: 0
+    tangentImportMode: 1
+  textMetaNamesToFileIDs:
+    //RootNode:
+      data:
+        first: 1
+        second: a0860100
+      data:
+        first: 4
+        second: 801a0600
+      data:
+        first: 23
+        second: 70182300
+      data:
+        first: 33
+        second: b05a3200
+      data:
+        first: 111
+        second: 605fa900
+    SCBrake_FL:
+      data:
+        first: 1
+        second: a6860100
+      data:
+        first: 4
+        second: 861a0600
+      data:
+        first: 23
+        second: 64182300
+      data:
+        first: 33
+        second: a45a3200
+    SCBrake_FR:
+      data:
+        first: 1
+        second: a4860100
+      data:
+        first: 4
+        second: 841a0600
+      data:
+        first: 23
+        second: 62182300
+      data:
+        first: 33
+        second: a25a3200
+    SCBrake_RL:
+      data:
+        first: 1
+        second: a8860100
+      data:
+        first: 4
+        second: 881a0600
+      data:
+        first: 23
+        second: 66182300
+      data:
+        first: 33
+        second: a65a3200
+    SCBrake_RR:
+      data:
+        first: 1
+        second: a2860100
+      data:
+        first: 4
+        second: 821a0600
+      data:
+        first: 23
+        second: 60182300
+      data:
+        first: 33
+        second: a05a3200
+    SCTire_FL:
+      data:
+        first: 1
+        second: b0860100
+      data:
+        first: 4
+        second: 901a0600
+      data:
+        first: 23
+        second: 6e182300
+      data:
+        first: 33
+        second: ae5a3200
+    SCTire_FR:
+      data:
+        first: 1
+        second: ae860100
+      data:
+        first: 4
+        second: 8e1a0600
+      data:
+        first: 23
+        second: 6c182300
+      data:
+        first: 33
+        second: ac5a3200
+    SCTire_RL:
+      data:
+        first: 1
+        second: aa860100
+      data:
+        first: 4
+        second: 8a1a0600
+      data:
+        first: 23
+        second: 68182300
+      data:
+        first: 33
+        second: a85a3200
+    SCTire_RR:
+      data:
+        first: 1
+        second: ac860100
+      data:
+        first: 4
+        second: 8c1a0600
+      data:
+        first: 23
+        second: 6a182300
+      data:
+        first: 33
+        second: aa5a3200
+    SportCoupe_SteeringWheel:
+      data:
+        first: 1
+        second: ce860100
+      data:
+        first: 4
+        second: ae1a0600
+      data:
+        first: 23
+        second: 8e182300
+      data:
+        first: 33
+        second: ce5a3200
