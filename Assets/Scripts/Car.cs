@@ -17,11 +17,12 @@ namespace LittleRocketLeague {
 	public class Car : MonoBehaviour {
 
 		[SerializeField] Wheel[] wheels = new Wheel[0];
-		[SerializeField] float enginePower = 0, turnPower = 0, brakePower = 0, jumpForce = 40000, nitroForce = 15000;
-		new Rigidbody rigidBody;
+		[SerializeField] float enginePower = 0, turnPower = 0, brakePower = 0, jumpForce = 40000, nitroForce = 500000, torqueRotate = 1000000;
+		Rigidbody rigidBody;
 		new ConstantForce constantForce;
 
 		private float torque = 0, turnSpeed = 0;
+		private int torqueCount;
 
 		// Use this for initialization
 		void Start() {
@@ -34,7 +35,7 @@ namespace LittleRocketLeague {
 			int numWheelsGrounded = 0;
 
 			//Reset Car
-			if (Input.GetKeyDown("r")) {
+			if (Input.GetKeyDown(KeyCode.R)) {
 				transform.position = new Vector3(transform.position.x, 10, transform.position.z);
 				transform.localEulerAngles = new Vector3(0, transform.localEulerAngles.y, 0);
 			}
@@ -50,23 +51,39 @@ namespace LittleRocketLeague {
 				}
 			}
 				
-			//Forces
+			//Driving forces (helps give arcade style driving)
 			if (numWheelsGrounded > 0) {
 				constantForce.relativeForce = new Vector3(0, -2500, torque * 10);
 				constantForce.relativeTorque = Vector3.up * turnSpeed * 4000;
+
+				//Cancel torque forces if touches ground
+				torqueCount = 0;
 			} else {
 				constantForce.relativeForce = Vector3.down * 2500;
 				constantForce.relativeTorque = Vector3.zero;
 			}
 
+			//One torque isn't enough, repeat a few times
+			if (torqueCount > 0) {
+				Vector3 torqueVector = new Vector3(Input.GetAxis("Vertical") * torqueRotate, 0, Input.GetAxis("Horizontal") * torqueRotate * -1);
+				rigidBody.AddRelativeTorque(torqueVector * torqueRotate, ForceMode.Impulse);
+				torqueCount--;
+			}
+
+			//Jump
 			if (Input.GetKeyDown(KeyCode.J)) {
 				if (numWheelsGrounded > 0) {
-					rigidBody.AddForce(transform.up * jumpForce, ForceMode.Impulse);
+					rigidBody.AddRelativeForce(transform.up * jumpForce, ForceMode.Impulse);
+				} else {
+					Vector3 torqueVector = new Vector3(Input.GetAxis("Vertical") * torqueRotate, 0, Input.GetAxis("Horizontal") * torqueRotate * -1);
+					rigidBody.AddRelativeTorque(torqueVector * torqueRotate, ForceMode.Impulse);
+					torqueCount = 25;
 				}
 			}
 
+			//Nitro
 			if (Input.GetKeyDown(KeyCode.N)) {
-				rigidBody.AddForce(transform.forward * nitroForce, ForceMode.Impulse);
+				rigidBody.AddRelativeForce(transform.forward * nitroForce, ForceMode.Impulse);
 			}
 		}
 

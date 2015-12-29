@@ -68,7 +68,12 @@
      <Compile Include="Assets\Scripts\Camera.cs" />
      <Compile Include="Assets\Scripts\Car.cs" />
      <Compile Include="Assets\Scripts\CountDown.cs" />
+     <Compile Include="Assets\Scripts\GoalHandler.cs" />
      <Compile Include="Assets\Scripts\GoalTrigger.cs" />
+     <Compile Include="Assets\Scripts\Side Triggers\BlueTrigger.cs" />
+     <Compile Include="Assets\Scripts\Side Triggers\GreenTrigger.cs" />
+     <Compile Include="Assets\Scripts\Side Triggers\RedTrigger.cs" />
+     <Compile Include="Assets\Scripts\Side Triggers\YellowTrigger.cs" />
      <Compile Include="Assets\Scripts\Wheel.cs" />
      <None Include="Assets\EVP5\Upgrading from Unity 4 - IMPORTANT.txt" />
      <None Include="Assets\EVP5\Visual Effects\Shaders\EVP Tire Marks Bump.shader" />
