@@ -14,7 +14,6 @@ public class CountDown : MonoBehaviour {
     {
         setTime();
         InvokeRepeating("decreaseTimeLeft", 1.0f, 1.0f);
-
         source = GetComponent<AudioSource>();
     }
 
@@ -22,7 +21,6 @@ public class CountDown : MonoBehaviour {
     void Update()
     {
        
-        
         
     }
 
