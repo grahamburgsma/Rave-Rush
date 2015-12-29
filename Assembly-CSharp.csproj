@@ -67,6 +67,7 @@
      <Compile Include="Assets\Scripts\AntiRoll.cs" />
      <Compile Include="Assets\Scripts\Camera.cs" />
      <Compile Include="Assets\Scripts\Car.cs" />
+     <Compile Include="Assets\Scripts\CountDown.cs" />
      <Compile Include="Assets\Scripts\GoalTrigger.cs" />
      <Compile Include="Assets\Scripts\Wheel.cs" />
      <None Include="Assets\EVP5\Upgrading from Unity 4 - IMPORTANT.txt" />
