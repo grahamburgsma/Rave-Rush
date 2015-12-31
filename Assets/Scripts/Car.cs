@@ -34,6 +34,7 @@ namespace LittleRocketLeague {
 		void Update() {
 			int numWheelsGrounded = 0;
 
+
 			//Reset Car
 			if (Input.GetKeyDown(KeyCode.R)) {
 				transform.position = new Vector3(transform.position.x, 10, transform.position.z);
@@ -53,7 +54,7 @@ namespace LittleRocketLeague {
 				
 			//Driving forces (helps give arcade style driving)
 			if (numWheelsGrounded > 0) {
-				constantForce.relativeForce = new Vector3(0, -2500, torque * 10);
+				constantForce.relativeForce = new Vector3(0, -5500, torque * 10);
 				constantForce.relativeTorque = Vector3.up * turnSpeed * 4000;
 
 				//Cancel torque forces if touches ground
@@ -103,6 +104,9 @@ namespace LittleRocketLeague {
 
 				if (wheel.power)
 					wheel.wheelCollider.motorTorque = 0; //torque;
+
+				if (rigidBody.velocity.magnitude > 150 && turnSpeed > 10)
+					turnSpeed -= 5;
 
 				if (wheel.steer)
 					wheel.wheelCollider.steerAngle = turnSpeed;
