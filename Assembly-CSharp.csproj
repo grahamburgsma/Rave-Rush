@@ -65,6 +65,7 @@
      <Compile Include="Assets\EVP5\Scripts\VehicleTireEffects.cs" />
      <Compile Include="Assets\EVP5\Scripts\VehicleViewConfig.cs" />
      <Compile Include="Assets\Scripts\AntiRoll.cs" />
+     <Compile Include="Assets\Scripts\Arrow.cs" />
      <Compile Include="Assets\Scripts\Camera.cs" />
      <Compile Include="Assets\Scripts\Car.cs" />
      <Compile Include="Assets\Scripts\CountDown.cs" />
