@@ -7,16 +7,16 @@ public class GoalHandler : MonoBehaviour {
 
 
 
-    [SerializeField] Text scoreText, scoreRedText, scoreGreenText, scoreBlueText, scoreYellowText, whereToScoreText;
-    [SerializeField] Transform ball, car;
-    [SerializeField] GameObject arrow;
+	[SerializeField] Text scoreText, scoreRedText, scoreGreenText, scoreBlueText, scoreYellowText, whereToScoreText;
+	[SerializeField] Transform car;
+	[SerializeField] GameObject arrow, ball;
 
-    private Rigidbody carBody, ballBody;
+	private Rigidbody carBody, ballBody;
 
 	private string whereToScore;
 
-	public AudioClip goalScored_Sound;
-	private AudioSource source;
+	[SerializeField] AudioClip goalScored_Sound;
+	[SerializeField] AudioSource source;
 
 	public GoalTrigger redSide, blueSide, yellowSide, greenSide;
 	public CountDown gameTimer;
@@ -25,22 +25,19 @@ public class GoalHandler : MonoBehaviour {
 
 	// Use this for initialization
 	void Start() {
-		source = GetComponent<AudioSource>();
-        updateWhereToScore();
-
-   
-    }
+		updateWhereToScore();   
+	}
 	
 	// Update is called once per frame
 	void Update() {
 
 		if (gameTimer.timerSeconds <= 0) {
 			whereToScoreText.text = "Game Over";
-            ballBody = ball.GetComponent<Rigidbody>();
-            carBody = car.GetComponent<Rigidbody>();
-            makeBodyStayStill(ballBody);
-            makeBodyStayStill(carBody);
-        } else {
+			ballBody = ball.GetComponent<Rigidbody>();
+			carBody = car.GetComponent<Rigidbody>();
+			makeBodyStayStill(ballBody);
+			makeBodyStayStill(carBody);
+		} else {
 			switch (whereToScore) {
 				case "Red":
 					if (redSide.goalsScored > 0) {
@@ -96,45 +93,39 @@ public class GoalHandler : MonoBehaviour {
 		whereToScoreText.text = "Score on : " + whereToScore;
 
     
-        Renderer[] arrowRenderer = arrow.GetComponentsInChildren<Renderer>();
-        switch (whereToScore)   //Look at this and tell me how you would do it, i could create it into one statement but i dont know whats better
-        {
-            case "Red":
-                foreach (Renderer component in arrowRenderer)
-                {
-                    component.material.color = Color.red;
-                }
+		Renderer[] arrowRenderer = arrow.GetComponentsInChildren<Renderer>();
+		switch (whereToScore) {   //Look at this and tell me how you would do it, i could create it into one statement but i dont know whats better
+			case "Red":
+				foreach (Renderer component in arrowRenderer) {
+					component.material.color = Color.red;
+				}
           
-                break;
-            case "Blue":
-                foreach (Renderer component in arrowRenderer)
-                {
-                    component.material.color = Color.blue;
-                }
-                break;
-            case "Green":
-                foreach (Renderer component in arrowRenderer)
-                {
-                    component.material.color = Color.green;
-                }
-                break;
-            case "Yellow":
-                foreach (Renderer component in arrowRenderer)
-                {
-                    component.material.color = Color.yellow;
-                }
-                break;
-        }
+				break;
+			case "Blue":
+				foreach (Renderer component in arrowRenderer) {
+					component.material.color = Color.blue;
+				}
+				break;
+			case "Green":
+				foreach (Renderer component in arrowRenderer) {
+					component.material.color = Color.green;
+				}
+				break;
+			case "Yellow":
+				foreach (Renderer component in arrowRenderer) {
+					component.material.color = Color.yellow;
+				}
+				break;
+		}
         
 
-        ball.position = new Vector3(0, 0, 0);
-        ballBody = ball.GetComponent<Rigidbody>();
-        makeBodyStayStill(ballBody);
-    }
+		ball.transform.position = Vector3.zero;
+		ballBody = ball.GetComponent<Rigidbody>();
+		makeBodyStayStill(ballBody);
+	}
 
-    void makeBodyStayStill(Rigidbody body)
-    { 
-        body.velocity = Vector3.zero;
-        body.angularVelocity = Vector3.zero;
-    }
+	void makeBodyStayStill(Rigidbody body) { 
+		body.velocity = Vector3.zero;
+		body.angularVelocity = Vector3.zero;
+	}
 }

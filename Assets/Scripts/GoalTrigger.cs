@@ -2,28 +2,23 @@
 using System.Collections;
 using UnityEngine.UI;
 
-public class GoalTrigger : MonoBehaviour
-{
-    //public Text goalScoredText;
-    //public string colour;
-    public int goalsScored;
-    
+public class GoalTrigger : MonoBehaviour {
+	//public Text goalScoredText;
+	//public string colour;
+	public int goalsScored;
 
-    void Start()
-    {
-        goalsScored = 0;
-    }
 
-    void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.tag == "Ball")
-        {
-            goalsScored++;  
-        }
-      
-    }
+	void Start() {
+		goalsScored = 0;
+	}
 
-   /* void setGoalText()
+	void OnTriggerExit(Collider other) {
+		if (other.gameObject.tag == "Ball") {
+			goalsScored++;  
+		}
+	}
+
+	/* void setGoalText()
     {
         //goalScoredText.text = "Goals Scored :" + goalsScored.ToString();
     }
