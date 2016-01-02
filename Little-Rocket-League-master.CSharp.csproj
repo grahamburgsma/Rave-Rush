@@ -66,25 +66,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\EVP5\Scripts\Extra\RigidbodyImpulse.cs" />
-    <Compile Include="Assets\EVP5\Scripts\Extra\RigidbodyPause.cs" />
-    <Compile Include="Assets\EVP5\Scripts\Extra\VehicleNitro.cs" />
-    <Compile Include="Assets\EVP5\Scripts\Ground Materials\GroundMaterialManager.cs" />
-    <Compile Include="Assets\EVP5\Scripts\Ground Materials\TireMarksRenderer.cs" />
-    <Compile Include="Assets\EVP5\Scripts\Ground Materials\TireParticleEmitter.cs" />
-    <Compile Include="Assets\EVP5\Scripts\Tools\CommonTools.cs" />
-    <Compile Include="Assets\EVP5\Scripts\Tools\SceneTools.cs" />
-    <Compile Include="Assets\EVP5\Scripts\Tools\TextureCanvas.cs" />
-    <Compile Include="Assets\EVP5\Scripts\VehicleAudio.cs" />
-    <Compile Include="Assets\EVP5\Scripts\VehicleCameraController.cs" />
-    <Compile Include="Assets\EVP5\Scripts\VehicleController.cs" />
-    <Compile Include="Assets\EVP5\Scripts\VehicleDamage.cs" />
-    <Compile Include="Assets\EVP5\Scripts\VehicleManager.cs" />
-    <Compile Include="Assets\EVP5\Scripts\VehicleRandomInput.cs" />
-    <Compile Include="Assets\EVP5\Scripts\VehicleStandardInput.cs" />
-    <Compile Include="Assets\EVP5\Scripts\VehicleTelemetry.cs" />
-    <Compile Include="Assets\EVP5\Scripts\VehicleTireEffects.cs" />
-    <Compile Include="Assets\EVP5\Scripts\VehicleViewConfig.cs" />
     <Compile Include="Assets\Scripts\AntiRoll.cs" />
     <Compile Include="Assets\Scripts\Arrow.cs" />
     <Compile Include="Assets\Scripts\Camera.cs" />
@@ -92,20 +73,13 @@
     <Compile Include="Assets\Scripts\CountDown.cs" />
     <Compile Include="Assets\Scripts\GoalHandler.cs" />
     <Compile Include="Assets\Scripts\GoalTrigger.cs" />
+    <Compile Include="Assets\Scripts\JumpTrigger.cs" />
     <Compile Include="Assets\Scripts\Side Triggers\BlueTrigger.cs" />
     <Compile Include="Assets\Scripts\Side Triggers\GreenTrigger.cs" />
     <Compile Include="Assets\Scripts\Side Triggers\RedTrigger.cs" />
     <Compile Include="Assets\Scripts\Side Triggers\YellowTrigger.cs" />
+    <Compile Include="Assets\Scripts\SpinTrigger.cs" />
     <Compile Include="Assets\Scripts\Wheel.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Assets\EVP5\Readme (seriously!).txt" />
-    <None Include="Assets\EVP5\Upgrading from Unity 4 - IMPORTANT.txt" />
-    <None Include="Assets\EVP5\Visual Effects\Shaders\EVP Particles Alpha Blended Shadows.shader" />
-    <None Include="Assets\EVP5\Visual Effects\Shaders\EVP Tire Marks Bump.shader" />
-    <None Include="Assets\EVP5\Visual Effects\Shaders\EVP Tire Marks Debug.shader" />
-    <None Include="Assets\EVP5\Visual Effects\Shaders\EVP Tire Marks.shader" />
-    <None Include="Assets\EVP5\Visual Effects\Shaders\EVPParticleShadows.cginc" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2015\UnityVS.CSharp.targets" />
 </Project>

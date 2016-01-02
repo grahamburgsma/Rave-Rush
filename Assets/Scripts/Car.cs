@@ -15,8 +15,9 @@ namespace LittleRocketLeague {
 	}
 
 	public class Car : MonoBehaviour {
-
-		[SerializeField] Wheel[] wheels = new Wheel[0];
+        [SerializeField]AudioClip crash_Sound,ball_hit_Sound, jump_Sound;
+        [SerializeField]AudioSource source;
+        [SerializeField] Wheel[] wheels = new Wheel[0];
 		[SerializeField] float enginePower = 0, turnPower = 0, brakePower = 0, jumpForce = 40000, nitroForce = 500000, torqueRotate = 1000000;
 		Rigidbody rigidBody;
 		new ConstantForce constantForce;
@@ -75,12 +76,14 @@ namespace LittleRocketLeague {
 			if (Input.GetKeyDown(KeyCode.J)) {
 				if (numWheelsGrounded > 0) {
 					rigidBody.AddRelativeForce(transform.up * jumpForce, ForceMode.Impulse);
-				} else {
+                    source.PlayOneShot(jump_Sound);
+                } else {
 					Vector3 torqueVector = new Vector3(Input.GetAxis("Vertical") * torqueRotate, 0, Input.GetAxis("Horizontal") * torqueRotate * -1);
 					rigidBody.AddRelativeTorque(torqueVector * torqueRotate, ForceMode.Impulse);
 					torqueCount = 25;
 				}
-			}
+               
+            }
 
 			//Nitro
 			if (Input.GetKeyDown(KeyCode.N)) {
@@ -112,5 +115,18 @@ namespace LittleRocketLeague {
 					wheel.wheelCollider.steerAngle = turnSpeed;
 			}
 		}
-	}
+
+        void OnCollisionEnter(Collision collision)
+        {
+            if (collision.gameObject.tag == "Ball")
+            {
+                source.PlayOneShot(ball_hit_Sound);
+            }
+            else
+            {
+                source.PlayOneShot(crash_Sound);
+            }
+
+        }
+    }
 }
