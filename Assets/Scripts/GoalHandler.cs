@@ -5,10 +5,14 @@ using UnityEngine.UI;
 public class GoalHandler : MonoBehaviour {
 
 
-    
 
-	[SerializeField] Text scoreText, scoreRedText, scoreGreenText, scoreBlueText, scoreYellowText, whereToScoreText;
-    [SerializeField] Transform ball;
+
+    [SerializeField] Text scoreText, scoreRedText, scoreGreenText, scoreBlueText, scoreYellowText, whereToScoreText;
+    [SerializeField] Transform ball, car;
+    [SerializeField] GameObject arrow;
+
+    private Rigidbody carBody, ballBody;
+
 	private string whereToScore;
 
 	public AudioClip goalScored_Sound;
@@ -22,15 +26,21 @@ public class GoalHandler : MonoBehaviour {
 	// Use this for initialization
 	void Start() {
 		source = GetComponent<AudioSource>();
-		updateWhereToScore();
-	}
+        updateWhereToScore();
+
+   
+    }
 	
 	// Update is called once per frame
 	void Update() {
 
 		if (gameTimer.timerSeconds <= 0) {
 			whereToScoreText.text = "Game Over";
-		} else {
+            ballBody = ball.GetComponent<Rigidbody>();
+            carBody = car.GetComponent<Rigidbody>();
+            makeBodyStayStill(ballBody);
+            makeBodyStayStill(carBody);
+        } else {
 			switch (whereToScore) {
 				case "Red":
 					if (redSide.goalsScored > 0) {
@@ -84,9 +94,47 @@ public class GoalHandler : MonoBehaviour {
 		int nextColour = r.Next(0, 3);
 		whereToScore = whereCanBeScored[nextColour];
 		whereToScoreText.text = "Score on : " + whereToScore;
+
+    
+        Renderer[] arrowRenderer = arrow.GetComponentsInChildren<Renderer>();
+        switch (whereToScore)   //Look at this and tell me how you would do it, i could create it into one statement but i dont know whats better
+        {
+            case "Red":
+                foreach (Renderer component in arrowRenderer)
+                {
+                    component.material.color = Color.red;
+                }
+          
+                break;
+            case "Blue":
+                foreach (Renderer component in arrowRenderer)
+                {
+                    component.material.color = Color.blue;
+                }
+                break;
+            case "Green":
+                foreach (Renderer component in arrowRenderer)
+                {
+                    component.material.color = Color.green;
+                }
+                break;
+            case "Yellow":
+                foreach (Renderer component in arrowRenderer)
+                {
+                    component.material.color = Color.yellow;
+                }
+                break;
+        }
+        
+
         ball.position = new Vector3(0, 0, 0);
-        Rigidbody ballRigidbody = gameObject.GetComponent<Rigidbody>();
-        ballRigidbody.velocity = Vector3.zero;
-        ballRigidbody.angularVelocity = Vector3.zero;
+        ballBody = ball.GetComponent<Rigidbody>();
+        makeBodyStayStill(ballBody);
+    }
+
+    void makeBodyStayStill(Rigidbody body)
+    { 
+        body.velocity = Vector3.zero;
+        body.angularVelocity = Vector3.zero;
     }
 }
