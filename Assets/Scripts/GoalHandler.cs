@@ -8,6 +8,7 @@ public class GoalHandler : MonoBehaviour {
     
 
 	[SerializeField] Text scoreText, scoreRedText, scoreGreenText, scoreBlueText, scoreYellowText, whereToScoreText;
+    [SerializeField] Transform ball;
 	private string whereToScore;
 
 	public AudioClip goalScored_Sound;
@@ -83,5 +84,9 @@ public class GoalHandler : MonoBehaviour {
 		int nextColour = r.Next(0, 3);
 		whereToScore = whereCanBeScored[nextColour];
 		whereToScoreText.text = "Score on : " + whereToScore;
-	}
+        ball.position = new Vector3(0, 0, 0);
+        Rigidbody ballRigidbody = gameObject.GetComponent<Rigidbody>();
+        ballRigidbody.velocity = Vector3.zero;
+        ballRigidbody.angularVelocity = Vector3.zero;
+    }
 }
