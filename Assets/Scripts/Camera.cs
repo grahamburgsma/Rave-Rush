@@ -3,40 +3,65 @@ using System.Collections;
 
 public class Camera : MonoBehaviour {
 
-	public Transform car;
-	[SerializeField] float distance = 25.0f, height = 9.0f, widthOffset = 0.0f, rotationDamping = 3.0f, heightDamping = 2.0f, zoomRatio = 0.2f, defaultDistance;
+	public Transform car, ball, lookObject;
+	[SerializeField] float height = 5.0f, angleHeight = 9.0f, widthOffset = 0.0f, rotationDamping = 3.0f, heightDamping = 2.0f, zoomRatio = 0.2f, distance = 25.0f;
 	Vector3 rotationVector;
 
+	private bool ballCam = false;
+
+	private float distanceChange;
+
 	// Use this for initialization
-	void Start () {
-		defaultDistance = distance;
+	void Start() {
+		distanceChange = distance;
+		lookObject = car;
 	}
 
-	void LateUpdate () {
+	void Update() {
+		if (Input.GetKeyDown(KeyCode.B)) {
+			if (ballCam)
+				lookObject = car;
+			else
+				lookObject = ball;
+			ballCam = !ballCam;
+		}
+	}
+
+	void LateUpdate() {
 		float wantedAngle = rotationVector.y;
-		float wantedHeight = car.position.y + height;
+		float wantedHeight = lookObject.position.y + angleHeight;
 		float myAngle = transform.eulerAngles.y;
 		float myHeight = transform.position.y;
-		myAngle = Mathf.LerpAngle(myAngle,wantedAngle,rotationDamping*Time.deltaTime);
-		myHeight = Mathf.Lerp(myHeight,wantedHeight,heightDamping*Time.deltaTime);
-		var currentRotation = Quaternion.Euler(0,myAngle,0);
+
+		myAngle = Mathf.LerpAngle(myAngle, wantedAngle, rotationDamping * Time.deltaTime);
+		myHeight = Mathf.Lerp(myHeight, wantedHeight, heightDamping * Time.deltaTime);
+		var currentRotation = Quaternion.Euler(0, myAngle, 0);
+
 		transform.position = car.position;
-		transform.position -= currentRotation*Vector3.forward*distance;
+		transform.position -= currentRotation * Vector3.forward * distance;
 		transform.position = new Vector3(transform.position.x + widthOffset, myHeight, transform.position.z);
-		transform.LookAt(car);
+
+		if (!ballCam) {
+			Vector3 lookAtLocation = car.transform.position;
+			lookAtLocation.y += height;
+			transform.LookAt(lookAtLocation);
+		} else {
+						transform.LookAt(ball);
+//			Quaternion rotation = Quaternion.LookRotation(ball.position - transform.position);
+//			transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(rotation.eulerAngles), rotationDamping * Time.deltaTime);
+		}
 	}
 
-	void FixedUpdate (){
+	void FixedUpdate() {
 		Vector3 localVelocity = car.InverseTransformDirection(car.GetComponent<Rigidbody>().velocity);
 
-		if (localVelocity.z < -1.5){
+		if (localVelocity.z < -1.5) {
 			rotationVector.y = car.eulerAngles.y + 180;
 		} else {
 			rotationVector.y = car.eulerAngles.y;
 		}
 		float acc = car.GetComponent<Rigidbody>().velocity.magnitude;
-//		GetComponent<UnityEngine.Camera>().fieldOfView = DefaultFOV + acc*zoomRatio;
 
-		distance = defaultDistance + acc * zoomRatio;
+		distanceChange = distance + acc * zoomRatio;
 	}
 }
