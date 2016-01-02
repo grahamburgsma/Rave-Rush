@@ -1,49 +1,47 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using System;
 
 public class CountDown : MonoBehaviour {
 
-    public Text timerText;
-    public int currentTime = 10;
-    private AudioSource source;
-    public AudioClip endRound_Sound;
+	public Text timerText;
+	public int timerSeconds = 10;
+	private AudioSource source;
+	public AudioClip endRound_Sound;
 
-    // Use this for initialization
-    void Start()
-    {
-        setTime();
-        InvokeRepeating("decreaseTimeLeft", 1.0f, 1.0f);
-        source = GetComponent<AudioSource>();
-    }
+	// Use this for initialization
+	void Start() {
+		setTime();
+		InvokeRepeating("decreaseTimeLeft", 1.0f, 1.0f);
+		source = GetComponent<AudioSource>();
+	}
 
-    // Update is called once per frame
-    void Update()
-    {
+	// Update is called once per frame
+	void Update() {
        
         
-    }
+	}
 
-  void decreaseTimeLeft()
-    {
-        currentTime--;
+	void decreaseTimeLeft() {
+		timerSeconds--;
 
-        if (currentTime <= 0)
-        {
-            currentTime = 0;
-            setTime();
-            source.PlayOneShot(endRound_Sound);
-            CancelInvoke("decreaseTimeLeft");
-        }
+		if (timerSeconds <= 0) {
+			timerSeconds = 0;
+			setTime();
+			source.PlayOneShot(endRound_Sound);
+			CancelInvoke("decreaseTimeLeft");
+		}
 
-        setTime();
+		setTime();
 
-    }
+	}
 
-    void setTime()
-    {
-        timerText.text = "Time Left :" + currentTime.ToString();
-    }
+	void setTime() {
+		TimeSpan timeSpan = TimeSpan.FromSeconds(timerSeconds);
+		String timeText = string.Format("{0:0}:{1:00}", timeSpan.Minutes, timeSpan.Seconds);
+		timerText.text = timeText;
+	}
 
 }
 
