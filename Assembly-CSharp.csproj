@@ -52,10 +52,12 @@
      <Compile Include="Assets\Scripts\CountDown.cs" />
      <Compile Include="Assets\Scripts\GoalHandler.cs" />
      <Compile Include="Assets\Scripts\GoalTrigger.cs" />
+     <Compile Include="Assets\Scripts\JumpTrigger.cs" />
      <Compile Include="Assets\Scripts\Side Triggers\BlueTrigger.cs" />
      <Compile Include="Assets\Scripts\Side Triggers\GreenTrigger.cs" />
      <Compile Include="Assets\Scripts\Side Triggers\RedTrigger.cs" />
      <Compile Include="Assets\Scripts\Side Triggers\YellowTrigger.cs" />
+     <Compile Include="Assets\Scripts\SpinTrigger.cs" />
      <Compile Include="Assets\Scripts\Wheel.cs" />
  <Reference Include="UnityEngine.Networking">
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
