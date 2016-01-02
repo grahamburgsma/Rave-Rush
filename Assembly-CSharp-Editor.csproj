@@ -45,15 +45,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\EVP5\Scripts\Editor\VehicleControllerInspector.cs" />
      <Compile Include="Assets\Editor\CrossPlatformInput\CrossPlatformInputInitialize.cs" />
-     <None Include="Assets\EVP5\Upgrading from Unity 4 - IMPORTANT.txt" />
-     <None Include="Assets\EVP5\Visual Effects\Shaders\EVP Tire Marks Bump.shader" />
-     <None Include="Assets\EVP5\Visual Effects\Shaders\EVP Tire Marks Debug.shader" />
-     <None Include="Assets\EVP5\Visual Effects\Shaders\EVP Tire Marks.shader" />
-     <None Include="Assets\EVP5\Readme (seriously!).txt" />
-     <None Include="Assets\EVP5\Visual Effects\Shaders\EVP Particles Alpha Blended Shadows.shader" />
-     <None Include="Assets\EVP5\Visual Effects\Shaders\EVPParticleShadows.cginc" />
  <Reference Include="UnityEngine.Networking">
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
  </Reference>
