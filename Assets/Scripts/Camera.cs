@@ -3,12 +3,11 @@ using System.Collections;
 
 public class Camera : MonoBehaviour {
 
-	public Transform car, ball, lookObject;
+	public Transform car, ball;
 	[SerializeField] float height = 5.0f, angleHeight = 9.0f, widthOffset = 0.0f, rotationDamping = 3.0f, heightDamping = 2.0f, zoomRatio = 0.2f, distance = 25.0f;
-	Vector3 rotationVector;
-
+	private Vector3 rotationVector;
+	private Transform lookObject;
 	private bool ballCam = false;
-
 	private float distanceChange;
 
 	// Use this for initialization
@@ -38,7 +37,7 @@ public class Camera : MonoBehaviour {
 		var currentRotation = Quaternion.Euler(0, myAngle, 0);
 
 		transform.position = car.position;
-		transform.position -= currentRotation * Vector3.forward * distance;
+		transform.position -= currentRotation * Vector3.forward * distanceChange;
 		transform.position = new Vector3(transform.position.x + widthOffset, myHeight, transform.position.z);
 
 		if (!ballCam) {
@@ -46,9 +45,8 @@ public class Camera : MonoBehaviour {
 			lookAtLocation.y += height;
 			transform.LookAt(lookAtLocation);
 		} else {
-						transform.LookAt(ball);
-//			Quaternion rotation = Quaternion.LookRotation(ball.position - transform.position);
-//			transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(rotation.eulerAngles), rotationDamping * Time.deltaTime);
+			Quaternion rotation = Quaternion.LookRotation(ball.position - transform.position);
+			transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(rotation * Vector3.forward), rotationDamping * Time.deltaTime);
 		}
 	}
 

@@ -15,20 +15,22 @@ namespace LittleRocketLeague {
 	}
 
 	public class Car : MonoBehaviour {
-        [SerializeField]AudioClip crash_Sound,ball_hit_Sound, jump_Sound;
-        [SerializeField]AudioSource source;
-        [SerializeField] Wheel[] wheels = new Wheel[0];
-		[SerializeField] float enginePower = 0, turnPower = 0, brakePower = 0, jumpForce = 40000, nitroForce = 500000, torqueRotate = 1000000;
+		[SerializeField]AudioClip crash_Sound, ball_hit_Sound, jump_Sound;
+		[SerializeField]AudioSource source;
+		[SerializeField] Wheel[] wheels = new Wheel[0];
+		[SerializeField] float enginePower = 0, turnPower = 0, brakePower = 0, jumpForce = 40000, nitroForce = 500000, torqueRotate = 1000000, maxVelocity = 500;
 		Rigidbody rigidBody;
 		new ConstantForce constantForce;
 
-		private float torque = 0, turnSpeed = 0;
+		private float torque = 0, turnSpeed = 0, sqrMaxVelocity;
 		private int torqueCount;
 
 		// Use this for initialization
 		void Start() {
 			rigidBody = GetComponent<Rigidbody>();
 			constantForce = GetComponent<ConstantForce>();
+
+			sqrMaxVelocity = (float)Math.Pow(maxVelocity, 2);
 		}
 	 
 		//Visual updates - every frame
@@ -76,14 +78,18 @@ namespace LittleRocketLeague {
 			if (Input.GetKeyDown(KeyCode.J)) {
 				if (numWheelsGrounded > 0) {
 					rigidBody.AddRelativeForce(transform.up * jumpForce, ForceMode.Impulse);
-                    source.PlayOneShot(jump_Sound);
-                } else {
+					source.PlayOneShot(jump_Sound);
+				} else {
+					//rotate
 					Vector3 torqueVector = new Vector3(Input.GetAxis("Vertical") * torqueRotate, 0, Input.GetAxis("Horizontal") * torqueRotate * -1);
 					rigidBody.AddRelativeTorque(torqueVector * torqueRotate, ForceMode.Impulse);
 					torqueCount = 25;
+
+					//boost
+					Vector3 boostVector = new Vector3(Input.GetAxis("Horizontal") * jumpForce * 2, 0, Input.GetAxis("Vertical") * jumpForce * 2);
+					rigidBody.AddRelativeForce(boostVector, ForceMode.Impulse);
 				}
-               
-            }
+			}
 
 			//Nitro
 			if (Input.GetKeyDown(KeyCode.N)) {
@@ -114,19 +120,19 @@ namespace LittleRocketLeague {
 				if (wheel.steer)
 					wheel.wheelCollider.steerAngle = turnSpeed;
 			}
+				
+			if (rigidBody.velocity.sqrMagnitude > sqrMaxVelocity) {
+				rigidBody.velocity = rigidBody.velocity.normalized * maxVelocity;
+			}
 		}
 
-        void OnCollisionEnter(Collision collision)
-        {
-            if (collision.gameObject.tag == "Ball")
-            {
-                source.PlayOneShot(ball_hit_Sound);
-            }
-            else
-            {
-                source.PlayOneShot(crash_Sound);
-            }
+		void OnCollisionEnter(Collision collision) {
+			if (collision.gameObject.tag == "Ball") {
+				source.PlayOneShot(ball_hit_Sound);
+			} else {
+				source.PlayOneShot(crash_Sound);
+			}
 
-        }
-    }
+		}
+	}
 }
