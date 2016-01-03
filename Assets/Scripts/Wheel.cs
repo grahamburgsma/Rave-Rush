@@ -20,5 +20,9 @@ public class Wheel : MonoBehaviour {
 		} else {
 			transform.position = wheelCCenter - (wheelCollider.transform.up * wheelCollider.suspensionDistance);
 		}
+
+		Vector3 transformNew = transform.localPosition;
+		transformNew.x += transform.localScale.x / 2;
+		transform.localPosition = transformNew;
 	}
 }

@@ -15,14 +15,36 @@ namespace LittleRocketLeague {
 	}
 
 	public class Car : MonoBehaviour {
-		[SerializeField]AudioClip crash_Sound, ball_hit_Sound, jump_Sound;
-		[SerializeField]AudioSource source;
 		[SerializeField] Wheel[] wheels = new Wheel[0];
-		[SerializeField] float enginePower = 0, turnPower = 0, brakePower = 0, jumpForce = 40000, nitroForce = 500000, torqueRotate = 1000000, maxVelocity = 500;
+		[SerializeField] Transform COM;
+
+		[Header("Driving & Steering")]
+		[SerializeField] float turnFactor = 0;
+		[SerializeField] float turnForce = 1000000;
+		[SerializeField] float engineFactor = 0;
+		[SerializeField] float engineForce = 100;
+		[SerializeField] float brakeFactor = 0;
+
+		[Header("Jump & Boost")]
+		[SerializeField] float jumpForce = 40000;
+		[SerializeField] float torqueForce = 1000000;
+		[SerializeField] float nitroForce = 500000;
+
+		[Header("Misc")]
+		[SerializeField] float maxVelocity = 500;
+		[SerializeField] float downForce = -2500;
+			
+		[Header("Sounds")]
+		[SerializeField]AudioClip crash_Sound;
+		[SerializeField]AudioClip ball_hit_Sound;
+		[SerializeField]AudioClip jump_Sound;
+		[SerializeField]AudioSource source;
+
+
 		Rigidbody rigidBody;
 		new ConstantForce constantForce;
 
-		private float torque = 0, turnSpeed = 0, sqrMaxVelocity;
+		private float sqrMaxVelocity;
 		private int torqueCount;
 
 		// Use this for initialization
@@ -31,12 +53,13 @@ namespace LittleRocketLeague {
 			constantForce = GetComponent<ConstantForce>();
 
 			sqrMaxVelocity = (float)Math.Pow(maxVelocity, 2);
+
+//			rigidBody.centerOfMass = COM.position;
 		}
 	 
 		//Visual updates - every frame
 		void Update() {
 			int numWheelsGrounded = 0;
-
 
 			//Reset Car
 			if (Input.GetKeyDown(KeyCode.R)) {
@@ -48,60 +71,70 @@ namespace LittleRocketLeague {
 				if (wheel.wheelCollider.isGrounded)
 					numWheelsGrounded++;
 				
-				wheel.wheelTransform.Rotate(Vector3.right * wheel.wheelCollider.rpm / 60 * 360 * Time.deltaTime);
+				wheel.wheelTransform.Rotate(Vector3.forward * wheel.wheelCollider.rpm / 60 * 360 * Time.deltaTime);
 
 				if (wheel.steer) {
-					wheel.wheelTransform.localEulerAngles = new Vector3(wheel.wheelTransform.localEulerAngles.x, wheel.wheelCollider.steerAngle - wheel.wheelTransform.localEulerAngles.z, wheel.wheelTransform.localEulerAngles.z);
+					wheel.wheelTransform.localEulerAngles = new Vector3(-wheel.wheelCollider.steerAngle, wheel.wheelTransform.localEulerAngles.y, wheel.wheelTransform.localEulerAngles.z);
 				}
 			}
 				
 			//Driving forces (helps give arcade style driving)
 			if (numWheelsGrounded > 0) {
-				constantForce.relativeForce = new Vector3(0, -5500, torque * 10);
-				constantForce.relativeTorque = Vector3.up * turnSpeed * 4000;
+				constantForce.relativeForce = new Vector3(0, downForce, Input.GetAxis("Vertical") * engineForce);
+				constantForce.relativeTorque = Vector3.up * Input.GetAxis("Horizontal") * turnForce;
 
 				//Cancel torque forces if touches ground
 				torqueCount = 0;
 			} else {
-				constantForce.relativeForce = Vector3.down * 2500;
+				constantForce.relativeForce = Vector3.up * downForce;
 				constantForce.relativeTorque = Vector3.zero;
 			}
 
 			//One torque isn't enough, repeat a few times
 			if (torqueCount > 0) {
-				Vector3 torqueVector = new Vector3(Input.GetAxis("Vertical") * torqueRotate, 0, Input.GetAxis("Horizontal") * torqueRotate * -1);
-				rigidBody.AddRelativeTorque(torqueVector * torqueRotate, ForceMode.Impulse);
+				Vector3 torqueVector = new Vector3(Input.GetAxis("Vertical") * torqueForce, 0, Input.GetAxis("Horizontal") * torqueForce * -1);
+				rigidBody.AddRelativeTorque(torqueVector, ForceMode.Impulse);
 				torqueCount--;
 			}
 
 			//Jump
 			if (Input.GetKeyDown(KeyCode.J)) {
 				if (numWheelsGrounded > 0) {
-					rigidBody.AddRelativeForce(transform.up * jumpForce, ForceMode.Impulse);
+					rigidBody.AddRelativeForce(Vector3.up * jumpForce, ForceMode.Impulse);
 					source.PlayOneShot(jump_Sound);
 				} else {
 					//rotate
-					Vector3 torqueVector = new Vector3(Input.GetAxis("Vertical") * torqueRotate, 0, Input.GetAxis("Horizontal") * torqueRotate * -1);
-					rigidBody.AddRelativeTorque(torqueVector * torqueRotate, ForceMode.Impulse);
-					torqueCount = 25;
+					Vector3 torqueVector = new Vector3(Input.GetAxis("Vertical") * torqueForce, 0, Input.GetAxis("Horizontal") * torqueForce * -1);
+					rigidBody.AddRelativeTorque(torqueVector, ForceMode.Impulse);
+
+
+//					Vector3 targetAngles = rigidBody.transform.eulerAngles + 180f * Vector3.forward; // what the new angles should be
+//					rigidBody.transform.eulerAngles = Mathf.LerpAngle(transform.eulerAngles, 180, 0.5 * Time.deltaTime);
+
+//					float angle = Mathf.LerpAngle(transform.rotation.z, 90, Time.deltaTime * 0.5f);
+//					transform.eulerAngles = new Vector3(0, 0, angle);
+
+//					Quaternion toRotation = rigidBody.rotation;
+//					toRotation.x += 180;
+//					rigidBody.rotation = Quaternion.Slerp(rigidBody.rotation, toRotation, Time.deltaTime * 3.0f);
 
 					//boost
-					Vector3 boostVector = new Vector3(Input.GetAxis("Horizontal") * jumpForce * 2, 0, Input.GetAxis("Vertical") * jumpForce * 2);
-					rigidBody.AddRelativeForce(boostVector, ForceMode.Impulse);
+//					Vector3 boostVector = new Vector3(Input.GetAxis("Horizontal") * nitroForce, 0, Input.GetAxis("Vertical") * nitroForce);
+//					rigidBody.AddRelativeForce(boostVector, ForceMode.Impulse);
 				}
 			}
 
 			//Nitro
 			if (Input.GetKeyDown(KeyCode.N)) {
-				rigidBody.AddRelativeForce(transform.forward * nitroForce, ForceMode.Impulse);
+				rigidBody.AddRelativeForce(Vector3.forward * nitroForce, ForceMode.Impulse);
 			}
 		}
 
 		//Physics updates - more frequent
 		void FixedUpdate() {
-			torque = Input.GetAxis("Vertical") * enginePower;
-			turnSpeed = Input.GetAxis("Horizontal") * turnPower * 2;
-			float brake = Input.GetAxis("Jump") * brakePower;
+			float driveSpeed = Input.GetAxis("Vertical") * engineFactor;
+			float turnSpeed = Input.GetAxis("Horizontal") * turnFactor;
+			float brakeSpeed = Input.GetAxis("Jump") * brakeFactor;
 			int numWheelsGrounded = 0;
 
 			foreach (Wheel wheel in wheels) {
@@ -109,10 +142,10 @@ namespace LittleRocketLeague {
 					numWheelsGrounded++;
 				
 				if (wheel.handbrake)
-					wheel.wheelCollider.brakeTorque = brake;
+					wheel.wheelCollider.brakeTorque = brakeSpeed;
 
 				if (wheel.power)
-					wheel.wheelCollider.motorTorque = 0; //torque;
+					wheel.wheelCollider.motorTorque = driveSpeed;
 
 				if (rigidBody.velocity.magnitude > 150 && turnSpeed > 10)
 					turnSpeed -= 5;
@@ -120,7 +153,8 @@ namespace LittleRocketLeague {
 				if (wheel.steer)
 					wheel.wheelCollider.steerAngle = turnSpeed;
 			}
-				
+
+			//max speed
 			if (rigidBody.velocity.sqrMagnitude > sqrMaxVelocity) {
 				rigidBody.velocity = rigidBody.velocity.normalized * maxVelocity;
 			}
