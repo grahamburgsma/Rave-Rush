@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GoalHandler : MonoBehaviour {
 
@@ -19,9 +20,10 @@ public class GoalHandler : MonoBehaviour {
 	[SerializeField] AudioSource source;
 
 	public GoalTrigger redSide, blueSide, yellowSide, greenSide;
-	public CountDown gameTimer;
+    [SerializeField] CountDown gameTimer,end_gameTimer;
 
 	private int totalScored, blueGoals, redGoals, yellowGoals, greenGoals;
+    private bool endStarted;
 
 	// Use this for initialization
 	void Start() {
@@ -37,7 +39,19 @@ public class GoalHandler : MonoBehaviour {
 			carBody = car.GetComponent<Rigidbody>();
 			makeBodyStayStill(ballBody);
 			makeBodyStayStill(carBody);
-		} else {
+            if (!endStarted)
+            {
+                endStarted = true;
+                end_gameTimer.startCounter();
+            }
+            else
+            {
+                if(end_gameTimer.timerSeconds <= 0)
+                {
+                    SceneManager.LoadScene(0);
+                }
+            }
+        } else {
 			switch (whereToScore) {
 				case "Red":
 					if (redSide.goalsScored > 0) {
@@ -69,6 +83,7 @@ public class GoalHandler : MonoBehaviour {
 					break;
 			}
 		}
+
         
 
 	}

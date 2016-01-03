@@ -9,15 +9,25 @@ public class CountDown : MonoBehaviour {
 	public int timerSeconds = 10;
 	private AudioSource source;
 	public AudioClip endRound_Sound;
+    [SerializeField] bool isEndGameTimer;
 
 	// Use this for initialization
 	void Start() {
 		setTime();
-		InvokeRepeating("decreaseTimeLeft", 1.0f, 1.0f);
+		
+        if (!isEndGameTimer)
+        {
+            InvokeRepeating("decreaseTimeLeft", 1.0f, 1.0f);
+        }
 		source = GetComponent<AudioSource>();
 	}
 
-	// Update is called once per frame
+    public void startCounter()
+    {
+        timerSeconds = 6;
+        InvokeRepeating("decreaseTimeLeft", 1.0f, 1.0f);
+    }
+
 	void Update() {
        
         
@@ -26,15 +36,18 @@ public class CountDown : MonoBehaviour {
 	void decreaseTimeLeft() {
 		timerSeconds--;
 
-		if (timerSeconds <= 0) {
-			timerSeconds = 0;
-			setTime();
-			source.PlayOneShot(endRound_Sound);
-			CancelInvoke("decreaseTimeLeft");
-		}
-
-		setTime();
-
+        if (!isEndGameTimer)
+        {
+            if (timerSeconds <= 0)
+            {
+                timerSeconds = 0;
+                setTime();
+                source.PlayOneShot(endRound_Sound);
+                CancelInvoke("decreaseTimeLeft");
+            }
+        }
+            setTime();
+        
 	}
 
 	void setTime() {
