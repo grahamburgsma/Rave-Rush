@@ -13,14 +13,17 @@ public class CountDown : MonoBehaviour {
 
 	// Use this for initialization
 	void Start() {
-		setTime();
+		
 		
         if (!isEndGameTimer)
         {
+            timerSeconds = PlayerPrefs.GetInt("GameLength");
             InvokeRepeating("decreaseTimeLeft", 1.0f, 1.0f);
         }
 		source = GetComponent<AudioSource>();
-	}
+
+        setTime();
+    }
 
     public void startCounter()
     {
