@@ -80,14 +80,17 @@ namespace LittleRocketLeague {
 				
 			//Driving forces (helps give arcade style driving)
 			if (numWheelsGrounded > 0) {
-				constantForce.relativeForce = new Vector3(0, downForce, Input.GetAxis("Vertical") * engineForce);
-				constantForce.relativeTorque = Vector3.up * Input.GetAxis("Horizontal") * turnForce;
+//				constantForce.relativeForce = new Vector3(0, downForce, Input.GetAxis("Vertical") * engineForce);
+//				constantForce.relativeTorque = Vector3.up * Input.GetAxis("Horizontal") * turnForce;
+
+//				rigidBody.AddRelativeForce(new Vector3(0, downForce, Input.GetAxis("Vertical") * engineForce), ForceMode.VelocityChange);
+//				rigidBody.AddRelativeTorque(Vector3.up * Input.GetAxis("Horizontal") * turnForce);
 
 				//Cancel torque forces if touches ground
 				torqueCount = 0;
 			} else {
-				constantForce.relativeForce = Vector3.up * downForce;
-				constantForce.relativeTorque = Vector3.zero;
+//				constantForce.relativeForce = Vector3.up * downForce;
+//				constantForce.relativeTorque = Vector3.zero;
 			}
 
 			//One torque isn't enough, repeat a few times
@@ -152,6 +155,11 @@ namespace LittleRocketLeague {
 
 				if (wheel.steer)
 					wheel.wheelCollider.steerAngle = turnSpeed;
+			}
+
+			if (numWheelsGrounded > 0) {
+				rigidBody.AddRelativeTorque(Vector3.up * Input.GetAxis("Horizontal") * turnForce, ForceMode.Force);
+				rigidBody.AddRelativeForce(Vector3.forward * Input.GetAxis("Vertical") * engineForce, ForceMode.Force);
 			}
 
 			//max speed

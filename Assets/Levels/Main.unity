@@ -1762,7 +1762,7 @@ MonoBehaviour:
     handbrake: 1
   COM: {fileID: 296474708}
   turnFactor: 25
-  turnForce: 1000
+  turnForce: 20000
   engineFactor: 1000
   engineForce: 30000
   brakeFactor: 20000
@@ -1799,7 +1799,7 @@ Rigidbody:
   serializedVersion: 2
   m_Mass: 350
   m_Drag: 0
-  m_AngularDrag: 0.05
+  m_AngularDrag: 0
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 1
@@ -2269,7 +2269,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 296474707}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 5.5, z: -4.9}
+  m_LocalPosition: {x: 0, y: 4.21, z: -4.9}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 116362490}
@@ -3712,7 +3712,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 908046264}
   m_LocalRotation: {x: 0.49999997, y: 0.49999997, z: 0.50000006, w: 0.50000006}
-  m_LocalPosition: {x: 5.35, y: 10.21, z: 3.08}
+  m_LocalPosition: {x: 5.75, y: 10.21, z: 3.08}
   m_LocalScale: {x: -1.2, y: -1.2, z: -0.72}
   m_Children: []
   m_Father: {fileID: 222898916}
@@ -3744,7 +3744,7 @@ WheelCollider:
     m_ExtremumValue: 1
     m_AsymptoteSlip: 0.5
     m_AsymptoteValue: 750000
-    m_Stiffness: 1.7
+    m_Stiffness: 1
   m_Enabled: 1
 --- !u!1 &922995516
 GameObject:
@@ -3830,7 +3830,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 987300358}
   m_LocalRotation: {x: 0.5, y: 0.5, z: 0.5, w: 0.5}
-  m_LocalPosition: {x: -5.35, y: 10.21, z: 3.08}
+  m_LocalPosition: {x: -5.75, y: 10.21, z: 3.08}
   m_LocalScale: {x: 1.2, y: 1.2, z: 0.72}
   m_Children: []
   m_Father: {fileID: 222898916}
@@ -3862,7 +3862,7 @@ WheelCollider:
     m_ExtremumValue: 1
     m_AsymptoteSlip: 0.5
     m_AsymptoteValue: 750000
-    m_Stiffness: 1.7
+    m_Stiffness: 1
   m_Enabled: 1
 --- !u!1 &1002794875
 GameObject:
@@ -4612,7 +4612,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1189097448}
   m_LocalRotation: {x: 0.5, y: 0.5, z: 0.5, w: 0.5}
-  m_LocalPosition: {x: -4.9, y: -3.32, z: 2.56}
+  m_LocalPosition: {x: -5.3, y: -3.32, z: 2.56}
   m_LocalScale: {x: 1, y: 1, z: 0.6}
   m_Children: []
   m_Father: {fileID: 222898916}
@@ -4644,7 +4644,7 @@ WheelCollider:
     m_ExtremumValue: 1
     m_AsymptoteSlip: 0.5
     m_AsymptoteValue: 750000
-    m_Stiffness: 1.7
+    m_Stiffness: 1
   m_Enabled: 1
 --- !u!1 &1214525652
 GameObject:
@@ -5341,7 +5341,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1542662310}
   m_LocalRotation: {x: 0.49999997, y: 0.49999997, z: 0.50000006, w: 0.50000006}
-  m_LocalPosition: {x: 4.9, y: -3.32, z: 2.56}
+  m_LocalPosition: {x: 5.3, y: -3.32, z: 2.56}
   m_LocalScale: {x: -1, y: -1, z: -0.6}
   m_Children: []
   m_Father: {fileID: 222898916}
@@ -5373,7 +5373,7 @@ WheelCollider:
     m_ExtremumValue: 1
     m_AsymptoteSlip: 0.5
     m_AsymptoteValue: 750000
-    m_Stiffness: 1.7
+    m_Stiffness: 1
   m_Enabled: 1
 --- !u!1001 &1551224358
 Prefab:
