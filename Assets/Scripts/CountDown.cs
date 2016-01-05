@@ -25,8 +25,6 @@ public class CountDown : MonoBehaviour {
         setTime();
     }
 
-  
-
 
     public void startCounter()
     {

@@ -1771,10 +1771,13 @@ MonoBehaviour:
   nitroForce: 6000
   maxVelocity: 500
   downForce: -5000
-  crash_Sound: {fileID: 0}
-  ball_hit_Sound: {fileID: 0}
+  crash_Sound: {fileID: 8300000, guid: 9b17c549c7cb88e439bcec767a9c2fb9, type: 3}
+  ball_hit_Sound: {fileID: 8300000, guid: 40173f0b0404e394b85b828f336f96ed, type: 3}
   jump_Sound: {fileID: 0}
-  source: {fileID: 0}
+  ball_hit_sick: {fileID: 8300000, guid: d72fd6c37165fc64ba351ebf9a842ac7, type: 3}
+  ball_hit_awesome: {fileID: 8300000, guid: 3c9068ddfd147be4a885d339e4508036, type: 3}
+  source: {fileID: 688981871}
+  eventHandlerObject: {fileID: 1653512123}
 --- !u!4 &116362490 stripped
 Transform:
   m_PrefabParentObject: {fileID: 400000, guid: 722a21c5e694745be9a50e3777133b54, type: 3}
@@ -3985,7 +3988,10 @@ MonoBehaviour:
   crash_Sound: {fileID: 8300000, guid: 9b17c549c7cb88e439bcec767a9c2fb9, type: 3}
   ball_hit_Sound: {fileID: 8300000, guid: 40173f0b0404e394b85b828f336f96ed, type: 3}
   jump_Sound: {fileID: 8300000, guid: bfa3eaf1dcc35ab4ca090bd711f01723, type: 3}
+  ball_hit_sick: {fileID: 0}
+  ball_hit_awesome: {fileID: 0}
   source: {fileID: 688981871}
+  eventHandlerObject: {fileID: 0}
 --- !u!75 &1002794880
 ConstantForce:
   m_ObjectHideFlags: 0
@@ -4549,11 +4555,11 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1022679104}
   m_RootOrder: 9
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 487, y: -124}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 59, y: 47.5}
-  m_Pivot: {x: 0, y: 1}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1131141256
 MonoBehaviour:
   m_ObjectHideFlags: 0

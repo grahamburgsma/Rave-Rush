@@ -11,11 +11,14 @@ public class Event_Handler : MonoBehaviour {
 
     public float size_count;
 
-    private bool is_countdown, is_goal,is_endgame;
+    private bool is_countdown, is_goal,is_endgame,is_hitball;
     private int counting_down = 3;
+
     private string go_text = "GO!!!!!!!!!";
     private string goal_text = "GGOOOOOAALLLLLLLL";
     private string game_over_text = "Game Over";
+    private string hit_ball_text_sick = "SSSSIIIICCCKKK";
+    private string hit_ball_text_awesome = "AWESOMEEEEE";
 
     Transform event_transform;
 
@@ -44,6 +47,10 @@ public class Event_Handler : MonoBehaviour {
         if (is_goal)
         {
             goalUpdateCall();
+        }
+
+        if (is_hitball){
+            hitBallUpdateCall();
         }
         
 
@@ -147,6 +154,7 @@ public class Event_Handler : MonoBehaviour {
     private void initEndGame()
     {
         event_object.SetActive(true);
+
         event_transform.localScale = new Vector3(0.2f, 0.2f, 0.2f);
         event_text.text = game_over_text;
         size_count = 0;
@@ -171,6 +179,94 @@ public class Event_Handler : MonoBehaviour {
     /*
   ****************************************************    Random Event **********************
   */
+
+    Quaternion start_rotation;
+    bool is_sick,is_awesome;
+
+    public void startRandomHitBallText(int whichText)
+    {
+        if (!is_sick || !is_awesome)
+        {
+            start_rotation = event_transform.rotation;
+            if (whichText == 1)
+            {
+                initHitBall_sick();
+            }
+            else if (whichText == 2)
+            {
+                initHitBall_awesome();
+            }
+
+            is_hitball = true;
+        }
+    }
+
+    private void initHitBall_sick()
+    {
+        is_sick = true;
+        event_object.SetActive(true);
+        event_transform.localScale = new Vector3(0.2f, 0.2f, 0.2f);
+        event_text.text = hit_ball_text_sick;
+        size_count = 0;
+        //event_object.GetComponent<Text>().CrossFadeAlpha(0.0f, 2f, false);
+    }
+
+   
+
+    private void hitBallUpdateCall()
+    {
+        if (is_sick)
+        {
+            if (size_count < 0.012f)
+            {
+                size_count += 0.0001f;
+                event_transform.localScale += new Vector3(size_count, size_count, size_count);
+
+                event_transform.Rotate(Vector3.left, 45.0f * Time.deltaTime);
+
+            }
+            else
+            {
+                event_object.SetActive(false);
+                is_hitball = false;
+                is_sick = false;
+                event_transform.rotation = start_rotation;
+
+
+            }
+        }
+        else if(is_awesome){
+            if (size_count < 0.01f)
+            {
+                size_count += 0.0001f;
+                event_transform.localScale += new Vector3(size_count, size_count, size_count);
+
+                event_transform.Rotate(Vector3.up, 50.0f * Time.deltaTime);
+
+            }
+            else
+            {
+                event_object.SetActive(false);
+                is_hitball = false;
+                is_awesome = false;
+                event_transform.rotation = start_rotation;
+
+
+            }
+        }
+    }
+
+
+    private void initHitBall_awesome()
+    {
+        is_awesome = true;
+        event_object.SetActive(true);
+        event_transform.localScale = new Vector3(0.2f, 0.2f, 0.2f);
+        event_text.text = hit_ball_text_awesome;
+        size_count = 0;
+        //event_object.GetComponent<Text>().CrossFadeAlpha(0.0f, 2f, false);
+    }
+
 }
 
 

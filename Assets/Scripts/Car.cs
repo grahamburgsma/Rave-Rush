@@ -37,19 +37,27 @@ namespace LittleRocketLeague {
 		[Header("Sounds")]
 		[SerializeField]AudioClip crash_Sound;
 		[SerializeField]AudioClip ball_hit_Sound;
-		[SerializeField]AudioClip jump_Sound;
+		[SerializeField]AudioClip jump_Sound,ball_hit_sick,ball_hit_awesome;
 		[SerializeField]AudioSource source;
 
+        [Header("Event Handler")]
+        [SerializeField]GameObject eventHandlerObject;
 
-		Rigidbody rigidBody;
+        private Event_Handler eHandler;
+
+
+        Rigidbody rigidBody;
 		new ConstantForce constantForce;
 
+       
 		private float sqrMaxVelocity;
 		private int torqueCount;
 
 		// Use this for initialization
 		void Start() {
-			rigidBody = GetComponent<Rigidbody>();
+            eHandler = eventHandlerObject.GetComponent<Event_Handler>();
+           
+            rigidBody = GetComponent<Rigidbody>();
 			constantForce = GetComponent<ConstantForce>();
 
 			sqrMaxVelocity = (float)Math.Pow(maxVelocity, 2);
@@ -171,9 +179,29 @@ namespace LittleRocketLeague {
 				rigidBody.velocity = rigidBody.velocity.normalized * maxVelocity;
 			}
 		}
-
+        float last_ball_hit = 10.0f;
 		void OnCollisionEnter(Collision collision) {
 			if (collision.gameObject.tag == "Ball") {
+                //last_ball_hit = Time.time;
+                float current_hit = Time.time;
+                float difference = current_hit - last_ball_hit;
+                if (difference > 1.5f)
+                {
+                    System.Random r = new System.Random();
+                    //int coolText = r.Next(1, 10);
+                    int coolText = 1;
+                    eHandler.startRandomHitBallText(coolText);
+
+                    if (coolText == 1)
+                    {
+                        source.PlayOneShot(ball_hit_sick);
+                    }
+                    else if (coolText == 2)
+                    { 
+                        source.PlayOneShot(ball_hit_awesome);
+                    }
+                }
+                last_ball_hit = current_hit;
 				source.PlayOneShot(ball_hit_Sound);
 			} else {
 				source.PlayOneShot(crash_Sound);
