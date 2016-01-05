@@ -11,18 +11,28 @@ public class Event_Handler : MonoBehaviour {
 
     public float size_count;
 
-    private bool is_countdown, is_goal;
+    private bool is_countdown, is_goal,is_endgame;
     private int counting_down = 3;
     private string go_text = "GO!!!!!!!!!";
     private string goal_text = "GGOOOOOAALLLLLLLL";
+    private string game_over_text = "Game Over";
 
     Transform event_transform;
+
 	// Use this for initialization
 	void Start () {
         event_text = event_object.GetComponent<Text>();
         event_transform = event_text.GetComponent<Transform>();
        
     }
+
+    //need this otherwise start is never called? confused
+    void OnEnable()
+    {
+        Start();
+    }
+
+
 
     // Update is called once per frame
     void Update () {
@@ -53,6 +63,8 @@ public class Event_Handler : MonoBehaviour {
         event_transform.localScale = new Vector3(0.2f, 0.2f, 0.2f);
         event_text.text = goal_text;
         size_count = 0;
+      
+        event_object.GetComponent<Text>().CrossFadeAlpha(0.0f, 2f, false);
     }
 
     private void goalUpdateCall()
@@ -98,9 +110,10 @@ public class Event_Handler : MonoBehaviour {
 
     private void updateCountdown()
     {
-
+        
         if (counting_down > 0)
         {
+            
             size_count = 0;
             event_transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
             event_text.text = counting_down.ToString();
@@ -108,6 +121,7 @@ public class Event_Handler : MonoBehaviour {
         }
         else if(!event_text.text.Equals(go_text))
         {
+           
             event_text.text = go_text;
             size_count = 0;
             event_transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
@@ -118,4 +132,45 @@ public class Event_Handler : MonoBehaviour {
             is_countdown = false;
         }
     }
+
+    /*
+   ****************************************************    GAME OVER RELATED **********************
+   */
+
+    public void startEndGame()
+    {
+
+        initEndGame();
+        is_endgame = true;
+    }
+
+    private void initEndGame()
+    {
+        event_object.SetActive(true);
+        event_transform.localScale = new Vector3(0.2f, 0.2f, 0.2f);
+        event_text.text = game_over_text;
+        size_count = 0;
+    }
+
+    private void endGameUpdateCall()
+    {
+        if (size_count < 0.015f)
+        {
+            size_count += 0.0001f;
+            event_transform.localScale += new Vector3(size_count, size_count, size_count);
+        }
+        else
+        {
+            event_object.SetActive(false);
+            is_endgame = false;
+
+
+        }
+    }
+
+    /*
+  ****************************************************    Random Event **********************
+  */
 }
+
+

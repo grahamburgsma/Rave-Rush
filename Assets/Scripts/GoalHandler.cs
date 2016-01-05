@@ -29,13 +29,15 @@ public class GoalHandler : MonoBehaviour {
 		updateWhereToScore();
         eHandler = eventHandlerObject.GetComponent<Event_Handler>();
         eHandler.startCountdown();
-        
     }
-	
-	// Update is called once per frame
-	void Update() {
 
-		if (gameTimer.timerSeconds <= 0) {
+   
+
+
+    // Update is called once per frame
+    void Update() {
+        
+        if (gameTimer.timerSeconds <= 0) {
 			whereToScoreText.text = "Game Over";
 			ballBody = ball.GetComponent<Rigidbody>();
 			carBody = car.GetComponent<Rigidbody>();
