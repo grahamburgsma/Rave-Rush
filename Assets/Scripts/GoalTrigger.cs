@@ -3,8 +3,6 @@ using System.Collections;
 using UnityEngine.UI;
 
 public class GoalTrigger : MonoBehaviour {
-	//public Text goalScoredText;
-	//public string colour;
 	public int goalsScored;
 
 
@@ -17,14 +15,4 @@ public class GoalTrigger : MonoBehaviour {
 			goalsScored++;  
 		}
 	}
-
-	/* void setGoalText()
-    {
-        //goalScoredText.text = "Goals Scored :" + goalsScored.ToString();
-    }
-
-    void setOtherObjectEnteredText(Collider other)
-    {
-        goalScoredText.text = "The " + other.gameObject.tag + " is not the ball!";
-    }*/
 }

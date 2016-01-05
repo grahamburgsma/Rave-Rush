@@ -7,12 +7,13 @@ public class GoalHandler : MonoBehaviour {
 
 	[SerializeField] Text scoreText, scoreRedText, scoreGreenText, scoreBlueText, scoreYellowText, whereToScoreText;
 	[SerializeField] Transform car;
-	[SerializeField] GameObject arrow, ball,explosion;
-    //[SerializeField] Particle explosion;
+	[SerializeField] GameObject arrow, ball,explosion,eventHandlerObject;
+
 
     private Rigidbody carBody, ballBody;
+    private Event_Handler eHandler;
 
-	private string whereToScore;
+    private string whereToScore;
 
 	[SerializeField] AudioClip goalScored_Sound;
 	[SerializeField] AudioSource source;
@@ -25,8 +26,11 @@ public class GoalHandler : MonoBehaviour {
 
 	// Use this for initialization
 	void Start() {
-		updateWhereToScore();   
-	}
+		updateWhereToScore();
+        eHandler = eventHandlerObject.GetComponent<Event_Handler>();
+        eHandler.startCountdown();
+        
+    }
 	
 	// Update is called once per frame
 	void Update() {
@@ -84,7 +88,11 @@ public class GoalHandler : MonoBehaviour {
 	}
 
 	void updateGoalsScored() {
-       Transform explosion_transform = explosion.GetComponent<Transform>();
+        //Set Goal event text
+        eHandler.startGoalDisplay();
+
+        //Show explosion
+        Transform explosion_transform = explosion.GetComponent<Transform>();
         Transform ball_transform = ball.GetComponent<Transform>();
         explosion_transform.position = ball_transform.position;
         ParticleSystem explosion_particle = explosion.GetComponent<ParticleSystem>();
