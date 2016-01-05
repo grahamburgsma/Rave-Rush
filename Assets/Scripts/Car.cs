@@ -158,9 +158,13 @@ namespace LittleRocketLeague {
 			}
 
 			if (numWheelsGrounded > 0) {
-				rigidBody.AddRelativeTorque(Vector3.up * Input.GetAxis("Horizontal") * turnForce, ForceMode.Force);
-				rigidBody.AddRelativeForce(Vector3.forward * Input.GetAxis("Vertical") * engineForce, ForceMode.Force);
-			}
+                constantForce.relativeForce = Vector3.up * downForce;
+
+                rigidBody.AddRelativeTorque(Vector3.up * Input.GetAxis("Horizontal") * turnForce, ForceMode.Force);
+                rigidBody.AddRelativeForce(Vector3.forward * Input.GetAxis("Vertical") * engineForce, ForceMode.Force);
+            } else {
+                constantForce.relativeForce = Vector3.up * 0;
+            }
 
 			//max speed
 			if (rigidBody.velocity.sqrMagnitude > sqrMaxVelocity) {

@@ -7,9 +7,10 @@ public class GoalHandler : MonoBehaviour {
 
 	[SerializeField] Text scoreText, scoreRedText, scoreGreenText, scoreBlueText, scoreYellowText, whereToScoreText;
 	[SerializeField] Transform car;
-	[SerializeField] GameObject arrow, ball;
+	[SerializeField] GameObject arrow, ball,explosion;
+    //[SerializeField] Particle explosion;
 
-	private Rigidbody carBody, ballBody;
+    private Rigidbody carBody, ballBody;
 
 	private string whereToScore;
 
@@ -83,7 +84,13 @@ public class GoalHandler : MonoBehaviour {
 	}
 
 	void updateGoalsScored() {
-		source.PlayOneShot(goalScored_Sound);
+       Transform explosion_transform = explosion.GetComponent<Transform>();
+        Transform ball_transform = ball.GetComponent<Transform>();
+        explosion_transform.position = ball_transform.position;
+        ParticleSystem explosion_particle = explosion.GetComponent<ParticleSystem>();
+        explosion_particle.Play();
+
+        source.PlayOneShot(goalScored_Sound);
 		totalScored = redGoals + blueGoals + greenGoals + yellowGoals;
 		scoreText.text = totalScored.ToString();
 		scoreRedText.text = redGoals.ToString();
@@ -108,7 +115,6 @@ public class GoalHandler : MonoBehaviour {
 				foreach (Renderer component in arrowRenderer) {
 					component.material.color = Color.red;
 				}
-          
 				break;
 			case "Blue":
 				foreach (Renderer component in arrowRenderer) {
