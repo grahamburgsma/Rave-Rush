@@ -188,8 +188,8 @@ namespace LittleRocketLeague {
                 if (difference > 1.5f)
                 {
                     System.Random r = new System.Random();
-                    //int coolText = r.Next(1, 10);
-                    int coolText = 1;
+                    int coolText = r.Next(1, 10);
+                    //int coolText = 1;
                     eHandler.startRandomHitBallText(coolText);
 
                     if (coolText == 1)
