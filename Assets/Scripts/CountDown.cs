@@ -9,28 +9,28 @@ public class CountDown : MonoBehaviour {
 	public int timerSeconds = 10;
 	private AudioSource source;
 	public AudioClip endRound_Sound;
-    [SerializeField] bool isEndGameTimer;
+	[SerializeField] bool isEndGameTimer;
+	[SerializeField] GameObject car;
 
 	// Use this for initialization
 	void Start() {
 		
 		
-        if (!isEndGameTimer)
-        {
-            timerSeconds = PlayerPrefs.GetInt("GameLength");
-            InvokeRepeating("decreaseTimeLeft", 1.0f, 1.0f);
-        }
+		if (!isEndGameTimer) {
+			timerSeconds = PlayerPrefs.GetInt("GameLength");
+			InvokeRepeating("decreaseTimeLeft", 1.0f, 1.0f);
+		}
+
 		source = GetComponent<AudioSource>();
 
-        setTime();
-    }
+		setTime();
+	}
 
 
-    public void startCounter()
-    {
-        timerSeconds = 6;
-        InvokeRepeating("decreaseTimeLeft", 1.0f, 1.0f);
-    }
+	public void startCounter() {
+		timerSeconds = 6;
+		InvokeRepeating("decreaseTimeLeft", 1.0f, 1.0f);
+	}
 
 	void Update() {
        
@@ -40,25 +40,24 @@ public class CountDown : MonoBehaviour {
 	void decreaseTimeLeft() {
 		timerSeconds--;
 
-        if (!isEndGameTimer)
-        {
-            if (timerSeconds <= 0)
-            {
-                timerSeconds = 0;
-                setTime();
-                source.PlayOneShot(endRound_Sound);
-                CancelInvoke("decreaseTimeLeft");
-            }
-        }
-            setTime();
+		if (!isEndGameTimer) {
+			if (timerSeconds <= 0) {
+				timerSeconds = 0;
+				setTime();
+				source.PlayOneShot(endRound_Sound);
+				CancelInvoke("decreaseTimeLeft");
+			}
+		}
+		setTime();
         
 	}
 
 	void setTime() {
-		TimeSpan timeSpan = TimeSpan.FromSeconds(timerSeconds);
-		String timeText = string.Format("{0:0}:{1:00}", timeSpan.Minutes, timeSpan.Seconds);
-		timerText.text = timeText;
+		if (!isEndGameTimer) {
+			TimeSpan timeSpan = TimeSpan.FromSeconds(timerSeconds);
+			String timeText = string.Format("{0:0}:{1:00}", timeSpan.Minutes, timeSpan.Seconds);
+			timerText.text = timeText;
+		}
 	}
-
 }
 

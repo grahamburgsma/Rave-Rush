@@ -47,9 +47,11 @@
   <ItemGroup>
      <Compile Include="Assets\Scripts\AntiRoll.cs" />
      <Compile Include="Assets\Scripts\Arrow.cs" />
+     <Compile Include="Assets\Scripts\BombTrigger.cs" />
      <Compile Include="Assets\Scripts\Camera.cs" />
      <Compile Include="Assets\Scripts\Car.cs" />
      <Compile Include="Assets\Scripts\CountDown.cs" />
+     <Compile Include="Assets\Scripts\Event_Handler.cs" />
      <Compile Include="Assets\Scripts\GoalHandler.cs" />
      <Compile Include="Assets\Scripts\GoalTrigger.cs" />
      <Compile Include="Assets\Scripts\JumpTrigger.cs" />
@@ -60,6 +62,9 @@
      <Compile Include="Assets\Scripts\Side Triggers\YellowTrigger.cs" />
      <Compile Include="Assets\Scripts\SpinTrigger.cs" />
      <Compile Include="Assets\Scripts\Wheel.cs" />
+     <None Include="Assets\Standard Assets\ParticleSystems\Shaders\PriorityParticleAlpha.shader" />
+     <None Include="Assets\Standard Assets\ParticleSystems\Shaders\PriorityParticleAddSoft.shader" />
+     <None Include="Assets\Standard Assets\ParticleSystems\Shaders\PriorityParticleAdd.shader" />
  <Reference Include="UnityEngine.Networking">
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
  </Reference>

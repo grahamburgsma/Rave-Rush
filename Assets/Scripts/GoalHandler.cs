@@ -7,55 +7,51 @@ public class GoalHandler : MonoBehaviour {
 
 	[SerializeField] Text scoreText, scoreRedText, scoreGreenText, scoreBlueText, scoreYellowText, whereToScoreText;
 	[SerializeField] Transform car;
-	[SerializeField] GameObject arrow, ball,explosion,eventHandlerObject;
+	[SerializeField] GameObject arrow, ball, explosion, eventHandlerObject;
 
 
-    private Rigidbody carBody, ballBody;
-    private Event_Handler eHandler;
+	private Rigidbody carBody, ballBody;
+	private Event_Handler eHandler;
 
-    private string whereToScore;
+	private string whereToScore;
 
 	[SerializeField] AudioClip goalScored_Sound;
 	[SerializeField] AudioSource source;
 
 	public GoalTrigger redSide, blueSide, yellowSide, greenSide;
-    [SerializeField] CountDown gameTimer,end_gameTimer;
+	[SerializeField] CountDown gameTimer, end_gameTimer;
 
 	private int totalScored, blueGoals, redGoals, yellowGoals, greenGoals;
-    private bool endStarted;
+	private bool endStarted;
 
 	// Use this for initialization
 	void Start() {
 		updateWhereToScore();
-        eHandler = eventHandlerObject.GetComponent<Event_Handler>();
-        eHandler.startCountdown();
-    }
+		eHandler = eventHandlerObject.GetComponent<Event_Handler>();
+		eHandler.startCountdown();
+	}
 
    
 
 
-    // Update is called once per frame
-    void Update() {
+	// Update is called once per frame
+	void Update() {
         
-        if (gameTimer.timerSeconds <= 0) {
+		if (gameTimer.timerSeconds <= 0) {
 			whereToScoreText.text = "Game Over";
 			ballBody = ball.GetComponent<Rigidbody>();
 			carBody = car.GetComponent<Rigidbody>();
 			makeBodyStayStill(ballBody);
 			makeBodyStayStill(carBody);
-            if (!endStarted)
-            {
-                endStarted = true;
-                end_gameTimer.startCounter();
-            }
-            else
-            {
-                if(end_gameTimer.timerSeconds <= 0)
-                {
-                    SceneManager.LoadScene(0);
-                }
-            }
-        } else {
+			if (!endStarted) {
+				endStarted = true;
+				end_gameTimer.startCounter();
+			} else {
+				if (end_gameTimer.timerSeconds <= 0) {
+					SceneManager.LoadScene(0);
+				}
+			}
+		} else {
 			switch (whereToScore) {
 				case "Red":
 					if (redSide.goalsScored > 0) {
@@ -90,17 +86,17 @@ public class GoalHandler : MonoBehaviour {
 	}
 
 	void updateGoalsScored() {
-        //Set Goal event text
-        eHandler.startGoalDisplay();
+		//Set Goal event text
+		eHandler.startGoalDisplay();
 
-        //Show explosion
-        Transform explosion_transform = explosion.GetComponent<Transform>();
-        Transform ball_transform = ball.GetComponent<Transform>();
-        explosion_transform.position = ball_transform.position;
-        ParticleSystem explosion_particle = explosion.GetComponent<ParticleSystem>();
-        explosion_particle.Play();
+		//Show explosion
+		Transform explosion_transform = explosion.GetComponent<Transform>();
+		Transform ball_transform = ball.GetComponent<Transform>();
+		explosion_transform.position = ball_transform.position;
+		ParticleSystem explosion_particle = explosion.GetComponent<ParticleSystem>();
+		explosion_particle.Play();
 
-        source.PlayOneShot(goalScored_Sound);
+		source.PlayOneShot(goalScored_Sound);
 		totalScored = redGoals + blueGoals + greenGoals + yellowGoals;
 		scoreText.text = totalScored.ToString();
 		scoreRedText.text = redGoals.ToString();

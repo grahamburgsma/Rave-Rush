@@ -37,16 +37,18 @@ namespace LittleRocketLeague {
 		[Header("Sounds")]
 		[SerializeField]AudioClip crash_Sound;
 		[SerializeField]AudioClip ball_hit_Sound;
-		[SerializeField]AudioClip jump_Sound,ball_hit_sick,ball_hit_awesome;
+		[SerializeField]AudioClip jump_Sound, ball_hit_sick, ball_hit_awesome;
 		[SerializeField]AudioSource source;
 
-        [Header("Event Handler")]
-        [SerializeField]GameObject eventHandlerObject;
+		[SerializeField] bool InputEnabled = true;
 
-        private Event_Handler eHandler;
+		[Header("Event Handler")]
+		[SerializeField]GameObject eventHandlerObject;
+
+		private Event_Handler eHandler;
 
 
-        Rigidbody rigidBody;
+		Rigidbody rigidBody;
 		new ConstantForce constantForce;
 
        
@@ -55,9 +57,9 @@ namespace LittleRocketLeague {
 
 		// Use this for initialization
 		void Start() {
-            eHandler = eventHandlerObject.GetComponent<Event_Handler>();
+			eHandler = eventHandlerObject.GetComponent<Event_Handler>();
            
-            rigidBody = GetComponent<Rigidbody>();
+			rigidBody = GetComponent<Rigidbody>();
 			constantForce = GetComponent<ConstantForce>();
 
 			sqrMaxVelocity = (float)Math.Pow(maxVelocity, 2);
@@ -67,56 +69,58 @@ namespace LittleRocketLeague {
 	 
 		//Visual updates - every frame
 		void Update() {
-			int numWheelsGrounded = 0;
+			if (InputEnabled) {
+				int numWheelsGrounded = 0;
 
-			//Reset Car
-			if (Input.GetKeyDown(KeyCode.R)) {
-				transform.position = new Vector3(transform.position.x, 10, transform.position.z);
-				transform.localEulerAngles = new Vector3(0, transform.localEulerAngles.y, 0);
-			}
-
-			foreach (Wheel wheel in wheels) {
-				if (wheel.wheelCollider.isGrounded)
-					numWheelsGrounded++;
-				
-				wheel.wheelTransform.Rotate(Vector3.forward * wheel.wheelCollider.rpm / 60 * 360 * Time.deltaTime);
-
-				if (wheel.steer) {
-					wheel.wheelTransform.localEulerAngles = new Vector3(-wheel.wheelCollider.steerAngle, wheel.wheelTransform.localEulerAngles.y, wheel.wheelTransform.localEulerAngles.z);
+				//Reset Car
+				if (Input.GetKeyDown(KeyCode.R)) {
+					transform.position = new Vector3(transform.position.x, 10, transform.position.z);
+					rigidBody.velocity = Vector3.zero;
+					transform.localEulerAngles = new Vector3(0, transform.localEulerAngles.y, 0);
 				}
-			}
+
+				foreach (Wheel wheel in wheels) {
+					if (wheel.wheelCollider.isGrounded)
+						numWheelsGrounded++;
 				
-			//Driving forces (helps give arcade style driving)
-			if (numWheelsGrounded > 0) {
+					wheel.wheelTransform.Rotate(Vector3.forward * wheel.wheelCollider.rpm / 60 * 360 * Time.deltaTime);
+
+					if (wheel.steer) {
+						wheel.wheelTransform.localEulerAngles = new Vector3(-wheel.wheelCollider.steerAngle, wheel.wheelTransform.localEulerAngles.y, wheel.wheelTransform.localEulerAngles.z);
+					}
+				}
+				
+				//Driving forces (helps give arcade style driving)
+				if (numWheelsGrounded > 0) {
 //				constantForce.relativeForce = new Vector3(0, downForce, Input.GetAxis("Vertical") * engineForce);
 //				constantForce.relativeTorque = Vector3.up * Input.GetAxis("Horizontal") * turnForce;
 
 //				rigidBody.AddRelativeForce(new Vector3(0, downForce, Input.GetAxis("Vertical") * engineForce), ForceMode.VelocityChange);
 //				rigidBody.AddRelativeTorque(Vector3.up * Input.GetAxis("Horizontal") * turnForce);
 
-				//Cancel torque forces if touches ground
-				torqueCount = 0;
-			} else {
+					//Cancel torque forces if touches ground
+					torqueCount = 0;
+				} else {
 //				constantForce.relativeForce = Vector3.up * downForce;
 //				constantForce.relativeTorque = Vector3.zero;
-			}
+				}
 
-			//One torque isn't enough, repeat a few times
-			if (torqueCount > 0) {
-				Vector3 torqueVector = new Vector3(Input.GetAxis("Vertical") * torqueForce, 0, Input.GetAxis("Horizontal") * torqueForce * -1);
-				rigidBody.AddRelativeTorque(torqueVector, ForceMode.Impulse);
-				torqueCount--;
-			}
-
-			//Jump
-			if (Input.GetKeyDown(KeyCode.J)) {
-				if (numWheelsGrounded > 0) {
-					rigidBody.AddRelativeForce(Vector3.up * jumpForce, ForceMode.Impulse);
-					source.PlayOneShot(jump_Sound);
-				} else {
-					//rotate
+				//One torque isn't enough, repeat a few times
+				if (torqueCount > 0) {
 					Vector3 torqueVector = new Vector3(Input.GetAxis("Vertical") * torqueForce, 0, Input.GetAxis("Horizontal") * torqueForce * -1);
 					rigidBody.AddRelativeTorque(torqueVector, ForceMode.Impulse);
+					torqueCount--;
+				}
+
+				//Jump
+				if (Input.GetKeyDown(KeyCode.J)) {
+					if (numWheelsGrounded > 0) {
+						rigidBody.AddRelativeForce(Vector3.up * jumpForce, ForceMode.Impulse);
+						source.PlayOneShot(jump_Sound);
+					} else {
+						//rotate
+						Vector3 torqueVector = new Vector3(Input.GetAxis("Vertical") * torqueForce, 0, Input.GetAxis("Horizontal") * torqueForce * -1);
+						rigidBody.AddRelativeTorque(torqueVector, ForceMode.Impulse);
 
 
 //					Vector3 targetAngles = rigidBody.transform.eulerAngles + 180f * Vector3.forward; // what the new angles should be
@@ -129,15 +133,16 @@ namespace LittleRocketLeague {
 //					toRotation.x += 180;
 //					rigidBody.rotation = Quaternion.Slerp(rigidBody.rotation, toRotation, Time.deltaTime * 3.0f);
 
-					//boost
+						//boost
 //					Vector3 boostVector = new Vector3(Input.GetAxis("Horizontal") * nitroForce, 0, Input.GetAxis("Vertical") * nitroForce);
 //					rigidBody.AddRelativeForce(boostVector, ForceMode.Impulse);
+					}
 				}
-			}
 
-			//Nitro
-			if (Input.GetKeyDown(KeyCode.N)) {
-				rigidBody.AddRelativeForce(Vector3.forward * nitroForce, ForceMode.Impulse);
+				//Nitro
+				if (Input.GetKeyDown(KeyCode.N)) {
+					rigidBody.AddRelativeForce(Vector3.forward * nitroForce, ForceMode.Impulse);
+				}
 			}
 		}
 
@@ -148,60 +153,64 @@ namespace LittleRocketLeague {
 			float brakeSpeed = Input.GetAxis("Jump") * brakeFactor;
 			int numWheelsGrounded = 0;
 
-			foreach (Wheel wheel in wheels) {
-				if (wheel.wheelCollider.isGrounded)
-					numWheelsGrounded++;
+			if (InputEnabled) {
+				foreach (Wheel wheel in wheels) {
+					if (wheel.wheelCollider.isGrounded)
+						numWheelsGrounded++;
 				
-				if (wheel.handbrake)
-					wheel.wheelCollider.brakeTorque = brakeSpeed;
+					if (wheel.handbrake)
+						wheel.wheelCollider.brakeTorque = brakeSpeed;
 
-				if (wheel.power)
-					wheel.wheelCollider.motorTorque = driveSpeed;
+					if (wheel.power)
+						wheel.wheelCollider.motorTorque = driveSpeed;
 
-				if (rigidBody.velocity.magnitude > 150 && turnSpeed > 10)
-					turnSpeed -= 5;
+					if (rigidBody.velocity.magnitude > 150 && turnSpeed > 10)
+						turnSpeed -= 5;
 
-				if (wheel.steer)
-					wheel.wheelCollider.steerAngle = turnSpeed;
-			}
+					if (wheel.steer)
+						wheel.wheelCollider.steerAngle = turnSpeed;
+				}
 
-			if (numWheelsGrounded > 0) {
-                constantForce.relativeForce = Vector3.up * downForce;
+				if (numWheelsGrounded > 0) {
+					constantForce.relativeForce = Vector3.up * downForce;
 
-                rigidBody.AddRelativeTorque(Vector3.up * Input.GetAxis("Horizontal") * turnForce, ForceMode.Force);
-                rigidBody.AddRelativeForce(Vector3.forward * Input.GetAxis("Vertical") * engineForce, ForceMode.Force);
-            } else {
-                constantForce.relativeForce = Vector3.up * 0;
-            }
+					rigidBody.AddRelativeTorque(Vector3.up * Input.GetAxis("Horizontal") * turnForce, ForceMode.Force);
+					rigidBody.AddRelativeForce(Vector3.forward * Input.GetAxis("Vertical") * engineForce, ForceMode.Force);
+				} else {
+					constantForce.relativeForce = Vector3.up * 0;
+				}
 
-			//max speed
-			if (rigidBody.velocity.sqrMagnitude > sqrMaxVelocity) {
-				rigidBody.velocity = rigidBody.velocity.normalized * maxVelocity;
+				//max speed
+				if (rigidBody.velocity.sqrMagnitude > sqrMaxVelocity) {
+					rigidBody.velocity = rigidBody.velocity.normalized * maxVelocity;
+				}
 			}
 		}
-        float last_ball_hit = 10.0f;
-		void OnCollisionEnter(Collision collision) {
-			if (collision.gameObject.tag == "Ball") {
-                //last_ball_hit = Time.time;
-                float current_hit = Time.time;
-                float difference = current_hit - last_ball_hit;
-                if (difference > 1.5f)
-                {
-                    System.Random r = new System.Random();
-                    int coolText = r.Next(1, 10);
-                    //int coolText = 1;
-                    eHandler.startRandomHitBallText(coolText);
 
-                    if (coolText == 1)
-                    {
-                        source.PlayOneShot(ball_hit_sick);
-                    }
-                    else if (coolText == 2)
-                    { 
-                        source.PlayOneShot(ball_hit_awesome);
-                    }
-                }
-                last_ball_hit = current_hit;
+
+		float last_ball_hit = 0.0f;
+
+
+		void OnCollisionEnter(Collision collision) {
+
+			if (collision.gameObject.tag == "Ball") {
+
+				//last_ball_hit = Time.time;
+				float current_hit = Time.time;
+				float difference = current_hit - last_ball_hit;
+				if (difference > 1.5f && collision.relativeVelocity.magnitude > 200) {
+					System.Random r = new System.Random();
+					int coolText = r.Next(1, 3);
+					//int coolText = 1;
+					eHandler.startRandomHitBallText(coolText);
+
+					if (coolText == 1) {
+						source.PlayOneShot(ball_hit_sick);
+					} else if (coolText == 2) { 
+						source.PlayOneShot(ball_hit_awesome);
+					}
+				}
+				last_ball_hit = current_hit;
 				source.PlayOneShot(ball_hit_Sound);
 			} else {
 				source.PlayOneShot(crash_Sound);
