@@ -7,15 +7,14 @@ public class AntiRoll : MonoBehaviour {
 	[SerializeField] float antiRoll = 5000.0f;
 	Rigidbody rigidbody = new Rigidbody();
 
-	void Start () {
+	void Start() {
 		rigidbody = GetComponent<Rigidbody>();
 	}
 
 
-	void FixedUpdate ()
-	{
+	void FixedUpdate() {
 		WheelHit hit;
-		float travelL = 1.0f, travelR = 1.0f;
+		float travelL = 0.0f, travelR = 0.0f;
 
 		var groundedL = WheelL.GetGroundHit(out hit);
 		if (groundedL)

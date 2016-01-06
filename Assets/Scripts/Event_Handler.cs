@@ -5,9 +5,9 @@ using UnityEngine.UI;
 public class Event_Handler : MonoBehaviour {
 
     [SerializeField]
-    GameObject event_object;
+    GameObject event_object, car_object;
 
-    private Text event_text;
+    private Text event_text; 
 
     public float size_count;
 
@@ -20,12 +20,15 @@ public class Event_Handler : MonoBehaviour {
     private string hit_ball_text_sick = "SSSSIIIICCCKKK";
     private string hit_ball_text_awesome = "AWESOMEEEEE";
 
+	private LittleRocketLeague.Car car_script;
+
     Transform event_transform;
 
 	// Use this for initialization
 	void Start () {
         event_text = event_object.GetComponent<Text>();
         event_transform = event_text.GetComponent<Transform>();
+		car_script = car_object.GetComponent<LittleRocketLeague.Car>();
        
     }
 
@@ -95,6 +98,9 @@ public class Event_Handler : MonoBehaviour {
     */
     public void startCountdown()
     {
+
+		 
+		car_script.InputEnabled = false;
         event_object.SetActive(true);
         updateCountdown();
         is_countdown = true;
@@ -137,6 +143,7 @@ public class Event_Handler : MonoBehaviour {
         {
             event_object.SetActive(false);
             is_countdown = false;
+			car_script.InputEnabled = true;
         }
     }
 
@@ -146,7 +153,7 @@ public class Event_Handler : MonoBehaviour {
 
     public void startEndGame()
     {
-
+		
         initEndGame();
         is_endgame = true;
     }

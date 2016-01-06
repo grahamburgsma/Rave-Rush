@@ -32,7 +32,7 @@ namespace LittleRocketLeague {
 
 		[Header("Misc")]
 		[SerializeField] float maxVelocity = 500;
-		[SerializeField] float downForce = -2500;
+		[SerializeField] float downForce = 2500;
 			
 		[Header("Sounds")]
 		[SerializeField]AudioClip crash_Sound;
@@ -40,18 +40,16 @@ namespace LittleRocketLeague {
 		[SerializeField]AudioClip jump_Sound, ball_hit_sick, ball_hit_awesome;
 		[SerializeField]AudioSource source;
 
-		[SerializeField] bool InputEnabled = true;
+		public bool InputEnabled = true;
 
 		[Header("Event Handler")]
 		[SerializeField]GameObject eventHandlerObject;
 
 		private Event_Handler eHandler;
 
-
 		Rigidbody rigidBody;
 		new ConstantForce constantForce;
 
-       
 		private float sqrMaxVelocity;
 		private int torqueCount;
 
@@ -89,21 +87,6 @@ namespace LittleRocketLeague {
 						wheel.wheelTransform.localEulerAngles = new Vector3(-wheel.wheelCollider.steerAngle, wheel.wheelTransform.localEulerAngles.y, wheel.wheelTransform.localEulerAngles.z);
 					}
 				}
-				
-				//Driving forces (helps give arcade style driving)
-				if (numWheelsGrounded > 0) {
-//				constantForce.relativeForce = new Vector3(0, downForce, Input.GetAxis("Vertical") * engineForce);
-//				constantForce.relativeTorque = Vector3.up * Input.GetAxis("Horizontal") * turnForce;
-
-//				rigidBody.AddRelativeForce(new Vector3(0, downForce, Input.GetAxis("Vertical") * engineForce), ForceMode.VelocityChange);
-//				rigidBody.AddRelativeTorque(Vector3.up * Input.GetAxis("Horizontal") * turnForce);
-
-					//Cancel torque forces if touches ground
-					torqueCount = 0;
-				} else {
-//				constantForce.relativeForce = Vector3.up * downForce;
-//				constantForce.relativeTorque = Vector3.zero;
-				}
 
 				//One torque isn't enough, repeat a few times
 				if (torqueCount > 0) {
@@ -121,21 +104,11 @@ namespace LittleRocketLeague {
 						//rotate
 						Vector3 torqueVector = new Vector3(Input.GetAxis("Vertical") * torqueForce, 0, Input.GetAxis("Horizontal") * torqueForce * -1);
 						rigidBody.AddRelativeTorque(torqueVector, ForceMode.Impulse);
-
-
-//					Vector3 targetAngles = rigidBody.transform.eulerAngles + 180f * Vector3.forward; // what the new angles should be
-//					rigidBody.transform.eulerAngles = Mathf.LerpAngle(transform.eulerAngles, 180, 0.5 * Time.deltaTime);
-
-//					float angle = Mathf.LerpAngle(transform.rotation.z, 90, Time.deltaTime * 0.5f);
-//					transform.eulerAngles = new Vector3(0, 0, angle);
-
-//					Quaternion toRotation = rigidBody.rotation;
-//					toRotation.x += 180;
-//					rigidBody.rotation = Quaternion.Slerp(rigidBody.rotation, toRotation, Time.deltaTime * 3.0f);
+						torqueCount = 25;
 
 						//boost
-//					Vector3 boostVector = new Vector3(Input.GetAxis("Horizontal") * nitroForce, 0, Input.GetAxis("Vertical") * nitroForce);
-//					rigidBody.AddRelativeForce(boostVector, ForceMode.Impulse);
+						Vector3 boostVector = new Vector3(Input.GetAxis("Horizontal") * jumpForce * 2, 0, Input.GetAxis("Vertical") * jumpForce * 2);
+						rigidBody.AddRelativeForce(boostVector, ForceMode.Impulse);
 					}
 				}
 
@@ -172,12 +145,12 @@ namespace LittleRocketLeague {
 				}
 
 				if (numWheelsGrounded > 0) {
-					constantForce.relativeForce = Vector3.up * downForce;
+					constantForce.relativeForce = Vector3.down * downForce;
 
 					rigidBody.AddRelativeTorque(Vector3.up * Input.GetAxis("Horizontal") * turnForce, ForceMode.Force);
 					rigidBody.AddRelativeForce(Vector3.forward * Input.GetAxis("Vertical") * engineForce, ForceMode.Force);
 				} else {
-					constantForce.relativeForce = Vector3.up * 0;
+					constantForce.relativeForce = Vector3.down * downForce / 2; //Maybe don't do this, see how it is
 				}
 
 				//max speed
@@ -215,7 +188,6 @@ namespace LittleRocketLeague {
 			} else {
 				source.PlayOneShot(crash_Sound);
 			}
-
 		}
 	}
 }
