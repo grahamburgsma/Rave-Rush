@@ -178,15 +178,18 @@ namespace LittleRocketLeague {
 					eHandler.startRandomHitBallText(coolText);
 
 					if (coolText == 1) {
-						source.PlayOneShot(ball_hit_sick);
+						source.PlayOneShot(ball_hit_sick,0.5f);
 					} else if (coolText == 2) { 
-						source.PlayOneShot(ball_hit_awesome);
+						source.PlayOneShot(ball_hit_awesome, 0.5f);
 					}
 				}
 				last_ball_hit = current_hit;
 				source.PlayOneShot(ball_hit_Sound);
 			} else {
-				source.PlayOneShot(crash_Sound);
+                if (collision.relativeVelocity.magnitude > 75)
+                {
+                    source.PlayOneShot(crash_Sound, (collision.relativeVelocity.magnitude / 2000));
+                }
 			}
 		}
 	}

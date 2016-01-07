@@ -15,7 +15,7 @@ public class GoalHandler : MonoBehaviour {
 
 	private string whereToScore;
 
-	[SerializeField] AudioClip goalScored_Sound;
+	[SerializeField] AudioClip goalScored_Sound,countdown_sound;
 	[SerializeField] AudioSource source;
 
 	public GoalTrigger redSide, blueSide, yellowSide, greenSide;
@@ -28,6 +28,7 @@ public class GoalHandler : MonoBehaviour {
 	void Start() {
 		updateWhereToScore();
 		eHandler = eventHandlerObject.GetComponent<Event_Handler>();
+        source.PlayOneShot(countdown_sound,0.1f);
 		eHandler.startCountdown();
 	}
 
@@ -36,7 +37,7 @@ public class GoalHandler : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update() {
-        
+        Color _sideColor = Color.red;
 		if (gameTimer.timerSeconds <= 0) {
 			whereToScoreText.text = "Game Over";
 			ballBody = ball.GetComponent<Rigidbody>();
@@ -56,29 +57,38 @@ public class GoalHandler : MonoBehaviour {
 				case "Red":
 					if (redSide.goalsScored > 0) {
 						redGoals++;
-						updateGoalsScored();
-					}
+                        showExplosion(Color.red);
+                        updateGoalsScored();
+                        
+                    }
 					break;
 				case "Blue":
 					if (blueSide.goalsScored > 0) {
 						blueGoals++;
-						updateGoalsScored();
-					}
+                        showExplosion(Color.blue);
+                        updateGoalsScored();
+                       
+                    }
 					break;
 				case "Green":
 					if (greenSide.goalsScored > 0) {
 						greenGoals++;
-						updateGoalsScored();
-					}
+                        showExplosion(Color.green);
+                        updateGoalsScored();
+                       
+                    }
 					break;
 				case "Yellow":
 					if (yellowSide.goalsScored > 0) {
 						yellowGoals++;
-						updateGoalsScored();
-					}
+                        showExplosion(Color.yellow);
+                        updateGoalsScored();
+                        
+                    }
 					break;
 			}
-			redSide.goalsScored = 0;
+            
+            redSide.goalsScored = 0;
 			blueSide.goalsScored = 0;
 			greenSide.goalsScored = 0;
 			yellowSide.goalsScored = 0;
@@ -89,12 +99,7 @@ public class GoalHandler : MonoBehaviour {
 		//Set Goal event text
 		eHandler.startGoalDisplay();
 
-		//Show explosion
-		Transform explosion_transform = explosion.GetComponent<Transform>();
-		Transform ball_transform = ball.GetComponent<Transform>();
-		explosion_transform.position = ball_transform.position;
-		ParticleSystem explosion_particle = explosion.GetComponent<ParticleSystem>();
-		explosion_particle.Play();
+        
 
 		source.PlayOneShot(goalScored_Sound);
 		totalScored = redGoals + blueGoals + greenGoals + yellowGoals;
@@ -116,31 +121,39 @@ public class GoalHandler : MonoBehaviour {
 
     
 		Renderer[] arrowRenderer = arrow.GetComponentsInChildren<Renderer>();
-		switch (whereToScore) {   //Look at this and tell me how you would do it, i could create it into one statement but i dont know whats better
+        Color _sideColor = Color.red;
+        switch (whereToScore) {   //Look at this and tell me how you would do it, i could create it into one statement but i dont know whats better
+            
 			case "Red":
 				foreach (Renderer component in arrowRenderer) {
 					component.material.color = Color.red;
+                    
 				}
 				break;
 			case "Blue":
 				foreach (Renderer component in arrowRenderer) {
 					component.material.color = Color.blue;
-				}
+                  
+                }
 				break;
 			case "Green":
 				foreach (Renderer component in arrowRenderer) {
 					component.material.color = Color.green;
-				}
+                  
+                }
 				break;
 			case "Yellow":
 				foreach (Renderer component in arrowRenderer) {
 					component.material.color = Color.yellow;
-				}
+                   
+                }
 				break;
 		}
         
 
-		ball.transform.position = Vector3.zero;
+        
+
+        ball.transform.position = Vector3.zero;
 		ballBody = ball.GetComponent<Rigidbody>();
 		makeBodyStayStill(ballBody);
 	}
@@ -149,4 +162,14 @@ public class GoalHandler : MonoBehaviour {
 		body.velocity = Vector3.zero;
 		body.angularVelocity = Vector3.zero;
 	}
+
+    void showExplosion(Color explosionColour)
+    {
+        Transform explosion_transform = explosion.GetComponent<Transform>();
+        Transform ball_transform = ball.GetComponent<Transform>();
+        explosion_transform.position = ball_transform.position;
+        ParticleSystem explosion_particle = explosion.GetComponent<ParticleSystem>();
+        explosion_particle.startColor = explosionColour;
+        explosion_particle.Play();
+    }
 }

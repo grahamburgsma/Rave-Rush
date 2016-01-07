@@ -107,26 +107,38 @@ public class Event_Handler : MonoBehaviour {
     }
 
     private void countdownUpdateCall() {
-
-        if (size_count < 0.009f)
+        if (event_text.text.Equals(go_text))
         {
-            size_count += 0.0001f;
-            event_transform.localScale -= new Vector3(size_count, size_count, size_count);
+            if (size_count < 0.015f)
+            {
+                size_count += 0.0003f;
+                event_transform.localScale -= new Vector3(size_count, size_count, size_count);
+            }
+            else
+            {
+                updateCountdown();
+
+            }
+            
         }
         else
         {
-            updateCountdown();
-
-
+            if (size_count < 0.009f && !event_text.text.Equals(go_text))
+            {
+                size_count += 0.0001f;
+                event_transform.localScale -= new Vector3(size_count, size_count, size_count);
+            }
+            else
+            {
+                updateCountdown();
+            }
         }
     }
 
     private void updateCountdown()
     {
-        
         if (counting_down > 0)
         {
-            
             size_count = 0;
             event_transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
             event_text.text = counting_down.ToString();
