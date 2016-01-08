@@ -5,7 +5,7 @@ AnimationClip:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: Rotation
+  m_Name: Wheel Animation
   serializedVersion: 6
   m_Legacy: 0
   m_Compressed: 0
@@ -17,14 +17,14 @@ AnimationClip:
       serializedVersion: 2
       m_Curve:
       - time: 0
-        value: {x: 0, y: 0, z: 0}
-        inSlope: {x: 0, y: 120, z: 0}
-        outSlope: {x: 0, y: 120, z: 0}
+        value: {x: 0, y: 90, z: 0}
+        inSlope: {x: 0, y: 0, z: 90}
+        outSlope: {x: 0, y: 0, z: 90}
         tangentMode: 0
-      - time: 3
-        value: {x: 0, y: 360, z: 0}
-        inSlope: {x: 0, y: 120, z: 0}
-        outSlope: {x: 0, y: 120, z: 0}
+      - time: 4
+        value: {x: 0, y: 90, z: 360}
+        inSlope: {x: 0, y: 0, z: 90}
+        outSlope: {x: 0, y: 0, z: 90}
         tangentMode: 0
       m_PreInfinity: 2
       m_PostInfinity: 2
@@ -53,7 +53,7 @@ AnimationClip:
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 3
+    m_StopTime: 4
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
@@ -77,7 +77,7 @@ AnimationClip:
         inSlope: 0
         outSlope: 0
         tangentMode: 10
-      - time: 3
+      - time: 4
         value: 0
         inSlope: 0
         outSlope: 0
@@ -93,14 +93,14 @@ AnimationClip:
       serializedVersion: 2
       m_Curve:
       - time: 0
-        value: 0
-        inSlope: 120
-        outSlope: 120
+        value: 90
+        inSlope: 0
+        outSlope: 0
         tangentMode: 10
-      - time: 3
-        value: 360
-        inSlope: 120
-        outSlope: 120
+      - time: 4
+        value: 90
+        inSlope: 0
+        outSlope: 0
         tangentMode: 10
       m_PreInfinity: 2
       m_PostInfinity: 2
@@ -114,13 +114,13 @@ AnimationClip:
       m_Curve:
       - time: 0
         value: 0
-        inSlope: 0
-        outSlope: 0
+        inSlope: 90
+        outSlope: 90
         tangentMode: 10
-      - time: 3
-        value: 0
-        inSlope: 0
-        outSlope: 0
+      - time: 4
+        value: 360
+        inSlope: 90
+        outSlope: 90
         tangentMode: 10
       m_PreInfinity: 2
       m_PostInfinity: 2
