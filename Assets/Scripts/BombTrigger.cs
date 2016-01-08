@@ -22,6 +22,7 @@ public class BombTrigger : MonoBehaviour {
 			Transform ball_transform = ball.GetComponent<Transform>();
 			explosion_transform.position = ball_transform.position;
 			ParticleSystem explosion_particle = explosion.GetComponent<ParticleSystem>();
+			explosion_particle.startColor = Color.red;
 			explosion_particle.Play();
 
 			ball.transform.position = new Vector3(0, 25, 0);

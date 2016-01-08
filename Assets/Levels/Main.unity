@@ -1777,8 +1777,8 @@ MonoBehaviour:
   ball_hit_sick: {fileID: 8300000, guid: d72fd6c37165fc64ba351ebf9a842ac7, type: 3}
   ball_hit_awesome: {fileID: 8300000, guid: 3c9068ddfd147be4a885d339e4508036, type: 3}
   source: {fileID: 688981871}
-  InputEnabled: 1
   eventHandlerObject: {fileID: 1653512123}
+  InputEnabled: 1
 --- !u!4 &116362490 stripped
 Transform:
   m_PrefabParentObject: {fileID: 400000, guid: 722a21c5e694745be9a50e3777133b54, type: 3}
@@ -1902,6 +1902,10 @@ Prefab:
     - target: {fileID: 100000, guid: aeba9d3bb648c4419a89f161b9d5cceb, type: 3}
       propertyPath: m_Name
       value: Arena
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: aeba9d3bb648c4419a89f161b9d5cceb, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: aeba9d3bb648c4419a89f161b9d5cceb, type: 3}
@@ -2343,7 +2347,7 @@ GameObject:
   m_TagString: BlueSide
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &329350755
 Transform:
@@ -2641,7 +2645,7 @@ GameObject:
   m_TagString: GreenSide
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &371676236
 Transform:
@@ -3122,12 +3126,12 @@ MonoBehaviour:
   scoreYellowText: {fileID: 326427888}
   whereToScoreText: {fileID: 516989182}
   car: {fileID: 1002794877}
-  arrow: {fileID: 1442642243}
+  arrow: {fileID: 1608808281}
   ball: {fileID: 688981864}
   explosion: {fileID: 1467025953}
   eventHandlerObject: {fileID: 1653512123}
   goalScored_Sound: {fileID: 8300000, guid: fca4657d82bc63a4c88bc53c981e26e4, type: 3}
-  countdown_sound: {fileID: 8300000, guid: 5f0aa691fec01a14fa6ebdbc9e05a670, type: 3}
+  countdown_sound: {fileID: 8300000, guid: ef5397236e2317e47896ab1953681fab, type: 3}
   source: {fileID: 688981871}
   redSide: {fileID: 1079657920}
   blueSide: {fileID: 329350756}
@@ -3824,8 +3828,8 @@ WheelCollider:
   m_SuspensionSpring:
     spring: 5000
     damper: 8000
-    targetPosition: 0
-  m_SuspensionDistance: 0.25
+    targetPosition: 0.5
+  m_SuspensionDistance: 0.3
   m_ForceAppPointDistance: 0
   m_Mass: 20
   m_WheelDampingRate: 0.25
@@ -3942,8 +3946,8 @@ WheelCollider:
   m_SuspensionSpring:
     spring: 5000
     damper: 8000
-    targetPosition: 0
-  m_SuspensionDistance: 0.25
+    targetPosition: 0.5
+  m_SuspensionDistance: 0.3
   m_ForceAppPointDistance: 0
   m_Mass: 20
   m_WheelDampingRate: 0.25
@@ -4081,8 +4085,8 @@ MonoBehaviour:
   ball_hit_sick: {fileID: 0}
   ball_hit_awesome: {fileID: 0}
   source: {fileID: 688981871}
-  InputEnabled: 1
   eventHandlerObject: {fileID: 0}
+  InputEnabled: 1
 --- !u!75 &1002794880
 ConstantForce:
   m_ObjectHideFlags: 0
@@ -4394,7 +4398,7 @@ GameObject:
   m_TagString: RedSide
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &1079657919
 Transform:
@@ -4802,8 +4806,8 @@ WheelCollider:
   m_SuspensionSpring:
     spring: 5000
     damper: 8000
-    targetPosition: 0
-  m_SuspensionDistance: 0.25
+    targetPosition: 0.5
+  m_SuspensionDistance: 0.3
   m_ForceAppPointDistance: 0
   m_Mass: 20
   m_WheelDampingRate: 0.25
@@ -5292,7 +5296,7 @@ ParticleSystemRenderer:
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_Materials:
-  - {fileID: 2100000, guid: fc626cffedc907848a7b47b87aa5e34f, type: 2}
+  - {fileID: 2100000, guid: c50d77affeb31e14c9c062c282f13fc8, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 1
@@ -6919,7 +6923,7 @@ GameObject:
   m_TagString: YellowSide
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &1484260167
 Transform:
@@ -7176,8 +7180,8 @@ WheelCollider:
   m_SuspensionSpring:
     spring: 5000
     damper: 8000
-    targetPosition: 0
-  m_SuspensionDistance: 0.25
+    targetPosition: 0.5
+  m_SuspensionDistance: 0.3
   m_ForceAppPointDistance: 0
   m_Mass: 20
   m_WheelDampingRate: 0.25

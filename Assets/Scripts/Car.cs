@@ -40,15 +40,15 @@ namespace LittleRocketLeague {
 		[SerializeField]AudioClip jump_Sound, ball_hit_sick, ball_hit_awesome;
 		[SerializeField]AudioSource source;
 
-		public bool InputEnabled = true;
-
 		[Header("Event Handler")]
 		[SerializeField]GameObject eventHandlerObject;
 
+		public bool InputEnabled = true;
+		private bool CanSpin;
 		private Event_Handler eHandler;
 
-		Rigidbody rigidBody;
-		new ConstantForce constantForce;
+		private Rigidbody rigidBody;
+		private new ConstantForce constantForce;
 
 		private float sqrMaxVelocity;
 		private int torqueCount;
@@ -95,12 +95,15 @@ namespace LittleRocketLeague {
 					torqueCount--;
 				}
 
+				if (numWheelsGrounded > 0)
+					CanSpin = true;
+
 				//Jump
 				if (Input.GetKeyDown(KeyCode.J)) {
 					if (numWheelsGrounded > 0) {
-						rigidBody.AddRelativeForce(Vector3.up * jumpForce, ForceMode.Impulse);
+						rigidBody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
 						source.PlayOneShot(jump_Sound);
-					} else {
+					} else if (CanSpin) {
 						//rotate
 						Vector3 torqueVector = new Vector3(Input.GetAxis("Vertical") * torqueForce, 0, Input.GetAxis("Horizontal") * torqueForce * -1);
 						rigidBody.AddRelativeTorque(torqueVector, ForceMode.Impulse);
@@ -109,6 +112,8 @@ namespace LittleRocketLeague {
 						//boost
 						Vector3 boostVector = new Vector3(Input.GetAxis("Horizontal") * jumpForce * 2, 0, Input.GetAxis("Vertical") * jumpForce * 2);
 						rigidBody.AddRelativeForce(boostVector, ForceMode.Impulse);
+
+						CanSpin = false;
 					}
 				}
 
@@ -178,7 +183,7 @@ namespace LittleRocketLeague {
 					eHandler.startRandomHitBallText(coolText);
 
 					if (coolText == 1) {
-						source.PlayOneShot(ball_hit_sick,0.5f);
+						source.PlayOneShot(ball_hit_sick, 0.5f);
 					} else if (coolText == 2) { 
 						source.PlayOneShot(ball_hit_awesome, 0.5f);
 					}
@@ -186,10 +191,9 @@ namespace LittleRocketLeague {
 				last_ball_hit = current_hit;
 				source.PlayOneShot(ball_hit_Sound);
 			} else {
-                if (collision.relativeVelocity.magnitude > 75)
-                {
-                    source.PlayOneShot(crash_Sound, (collision.relativeVelocity.magnitude / 2000));
-                }
+				if (collision.relativeVelocity.magnitude > 75) {
+					source.PlayOneShot(crash_Sound, (collision.relativeVelocity.magnitude / 2000));
+				}
 			}
 		}
 	}
