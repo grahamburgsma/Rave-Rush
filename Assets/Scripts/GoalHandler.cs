@@ -6,16 +6,13 @@ using UnityEngine.SceneManagement;
 public class GoalHandler : MonoBehaviour {
 
 	[SerializeField] Text scoreText, scoreRedText, scoreGreenText, scoreBlueText, scoreYellowText, whereToScoreText;
-	[SerializeField] Transform car;
-	[SerializeField] GameObject arrow, ball, explosion, eventHandlerObject;
+	[SerializeField] GameObject arrow, ball, car, explosion, eventHandlerObject;
 
-
-	private Rigidbody carBody, ballBody;
 	private Event_Handler eHandler;
 
 	private string whereToScore;
 
-	[SerializeField] AudioClip goalScored_Sound,countdown_sound;
+	[SerializeField] AudioClip goalScored_Sound, countdown_sound;
 	[SerializeField] AudioSource source;
 
 	public GoalTrigger redSide, blueSide, yellowSide, greenSide;
@@ -28,7 +25,7 @@ public class GoalHandler : MonoBehaviour {
 	void Start() {
 		updateWhereToScore();
 		eHandler = eventHandlerObject.GetComponent<Event_Handler>();
-        source.PlayOneShot(countdown_sound,0.1f);
+		source.PlayOneShot(countdown_sound, 0.1f);
 		eHandler.startCountdown();
 	}
 
@@ -37,16 +34,18 @@ public class GoalHandler : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update() {
-        Color _sideColor = Color.red;
+		Color _sideColor = Color.red;
 		if (gameTimer.timerSeconds <= 0) {
 			whereToScoreText.text = "Game Over";
-			ballBody = ball.GetComponent<Rigidbody>();
-			carBody = car.GetComponent<Rigidbody>();
-			makeBodyStayStill(ballBody);
-			makeBodyStayStill(carBody);
+
+			ball.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
+			car.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
+			car.GetComponent<LittleRocketLeague.Car>().InputEnabled = false;
+
 			if (!endStarted) {
 				endStarted = true;
 				end_gameTimer.startCounter();
+
 			} else {
 				if (end_gameTimer.timerSeconds <= 0) {
 					SceneManager.LoadScene(0);
@@ -57,38 +56,38 @@ public class GoalHandler : MonoBehaviour {
 				case "Red":
 					if (redSide.goalsScored > 0) {
 						redGoals++;
-                        showExplosion(Color.red);
-                        updateGoalsScored();
+						showExplosion(Color.red);
+						updateGoalsScored();
                         
-                    }
+					}
 					break;
 				case "Blue":
 					if (blueSide.goalsScored > 0) {
 						blueGoals++;
-                        showExplosion(Color.blue);
-                        updateGoalsScored();
+						showExplosion(Color.blue);
+						updateGoalsScored();
                        
-                    }
+					}
 					break;
 				case "Green":
 					if (greenSide.goalsScored > 0) {
 						greenGoals++;
-                        showExplosion(Color.green);
-                        updateGoalsScored();
+						showExplosion(Color.green);
+						updateGoalsScored();
                        
-                    }
+					}
 					break;
 				case "Yellow":
 					if (yellowSide.goalsScored > 0) {
 						yellowGoals++;
-                        showExplosion(Color.yellow);
-                        updateGoalsScored();
+						showExplosion(Color.yellow);
+						updateGoalsScored();
                         
-                    }
+					}
 					break;
 			}
             
-            redSide.goalsScored = 0;
+			redSide.goalsScored = 0;
 			blueSide.goalsScored = 0;
 			greenSide.goalsScored = 0;
 			yellowSide.goalsScored = 0;
@@ -98,8 +97,6 @@ public class GoalHandler : MonoBehaviour {
 	void updateGoalsScored() {
 		//Set Goal event text
 		eHandler.startGoalDisplay();
-
-        
 
 		source.PlayOneShot(goalScored_Sound);
 		totalScored = redGoals + blueGoals + greenGoals + yellowGoals;
@@ -121,8 +118,8 @@ public class GoalHandler : MonoBehaviour {
 
     
 		Renderer[] arrowRenderer = arrow.GetComponentsInChildren<Renderer>();
-        Color _sideColor = Color.red;
-        switch (whereToScore) {   //Look at this and tell me how you would do it, i could create it into one statement but i dont know whats better
+		Color _sideColor = Color.red;
+		switch (whereToScore) {   //Look at this and tell me how you would do it, i could create it into one statement but i dont know whats better
             
 			case "Red":
 				foreach (Renderer component in arrowRenderer) {
@@ -134,28 +131,24 @@ public class GoalHandler : MonoBehaviour {
 				foreach (Renderer component in arrowRenderer) {
 					component.material.color = Color.blue;
                   
-                }
+				}
 				break;
 			case "Green":
 				foreach (Renderer component in arrowRenderer) {
 					component.material.color = Color.green;
                   
-                }
+				}
 				break;
 			case "Yellow":
 				foreach (Renderer component in arrowRenderer) {
 					component.material.color = Color.yellow;
                    
-                }
+				}
 				break;
 		}
-        
 
-        
-
-        ball.transform.position = Vector3.zero;
-		ballBody = ball.GetComponent<Rigidbody>();
-		makeBodyStayStill(ballBody);
+		ball.transform.position = Vector3.zero;
+		makeBodyStayStill(ball.GetComponent<Rigidbody>());
 	}
 
 	void makeBodyStayStill(Rigidbody body) { 
@@ -163,13 +156,12 @@ public class GoalHandler : MonoBehaviour {
 		body.angularVelocity = Vector3.zero;
 	}
 
-    void showExplosion(Color explosionColour)
-    {
-        Transform explosion_transform = explosion.GetComponent<Transform>();
-        Transform ball_transform = ball.GetComponent<Transform>();
-        explosion_transform.position = ball_transform.position;
-        ParticleSystem explosion_particle = explosion.GetComponent<ParticleSystem>();
-        explosion_particle.startColor = explosionColour;
-        explosion_particle.Play();
-    }
+	void showExplosion(Color explosionColour) {
+		Transform explosion_transform = explosion.GetComponent<Transform>();
+		Transform ball_transform = ball.GetComponent<Transform>();
+		explosion_transform.position = ball_transform.position;
+		ParticleSystem explosion_particle = explosion.GetComponent<ParticleSystem>();
+		explosion_particle.startColor = explosionColour;
+		explosion_particle.Play();
+	}
 }
