@@ -22,6 +22,7 @@ ModelImporter:
     100028: Wheels
     100030: wheelFR
     100032: wheelRR
+    100034: Body_001
     400000: //RootNode
     400002: Cylinder
     400004: Cylinder_001
@@ -39,6 +40,7 @@ ModelImporter:
     400028: Wheels
     400030: wheelFR
     400032: wheelRR
+    400034: Body_001
     2300000: Cylinder
     2300002: Cylinder_001
     2300004: Cube
@@ -53,6 +55,7 @@ ModelImporter:
     2300022: wheelRL
     2300024: wheelFR
     2300026: wheelRR
+    2300028: Body_001
     3300000: Cylinder
     3300002: Cylinder_001
     3300004: Cube
@@ -67,6 +70,7 @@ ModelImporter:
     3300022: wheelRL
     3300024: wheelFR
     3300026: wheelRR
+    3300028: Body_001
     4300000: Cylinder_001
     4300002: Cylinder
     4300004: Cube
@@ -81,6 +85,7 @@ ModelImporter:
     4300022: wheelRL
     4300024: wheelRR
     4300026: wheelFR
+    4300028: Body_001
     7400000: Default Take
     9500000: //RootNode
   materials:
