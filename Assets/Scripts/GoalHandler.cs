@@ -12,7 +12,7 @@ public class GoalHandler : MonoBehaviour {
 
 	private string whereToScore;
 
-	[SerializeField] AudioClip goalScored_Sound, countdown_sound;
+	[SerializeField] AudioClip goalScored_Sound, background_intro_sound, background_body_sound,countdown_sound;
 	[SerializeField] AudioSource source;
 
 	public GoalTrigger redSide, blueSide, yellowSide, greenSide;
@@ -26,12 +26,26 @@ public class GoalHandler : MonoBehaviour {
 	void Start() {
 		updateWhereToScore();
 		eHandler = eventHandlerObject.GetComponent<Event_Handler>();
+
 		source.PlayOneShot(countdown_sound, 0.1f);
-		eHandler.startCountdown();
+        StartCoroutine(backgroundMusic());
+        eHandler.startCountdown();
 	}
 
-   
+    IEnumerator backgroundMusic()
+    {
 
+        source.PlayOneShot(background_intro_sound);
+        yield return new WaitForSeconds(background_intro_sound.length);
+        source.PlayOneShot(background_body_sound);
+        if(gameTimer.timerSeconds > 0)
+        {
+            yield return new WaitForSeconds(background_intro_sound.length);
+            source.PlayOneShot(background_body_sound);
+        }
+
+    }
+   
 
 	// Update is called once per frame
 	void Update() {

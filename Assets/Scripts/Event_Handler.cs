@@ -26,14 +26,17 @@ public class Event_Handler : MonoBehaviour {
 	private LittleRocketLeague.Car car_script;
 
 	Transform event_transform;
+    private Quaternion initialPosition;
 
-	// Use this for initialization
-	void Start() {
-		event_text = event_object.GetComponent<Text>();
+    // Use this for initialization
+    void Start() {
+        
+        event_text = event_object.GetComponent<Text>();
 		event_transform = event_text.GetComponent<Transform>();
 		car_script = car_object.GetComponent<LittleRocketLeague.Car>();
-       
-	}
+        initialPosition = event_transform.rotation;
+
+    }
 
 	//need this otherwise start is never called? confused
 	void OnEnable() {
@@ -68,7 +71,8 @@ public class Event_Handler : MonoBehaviour {
 
 	private void initGoal() {
 		event_object.SetActive(true);
-		event_transform.localScale = new Vector3(0.2f, 0.2f, 0.2f);
+        event_transform.rotation = initialPosition;
+        event_transform.localScale = new Vector3(0.2f, 0.2f, 0.2f);
 		event_text.text = goal_text;
 		size_count = 0;
       

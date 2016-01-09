@@ -3131,6 +3131,10 @@ MonoBehaviour:
   explosion: {fileID: 1467025953}
   eventHandlerObject: {fileID: 1653512123}
   goalScored_Sound: {fileID: 8300000, guid: fca4657d82bc63a4c88bc53c981e26e4, type: 3}
+  background_intro_sound: {fileID: 8300000, guid: aa47fac0e292d8449acae2f296ff7fcc,
+    type: 3}
+  background_body_sound: {fileID: 8300000, guid: 2b54202252676cc48b257b27c0269c3b,
+    type: 3}
   countdown_sound: {fileID: 8300000, guid: ef5397236e2317e47896ab1953681fab, type: 3}
   source: {fileID: 688981871}
   redSide: {fileID: 1079657920}

@@ -44,14 +44,11 @@ public class CountDown : MonoBehaviour {
 
 	void decreaseTimeLeft() {
 		timerSeconds--;
-
 		if (!isEndGameTimer) {
 			if (timerSeconds <= 0) {
                 if (endOfGame)
                 {
-                   
-                    CancelInvoke("decreaseTimeLeft");
-
+                   // CancelInvoke("decreaseTimeLeft");
                 }
                 else
                 {
@@ -59,14 +56,9 @@ public class CountDown : MonoBehaviour {
                     endOfGame = true;
                     source.PlayOneShot(endRound_Sound);
                 }
-                
-               
-             
-				
 			}
 		}
 		setTime();
-        
 	}
 
 	void setTime() {
