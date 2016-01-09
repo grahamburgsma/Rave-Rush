@@ -12,6 +12,8 @@ public class CountDown : MonoBehaviour {
 	[SerializeField] bool isEndGameTimer;
 	[SerializeField] GameObject car;
 
+    public bool endOfGame;
+
 	// Use this for initialization
 	void Start() {
 
@@ -21,9 +23,9 @@ public class CountDown : MonoBehaviour {
 	}
 
 
-	public void startCounter() {
-		timerSeconds = 6;
-		InvokeRepeating("decreaseTimeLeft", 1.0f, 1.0f);
+	public void startGameIsOverCounter() {
+		//timerSeconds = 6;
+		//InvokeRepeating("decreaseTimeLeft", 1.0f, 1.0f);
 	}
 
     public void startGameClock()
@@ -45,10 +47,22 @@ public class CountDown : MonoBehaviour {
 
 		if (!isEndGameTimer) {
 			if (timerSeconds <= 0) {
-				timerSeconds = 0;
-				setTime();
-				source.PlayOneShot(endRound_Sound);
-				CancelInvoke("decreaseTimeLeft");
+                if (endOfGame)
+                {
+                   
+                    CancelInvoke("decreaseTimeLeft");
+
+                }
+                else
+                {
+                    timerSeconds = 5;
+                    endOfGame = true;
+                    source.PlayOneShot(endRound_Sound);
+                }
+                
+               
+             
+				
 			}
 		}
 		setTime();

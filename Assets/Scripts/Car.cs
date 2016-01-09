@@ -172,14 +172,11 @@ namespace LittleRocketLeague {
 		void OnCollisionEnter(Collision collision) {
 
 			if (collision.gameObject.tag == "Ball") {
-
-				//last_ball_hit = Time.time;
 				float current_hit = Time.time;
 				float difference = current_hit - last_ball_hit;
 				if (difference > 1.5f && collision.relativeVelocity.magnitude > 200) {
 					System.Random r = new System.Random();
 					int coolText = r.Next(1, 3);
-					//int coolText = 1;
 					eHandler.startRandomHitBallText(coolText);
 
 					if (coolText == 1) {

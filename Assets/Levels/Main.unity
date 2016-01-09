@@ -1837,7 +1837,6 @@ Transform:
   - {fileID: 505720292}
   - {fileID: 1653512124}
   - {fileID: 183683768}
-  - {fileID: 1591534573}
   m_Father: {fileID: 0}
   m_RootOrder: 1
 --- !u!1001 &146346983
@@ -2016,6 +2015,7 @@ MonoBehaviour:
   endRound_Sound: {fileID: 8300000, guid: 532090f775793f1428bd1e5caaa5fc4c, type: 3}
   isEndGameTimer: 0
   car: {fileID: 116362488}
+  endOfGame: 0
 --- !u!4 &183683768
 Transform:
   m_ObjectHideFlags: 0
@@ -3138,7 +3138,6 @@ MonoBehaviour:
   yellowSide: {fileID: 1484260168}
   greenSide: {fileID: 371676237}
   gameTimer: {fileID: 183683767}
-  end_gameTimer: {fileID: 1591534575}
 --- !u!4 &505720292
 Transform:
   m_ObjectHideFlags: 0
@@ -7521,125 +7520,6 @@ Transform:
   - {fileID: 1467025956}
   m_Father: {fileID: 0}
   m_RootOrder: 12
---- !u!1 &1591534572
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 1591534573}
-  - 114: {fileID: 1591534575}
-  - 82: {fileID: 1591534574}
-  m_Layer: 0
-  m_Name: End game time (hidden)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1591534573
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1591534572}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -785.40936, y: -556.27185, z: 824.85}
-  m_LocalScale: {x: 22, y: 22, z: 22}
-  m_Children: []
-  m_Father: {fileID: 136128746}
-  m_RootOrder: 3
---- !u!82 &1591534574
-AudioSource:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1591534572}
-  m_Enabled: 1
-  serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
-  m_Volume: 1
-  m_Pitch: 1
-  Loop: 0
-  Mute: 0
-  Spatialize: 0
-  Priority: 128
-  DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
-  Pan2D: 0
-  rolloffMode: 0
-  BypassEffects: 0
-  BypassListenerEffects: 0
-  BypassReverbZones: 0
-  rolloffCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-    - time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  panLevelCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 0
-  spreadCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  reverbZoneMixCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 0
---- !u!114 &1591534575
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1591534572}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 888fd2bb5af14e84e908404305737403, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  timerText: {fileID: 149894544}
-  timerSeconds: 10
-  endRound_Sound: {fileID: 8300000, guid: 532090f775793f1428bd1e5caaa5fc4c, type: 3}
-  isEndGameTimer: 1
-  car: {fileID: 116362488}
 --- !u!1 &1608808281 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 100000, guid: 4403aa0b947e34282bd2a139a647e506, type: 3}

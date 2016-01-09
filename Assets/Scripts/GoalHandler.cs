@@ -16,7 +16,8 @@ public class GoalHandler : MonoBehaviour {
 	[SerializeField] AudioSource source;
 
 	public GoalTrigger redSide, blueSide, yellowSide, greenSide;
-	[SerializeField] CountDown gameTimer, end_gameTimer;
+    [SerializeField]
+    CountDown gameTimer;
 
 	private int totalScored, blueGoals, redGoals, yellowGoals, greenGoals;
 	private bool endStarted;
@@ -35,22 +36,19 @@ public class GoalHandler : MonoBehaviour {
 	// Update is called once per frame
 	void Update() {
 		Color _sideColor = Color.red;
-		if (gameTimer.timerSeconds <= 0) {
+
+		if (gameTimer.endOfGame) {
+
 			whereToScoreText.text = "Game Over";
 
 			ball.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
 			car.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
 			car.GetComponent<LittleRocketLeague.Car>().InputEnabled = false;
 
-			if (!endStarted) {
-				endStarted = true;
-				end_gameTimer.startCounter();
-
-			} else {
-				if (end_gameTimer.timerSeconds <= 0) {
+			if (gameTimer.timerSeconds <= 0) {
 					SceneManager.LoadScene(0);
-				}
 			}
+			
 		} else {
 			switch (whereToScore) {
 				case "Red":
