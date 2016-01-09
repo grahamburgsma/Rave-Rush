@@ -7,7 +7,10 @@ public class Event_Handler : MonoBehaviour {
 	[SerializeField]
 	GameObject event_object, car_object;
 
-	private Text event_text;
+    [SerializeField]
+    CountDown gameTimer;
+
+    private Text event_text;
 
 	public float size_count;
 
@@ -124,7 +127,7 @@ public class Event_Handler : MonoBehaviour {
 			counting_down--;
 		} else if (!event_text.text.Equals(go_text)) {
 			car_script.InputEnabled = true;
-
+            gameTimer.startGameClock();
 			event_text.text = go_text;
 			size_count = 0;
 			event_transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);

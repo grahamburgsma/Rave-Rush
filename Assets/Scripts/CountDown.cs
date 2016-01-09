@@ -14,16 +14,10 @@ public class CountDown : MonoBehaviour {
 
 	// Use this for initialization
 	void Start() {
-		
-		
-		if (!isEndGameTimer) {
-			timerSeconds = PlayerPrefs.GetInt("GameLength");
-			InvokeRepeating("decreaseTimeLeft", 1.0f, 1.0f);
-		}
 
 		source = GetComponent<AudioSource>();
-
-		setTime();
+        timerSeconds = PlayerPrefs.GetInt("GameLength");
+        setTime();
 	}
 
 
@@ -31,6 +25,15 @@ public class CountDown : MonoBehaviour {
 		timerSeconds = 6;
 		InvokeRepeating("decreaseTimeLeft", 1.0f, 1.0f);
 	}
+
+    public void startGameClock()
+    {
+        if (!isEndGameTimer)
+        {
+           // timerSeconds = PlayerPrefs.GetInt("GameLength");
+            InvokeRepeating("decreaseTimeLeft", 1.0f, 1.0f);
+        }
+    }
 
 	void Update() {
        
@@ -54,7 +57,7 @@ public class CountDown : MonoBehaviour {
 
 	void setTime() {
 		if (!isEndGameTimer) {
-			TimeSpan timeSpan = TimeSpan.FromSeconds(timerSeconds);
+            TimeSpan timeSpan = TimeSpan.FromSeconds(timerSeconds);
 			String timeText = string.Format("{0:0}:{1:00}", timeSpan.Minutes, timeSpan.Seconds);
 			timerText.text = timeText;
 		}

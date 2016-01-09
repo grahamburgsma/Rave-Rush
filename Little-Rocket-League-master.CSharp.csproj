@@ -76,7 +76,7 @@
     <Compile Include="Assets\Scripts\GoalHandler.cs" />
     <Compile Include="Assets\Scripts\GoalTrigger.cs" />
     <Compile Include="Assets\Scripts\JumpTrigger.cs" />
-    <Compile Include="Assets\Scripts\Menu_Handler.cs" />
+    <Compile Include="Assets\Scripts\MenuHandler.cs" />
     <Compile Include="Assets\Scripts\Side Triggers\BlueTrigger.cs" />
     <Compile Include="Assets\Scripts\Side Triggers\GreenTrigger.cs" />
     <Compile Include="Assets\Scripts\Side Triggers\RedTrigger.cs" />
