@@ -35,13 +35,12 @@ public class GoalHandler : MonoBehaviour {
     IEnumerator backgroundMusic()
     {
 
-        source.PlayOneShot(background_intro_sound);
+        source.PlayOneShot(background_intro_sound,0.1f);
         yield return new WaitForSeconds(background_intro_sound.length);
-        source.PlayOneShot(background_body_sound);
-        if(gameTimer.timerSeconds > 0)
+        if (gameTimer.timerSeconds > 0)
         {
             yield return new WaitForSeconds(background_intro_sound.length);
-            source.PlayOneShot(background_body_sound);
+            source.PlayOneShot(background_body_sound,0.1f);
         }
 
     }
