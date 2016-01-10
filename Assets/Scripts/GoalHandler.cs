@@ -39,8 +39,8 @@ public class GoalHandler : MonoBehaviour {
 		source.PlayOneShot(background_intro_sound, 0.1f);
 		yield return new WaitForSeconds(background_intro_sound.length);
 		if (gameTimer.timerSeconds > 0) {
-			yield return new WaitForSeconds(background_intro_sound.length);
-			source.PlayOneShot(background_body_sound, 0.1f);
+            source.PlayOneShot(background_body_sound, 0.1f);
+            yield return new WaitForSeconds(background_intro_sound.length);
 		}
 
 	}
@@ -58,8 +58,71 @@ public class GoalHandler : MonoBehaviour {
 	}
 
 	void discoUpdate() {
+        Color _sideColor = Color.red;
 
-	}
+        if (gameTimer.endOfGame)
+        {
+
+            whereToScoreText.text = "Game Over";
+
+            ball.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
+            car.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
+            car.GetComponent<LittleRocketLeague.Car>().InputEnabled = false;
+
+            if (gameTimer.timerSeconds <= 0)
+            {
+                SceneManager.LoadScene(0);
+            }
+
+        }
+        else
+        {
+            switch (whereToScore)
+            {
+                case "Red":
+                    if (redSide.goalsScored > 0)
+                    {
+                        redGoals++;
+                        showExplosion(Color.red);
+                        updateGoalsScored();
+
+                    }
+                    break;
+                case "Blue":
+                    if (blueSide.goalsScored > 0)
+                    {
+                        blueGoals++;
+                        showExplosion(Color.blue);
+                        updateGoalsScored();
+
+                    }
+                    break;
+                case "Green":
+                    if (greenSide.goalsScored > 0)
+                    {
+                        greenGoals++;
+                        showExplosion(Color.green);
+                        updateGoalsScored();
+
+                    }
+                    break;
+                case "Yellow":
+                    if (yellowSide.goalsScored > 0)
+                    {
+                        yellowGoals++;
+                        showExplosion(Color.yellow);
+                        updateGoalsScored();
+
+                    }
+                    break;
+            }
+
+            redSide.goalsScored = 0;
+            blueSide.goalsScored = 0;
+            greenSide.goalsScored = 0;
+            yellowSide.goalsScored = 0;
+        }
+    }
 
 	void normalUpdate() {
 		Color _sideColor = Color.red;

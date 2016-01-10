@@ -2043,7 +2043,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timerText: {fileID: 149894544}
   timerSeconds: 900
-  endRoundSound: {fileID: 0}
+  endRoundSound: {fileID: 8300000, guid: 532090f775793f1428bd1e5caaa5fc4c, type: 3}
   isEndGameTimer: 0
   car: {fileID: 116362488}
   endOfGame: 0
@@ -3313,13 +3313,13 @@ MonoBehaviour:
     type: 3}
   background_body_sound: {fileID: 8300000, guid: 2b54202252676cc48b257b27c0269c3b,
     type: 3}
-  countdown_sound: {fileID: 8300000, guid: ef5397236e2317e47896ab1953681fab, type: 3}
+  countdown_sound: {fileID: 8300000, guid: 5f0aa691fec01a14fa6ebdbc9e05a670, type: 3}
   source: {fileID: 688981871}
+  gameTimer: {fileID: 183683767}
   redSide: {fileID: 1079657920}
   blueSide: {fileID: 329350756}
   yellowSide: {fileID: 1484260168}
   greenSide: {fileID: 371676237}
-  gameTimer: {fileID: 183683767}
   isDisco: 1
 --- !u!4 &505720292
 Transform:

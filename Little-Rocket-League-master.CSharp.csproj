@@ -55,12 +55,17 @@
     <Reference Include="UnityEngine.Networking">
       <HintPath>Library\UnityAssemblies\UnityEngine.Networking.dll</HintPath>
     </Reference>
+    <Reference Include="UnityEngine.Networking">
+      <HintPath>Library\UnityAssemblies\UnityEngine.Networking.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UI">
+      <HintPath>Library\UnityAssemblies\UnityEngine.UI.dll</HintPath>
+    </Reference>
     <Reference Include="UnityEditor">
       <HintPath>Library\UnityAssemblies\UnityEditor.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\AntiRoll.cs" />
     <Compile Include="Assets\Scripts\Arrow.cs" />
     <Compile Include="Assets\Scripts\BombTrigger.cs" />
     <Compile Include="Assets\Scripts\Camera.cs" />
@@ -68,15 +73,11 @@
     <Compile Include="Assets\Scripts\CountDown.cs" />
     <Compile Include="Assets\Scripts\Disco Scripts\DiscoBallHandler.cs" />
     <Compile Include="Assets\Scripts\Disco Scripts\DiscoGoalHandler.cs" />
-    <Compile Include="Assets\Scripts\Event_Handler.cs" />
+    <Compile Include="Assets\Scripts\EventHandler.cs" />
     <Compile Include="Assets\Scripts\GoalHandler.cs" />
     <Compile Include="Assets\Scripts\GoalTrigger.cs" />
     <Compile Include="Assets\Scripts\JumpTrigger.cs" />
     <Compile Include="Assets\Scripts\MenuHandler.cs" />
-    <Compile Include="Assets\Scripts\Side Triggers\BlueTrigger.cs" />
-    <Compile Include="Assets\Scripts\Side Triggers\GreenTrigger.cs" />
-    <Compile Include="Assets\Scripts\Side Triggers\RedTrigger.cs" />
-    <Compile Include="Assets\Scripts\Side Triggers\YellowTrigger.cs" />
     <Compile Include="Assets\Scripts\SpinTrigger.cs" />
     <Compile Include="Assets\Scripts\Wheel.cs" />
   </ItemGroup>
