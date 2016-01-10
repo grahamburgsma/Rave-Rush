@@ -21,6 +21,7 @@ public class GoalHandler : MonoBehaviour {
 
 	private int totalScored, blueGoals, redGoals, yellowGoals, greenGoals;
 	private bool endStarted;
+    public bool isDisco;
 
 	// Use this for initialization
 	void Start() {
@@ -28,9 +29,13 @@ public class GoalHandler : MonoBehaviour {
 		eHandler = eventHandlerObject.GetComponent<Event_Handler>();
 
 		source.PlayOneShot(countdown_sound, 0.1f);
-        StartCoroutine(backgroundMusic());
+
+        if (isDisco) { 
+            StartCoroutine(backgroundMusic());
+        }
+
         eHandler.startCountdown();
-	}
+    }
 
     IEnumerator backgroundMusic()
     {
@@ -48,62 +53,90 @@ public class GoalHandler : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update() {
-		Color _sideColor = Color.red;
 
-		if (gameTimer.endOfGame) {
-
-			whereToScoreText.text = "Game Over";
-
-			ball.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
-			car.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
-			car.GetComponent<LittleRocketLeague.Car>().InputEnabled = false;
-
-			if (gameTimer.timerSeconds <= 0) {
-					SceneManager.LoadScene(0);
-			}
-			
-		} else {
-			switch (whereToScore) {
-				case "Red":
-					if (redSide.goalsScored > 0) {
-						redGoals++;
-						showExplosion(Color.red);
-						updateGoalsScored();
-                        
-					}
-					break;
-				case "Blue":
-					if (blueSide.goalsScored > 0) {
-						blueGoals++;
-						showExplosion(Color.blue);
-						updateGoalsScored();
-                       
-					}
-					break;
-				case "Green":
-					if (greenSide.goalsScored > 0) {
-						greenGoals++;
-						showExplosion(Color.green);
-						updateGoalsScored();
-                       
-					}
-					break;
-				case "Yellow":
-					if (yellowSide.goalsScored > 0) {
-						yellowGoals++;
-						showExplosion(Color.yellow);
-						updateGoalsScored();
-                        
-					}
-					break;
-			}
-            
-			redSide.goalsScored = 0;
-			blueSide.goalsScored = 0;
-			greenSide.goalsScored = 0;
-			yellowSide.goalsScored = 0;
-		}   
+        if (isDisco)
+        {
+            discoUpdate();
+        }
+        else
+        {
+            normalUpdate();
+        }
+		
 	}
+
+    void discoUpdate()
+    {
+
+    }
+
+    void normalUpdate()
+    {
+        Color _sideColor = Color.red;
+
+        if (gameTimer.endOfGame)
+        {
+
+            whereToScoreText.text = "Game Over";
+
+            ball.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
+            car.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
+            car.GetComponent<LittleRocketLeague.Car>().InputEnabled = false;
+
+            if (gameTimer.timerSeconds <= 0)
+            {
+                SceneManager.LoadScene(0);
+            }
+
+        }
+        else
+        {
+            switch (whereToScore)
+            {
+                case "Red":
+                    if (redSide.goalsScored > 0)
+                    {
+                        redGoals++;
+                        showExplosion(Color.red);
+                        updateGoalsScored();
+
+                    }
+                    break;
+                case "Blue":
+                    if (blueSide.goalsScored > 0)
+                    {
+                        blueGoals++;
+                        showExplosion(Color.blue);
+                        updateGoalsScored();
+
+                    }
+                    break;
+                case "Green":
+                    if (greenSide.goalsScored > 0)
+                    {
+                        greenGoals++;
+                        showExplosion(Color.green);
+                        updateGoalsScored();
+
+                    }
+                    break;
+                case "Yellow":
+                    if (yellowSide.goalsScored > 0)
+                    {
+                        yellowGoals++;
+                        showExplosion(Color.yellow);
+                        updateGoalsScored();
+
+                    }
+                    break;
+            }
+
+            redSide.goalsScored = 0;
+            blueSide.goalsScored = 0;
+            greenSide.goalsScored = 0;
+            yellowSide.goalsScored = 0;
+        }
+    }
 
 	void updateGoalsScored() {
 		//Set Goal event text

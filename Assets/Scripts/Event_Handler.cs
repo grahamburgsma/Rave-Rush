@@ -5,36 +5,38 @@ using UnityEngine.UI;
 public class Event_Handler : MonoBehaviour {
 
 	[SerializeField]
-	GameObject event_object, car_object;
+	GameObject eventTextObject, carObject;
 
     [SerializeField]
     CountDown gameTimer;
 
-    private Text event_text;
+    private Text eventText;
 
-	public float size_count;
+	public float textScale;
 
-	private bool is_countdown, is_goal, is_endgame, is_hitball;
+	private bool isCountdown, isGoal, isEndgame, isHitball;
 	private int counting_down = 3;
 
-	private string go_text = "GO!!!!!!!!!";
-	private string goal_text = "GGOOOOOAALLLLLLLL";
-	private string game_over_text = "Game Over";
-	private string hit_ball_text_sick = "SSSSIIIICCCKKK";
-	private string hit_ball_text_awesome = "AWESOMEEEEE";
+	private string GO_TEXT = "GO!!!!!!!!!";
+	private string GOAL_TEXT = "GGOOOOOAALLLLLLLL";
+	private string GAME_OVER_TEXT = "Game Over";
+	private string HIT_BALL_TEXT_CUSTOM_1 = "SSSSIIIICCCKKK";
+	private string HIT_BALL_TEXT_CUSTOM_2 = "AWESOMEEEEE";
+    private Quaternion startRotation;
+    private bool isCustom1, isCustom2;
 
-	private LittleRocketLeague.Car car_script;
+    private LittleRocketLeague.Car carScript;
 
-	Transform event_transform;
+	Transform eventTextTransform;
     private Quaternion initialPosition;
 
     // Use this for initialization
     void Start() {
         
-        event_text = event_object.GetComponent<Text>();
-		event_transform = event_text.GetComponent<Transform>();
-		car_script = car_object.GetComponent<LittleRocketLeague.Car>();
-        initialPosition = event_transform.rotation;
+        eventText = eventTextObject.GetComponent<Text>();
+		eventTextTransform = eventText.GetComponent<Transform>();
+		carScript = carObject.GetComponent<LittleRocketLeague.Car>();
+        initialPosition = eventTextTransform.rotation;
 
     }
 
@@ -47,15 +49,15 @@ public class Event_Handler : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update() {
-		if (is_countdown) {
+		if (isCountdown) {
 			countdownUpdateCall();
 		}
 
-		if (is_goal) {
+		if (isGoal) {
 			goalUpdateCall();
 		}
 
-		if (is_hitball) {
+		if (isHitball) {
 			hitBallUpdateCall();
 		}
         
@@ -66,26 +68,26 @@ public class Event_Handler : MonoBehaviour {
     */
 	public void startGoalDisplay() {
 		initGoal();
-		is_goal = true;
+		isGoal = true;
 	}
 
 	private void initGoal() {
-		event_object.SetActive(true);
-        event_transform.rotation = initialPosition;
-        event_transform.localScale = new Vector3(0.2f, 0.2f, 0.2f);
-		event_text.text = goal_text;
-		size_count = 0;
+		eventTextObject.SetActive(true);
+        eventTextTransform.rotation = initialPosition;
+        eventTextTransform.localScale = new Vector3(0.2f, 0.2f, 0.2f);
+		eventText.text = GOAL_TEXT;
+		textScale = 0;
       
-		event_object.GetComponent<Text>().CrossFadeAlpha(0.0f, 2f, false);
+		eventTextObject.GetComponent<Text>().CrossFadeAlpha(0.0f, 2f, false);
 	}
 
 	private void goalUpdateCall() {
-		if (size_count < 0.015f) {
-			size_count += 0.0001f;
-			event_transform.localScale += new Vector3(size_count, size_count, size_count);
+		if (textScale < 0.015f) {
+			textScale += 0.0001f;
+			eventTextTransform.localScale += new Vector3(textScale, textScale, textScale);
 		} else {
-			event_object.SetActive(false);
-			is_goal = false;
+			eventTextObject.SetActive(false);
+			isGoal = false;
 
 
 		}
@@ -94,29 +96,30 @@ public class Event_Handler : MonoBehaviour {
 	/*
     ****************************************************    COUNTDOWN RELATED **********************
     */
+
 	public void startCountdown() {
 
 		 
-		car_script.InputEnabled = false;
-		event_object.SetActive(true);
+		carScript.InputEnabled = false;
+		eventTextObject.SetActive(true);
 		updateCountdown();
-		is_countdown = true;
+		isCountdown = true;
 	}
 
 	private void countdownUpdateCall() {
-		if (event_text.text.Equals(go_text)) {
-			if (size_count < 0.015f) {
-				size_count += 0.0003f;
-				event_transform.localScale -= new Vector3(size_count, size_count, size_count);
+		if (eventText.text.Equals(GO_TEXT)) {
+			if (textScale < 0.015f) {
+				textScale += 0.0003f;
+				eventTextTransform.localScale -= new Vector3(textScale, textScale, textScale);
 			} else {
 				updateCountdown();
 
 			}
             
 		} else {
-			if (size_count < 0.009f && !event_text.text.Equals(go_text)) {
-				size_count += 0.0001f;
-				event_transform.localScale -= new Vector3(size_count, size_count, size_count);
+			if (textScale < 0.009f && !eventText.text.Equals(GO_TEXT)) {
+				textScale += 0.0001f;
+				eventTextTransform.localScale -= new Vector3(textScale, textScale, textScale);
 			} else {
 				updateCountdown();
 			}
@@ -125,19 +128,19 @@ public class Event_Handler : MonoBehaviour {
 
 	private void updateCountdown() {
 		if (counting_down > 0) {
-			size_count = 0;
-			event_transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
-			event_text.text = counting_down.ToString();
+			textScale = 0;
+			eventTextTransform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+			eventText.text = counting_down.ToString();
 			counting_down--;
-		} else if (!event_text.text.Equals(go_text)) {
-			car_script.InputEnabled = true;
+		} else if (!eventText.text.Equals(GO_TEXT)) {
+			carScript.InputEnabled = true;
             gameTimer.startGameClock();
-			event_text.text = go_text;
-			size_count = 0;
-			event_transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+			eventText.text = GO_TEXT;
+			textScale = 0;
+			eventTextTransform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
 		} else {
-			event_object.SetActive(false);
-			is_countdown = false;
+			eventTextObject.SetActive(false);
+			isCountdown = false;
 		}
 	}
 
@@ -148,24 +151,24 @@ public class Event_Handler : MonoBehaviour {
 	public void startEndGame() {
 		
 		initEndGame();
-		is_endgame = true;
+		isEndgame = true;
 	}
 
 	private void initEndGame() {
-		event_object.SetActive(true);
+		eventTextObject.SetActive(true);
 
-		event_transform.localScale = new Vector3(0.2f, 0.2f, 0.2f);
-		event_text.text = game_over_text;
-		size_count = 0;
+		eventTextTransform.localScale = new Vector3(0.2f, 0.2f, 0.2f);
+		eventText.text = GAME_OVER_TEXT;
+		textScale = 0;
 	}
 
 	private void endGameUpdateCall() {
-		if (size_count < 0.015f) {
-			size_count += 0.0001f;
-			event_transform.localScale += new Vector3(size_count, size_count, size_count);
+		if (textScale < 0.015f) {
+			textScale += 0.0001f;
+			eventTextTransform.localScale += new Vector3(textScale, textScale, textScale);
 		} else {
-			event_object.SetActive(false);
-			is_endgame = false;
+			eventTextObject.SetActive(false);
+			isEndgame = false;
 
 
 		}
@@ -175,72 +178,71 @@ public class Event_Handler : MonoBehaviour {
   ****************************************************    Random Event **********************
   */
 
-	Quaternion start_rotation;
-	bool is_sick, is_awesome;
+	
 
 	public void startRandomHitBallText(int whichText) {
-		if (!is_sick || !is_awesome) {
-			start_rotation = event_transform.rotation;
+		if (!isCustom1 || !isCustom2) {
+			startRotation = eventTextTransform.rotation;
 			if (whichText == 1) {
 				initHitBall_sick();
 			} else if (whichText == 2) {
-				initHitBall_awesome();
+				initCustomHitball2();
 			}
 
-			is_hitball = true;
+			isHitball = true;
 		}
 	}
 
 	private void initHitBall_sick() {
-		is_sick = true;
-		event_object.SetActive(true);
-		event_transform.localScale = new Vector3(0.2f, 0.2f, 0.2f);
-		event_text.text = hit_ball_text_sick;
-		size_count = 0;
-		//event_object.GetComponent<Text>().CrossFadeAlpha(0.0f, 2f, false);
+		isCustom1 = true;
+		eventTextObject.SetActive(true);
+		eventTextTransform.localScale = new Vector3(0.2f, 0.2f, 0.2f);
+		eventText.text = HIT_BALL_TEXT_CUSTOM_1;
+		textScale = 0;
+		//eventTextObject.GetComponent<Text>().CrossFadeAlpha(0.0f, 2f, false);
 	}
 
    
 
 	private void hitBallUpdateCall() {
-		if (is_sick) {
-			if (size_count < 0.012f) {
-				size_count += 0.0001f;
-				event_transform.localScale += new Vector3(size_count, size_count, size_count);
+		if (isCustom1) {
+			if (textScale < 0.012f) {
+				textScale += 0.0001f;
+				eventTextTransform.localScale += new Vector3(textScale, textScale, textScale);
 
-				event_transform.Rotate(Vector3.left, 45.0f * Time.deltaTime);
+				eventTextTransform.Rotate(Vector3.left, 45.0f * Time.deltaTime);
 
 			} else {
-				event_object.SetActive(false);
-				is_hitball = false;
-				is_sick = false;
-				event_transform.rotation = start_rotation;
+				eventTextObject.SetActive(false);
+				isHitball = false;
+				isCustom1 = false;
+				eventTextTransform.rotation = startRotation;
 
 
 			}
-		} else if (is_awesome) {
-			if (size_count < 0.01f) {
-				size_count += 0.0001f;
-				event_transform.localScale += new Vector3(size_count, size_count, size_count);
+		} else if (isCustom2) {
+			if (textScale < 0.01f) {
+				textScale += 0.0001f;
+				eventTextTransform.localScale += new Vector3(textScale, textScale, textScale);
 
-				event_transform.Rotate(Vector3.up, 50.0f * Time.deltaTime);
+				eventTextTransform.Rotate(Vector3.up, 50.0f * Time.deltaTime);
 
 			} else {
-				event_object.SetActive(false);
-				is_hitball = false;
-				is_awesome = false;
-				event_transform.rotation = start_rotation;
+				eventTextObject.SetActive(false);
+				isHitball = false;
+				isCustom2 = false;
+				eventTextTransform.rotation = startRotation;
 			}
 		}
 	}
 
 
-	private void initHitBall_awesome() {
-		is_awesome = true;
-		event_object.SetActive(true);
-		event_transform.localScale = new Vector3(0.2f, 0.2f, 0.2f);
-		event_text.text = hit_ball_text_awesome;
-		size_count = 0;
-		//event_object.GetComponent<Text>().CrossFadeAlpha(0.0f, 2f, false);
+	private void initCustomHitball2() {
+		isCustom2 = true;
+		eventTextObject.SetActive(true);
+		eventTextTransform.localScale = new Vector3(0.2f, 0.2f, 0.2f);
+		eventText.text = HIT_BALL_TEXT_CUSTOM_2;
+		textScale = 0;
+		//eventTextObject.GetComponent<Text>().CrossFadeAlpha(0.0f, 2f, false);
 	}
 }

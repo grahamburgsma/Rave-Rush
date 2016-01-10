@@ -17,11 +17,16 @@ public class DiscoBallHandler : MonoBehaviour {
     int i = 0;
 	void Update () {
 
-        discoballTransform.Rotate(0, 60f * Time.deltaTime, 0, Space.Self);
-        i++;
-        if(i >= 360)
+        foreach (Transform child in discoballTransform)
         {
-            i = 0;
+            //if (child.rotation.y > 360.0f)
+            //{
+                //child.Rotate(0, 0, 0, Space.Self);
+            //}
+            child.Rotate(0, 10f * Time.deltaTime, 0, Space.Self);
         }
+        
+        
+      
     }
 }
