@@ -17,6 +17,7 @@ public class Camera : MonoBehaviour {
 	}
 
 	void Update() {
+		//Enable/Disable ball camera
 		if (Input.GetKeyDown(KeyCode.B)) {
 			if (ballCam)
 				lookObject = car;
@@ -26,13 +27,14 @@ public class Camera : MonoBehaviour {
 		}
 	}
 
+	//LateUpdate happens after all other updates are done
 	void LateUpdate() {
 		float wantedAngle = rotationVector.y;
 		float wantedHeight = lookObject.position.y + angleHeight;
 		float myAngle = transform.eulerAngles.y;
 		float myHeight = transform.position.y;
 
-		myAngle = Mathf.LerpAngle(myAngle, wantedAngle, rotationDamping * Time.deltaTime);
+		myAngle = Mathf.LerpAngle(myAngle, wantedAngle, rotationDamping * Time.deltaTime); //Lerp gives an animated effect
 		myHeight = Mathf.Lerp(myHeight, wantedHeight, heightDamping * Time.deltaTime);
 		var currentRotation = Quaternion.Euler(0, myAngle, 0);
 
@@ -40,17 +42,18 @@ public class Camera : MonoBehaviour {
 		transform.position -= currentRotation * Vector3.forward * distanceChange;
 		transform.position = new Vector3(transform.position.x + widthOffset, myHeight, transform.position.z);
 
-		if (!ballCam) {
+		if (!ballCam) { //Look at car
 			Vector3 lookAtLocation = car.transform.position;
 			lookAtLocation.y += height;
 			transform.LookAt(lookAtLocation);
-		} else {
+		} else { //Look at ball
 			Quaternion rotation = Quaternion.LookRotation(ball.position - transform.position);
 			transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(rotation * Vector3.forward), rotationDamping * Time.deltaTime);
 		}
 	}
 
 	void FixedUpdate() {
+		//Zooms out the faster you drive
 		Vector3 localVelocity = car.InverseTransformDirection(car.GetComponent<Rigidbody>().velocity);
 
 		if (localVelocity.z < -1.5) {

@@ -1760,7 +1760,6 @@ MonoBehaviour:
     power: 1
     brake: 1
     handbrake: 1
-  COM: {fileID: 296474708}
   turnFactor: 25
   turnForce: 200000
   engineFactor: 8000
@@ -1771,13 +1770,13 @@ MonoBehaviour:
   nitroForce: 50000
   maxVelocity: 500
   downForce: 5500
-  crash_Sound: {fileID: 8300000, guid: 9b17c549c7cb88e439bcec767a9c2fb9, type: 3}
-  ball_hit_Sound: {fileID: 8300000, guid: 40173f0b0404e394b85b828f336f96ed, type: 3}
-  jump_Sound: {fileID: 0}
-  ball_hit_sick: {fileID: 8300000, guid: d72fd6c37165fc64ba351ebf9a842ac7, type: 3}
-  ball_hit_awesome: {fileID: 8300000, guid: 3c9068ddfd147be4a885d339e4508036, type: 3}
+  eventHandler: {fileID: 1653512123}
+  crashSound: {fileID: 8300000, guid: 9b17c549c7cb88e439bcec767a9c2fb9, type: 3}
+  ballHitSound: {fileID: 8300000, guid: 40173f0b0404e394b85b828f336f96ed, type: 3}
+  jumpSound: {fileID: 0}
+  ballHitSick: {fileID: 8300000, guid: d72fd6c37165fc64ba351ebf9a842ac7, type: 3}
+  ballHitAwesome: {fileID: 8300000, guid: 3c9068ddfd147be4a885d339e4508036, type: 3}
   source: {fileID: 688981871}
-  eventHandlerObject: {fileID: 1653512123}
   InputEnabled: 1
 --- !u!4 &116362490 stripped
 Transform:
@@ -2012,7 +2011,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timerText: {fileID: 149894544}
   timerSeconds: 900
-  endRound_Sound: {fileID: 8300000, guid: 532090f775793f1428bd1e5caaa5fc4c, type: 3}
+  endRoundSound: {fileID: 0}
   isEndGameTimer: 0
   car: {fileID: 116362488}
   endOfGame: 0
@@ -2373,6 +2372,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   goalsScored: 0
+  Colour: 
+  handler: {fileID: 505720291}
+  mainLight: {fileID: 0}
 --- !u!82 &329350757
 AudioSource:
   m_ObjectHideFlags: 0
@@ -2671,6 +2673,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   goalsScored: 0
+  Colour: 
+  handler: {fileID: 505720291}
+  mainLight: {fileID: 0}
 --- !u!82 &371676238
 AudioSource:
   m_ObjectHideFlags: 0
@@ -3137,11 +3142,12 @@ MonoBehaviour:
     type: 3}
   countdown_sound: {fileID: 8300000, guid: ef5397236e2317e47896ab1953681fab, type: 3}
   source: {fileID: 688981871}
+  gameTimer: {fileID: 183683767}
   redSide: {fileID: 1079657920}
   blueSide: {fileID: 329350756}
   yellowSide: {fileID: 1484260168}
   greenSide: {fileID: 371676237}
-  gameTimer: {fileID: 183683767}
+  isDisco: 0
 --- !u!4 &505720292
 Transform:
   m_ObjectHideFlags: 0
@@ -3914,7 +3920,7 @@ Light:
   serializedVersion: 6
   m_Type: 1
   m_Color: {r: 1, g: 0.95686275, b: 0.8392157, a: 1}
-  m_Intensity: 0.5
+  m_Intensity: 0.9
   m_Range: 10
   m_SpotAngle: 172
   m_CookieSize: 10
@@ -4110,7 +4116,6 @@ MonoBehaviour:
     power: 1
     brake: 1
     handbrake: 1
-  COM: {fileID: 0}
   turnFactor: 0
   turnForce: 1000000
   engineFactor: 0
@@ -4121,13 +4126,13 @@ MonoBehaviour:
   nitroForce: 50000
   maxVelocity: 250
   downForce: -2500
-  crash_Sound: {fileID: 8300000, guid: 9b17c549c7cb88e439bcec767a9c2fb9, type: 3}
-  ball_hit_Sound: {fileID: 8300000, guid: 40173f0b0404e394b85b828f336f96ed, type: 3}
-  jump_Sound: {fileID: 8300000, guid: bfa3eaf1dcc35ab4ca090bd711f01723, type: 3}
-  ball_hit_sick: {fileID: 0}
-  ball_hit_awesome: {fileID: 0}
+  eventHandler: {fileID: 0}
+  crashSound: {fileID: 0}
+  ballHitSound: {fileID: 0}
+  jumpSound: {fileID: 0}
+  ballHitSick: {fileID: 0}
+  ballHitAwesome: {fileID: 0}
   source: {fileID: 688981871}
-  eventHandlerObject: {fileID: 0}
   InputEnabled: 1
 --- !u!75 &1002794880
 ConstantForce:
@@ -4567,6 +4572,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   goalsScored: 0
+  Colour: 
+  handler: {fileID: 505720291}
+  mainLight: {fileID: 0}
 --- !u!82 &1079657921
 AudioSource:
   m_ObjectHideFlags: 0
@@ -7092,6 +7100,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   goalsScored: 0
+  Colour: 
+  handler: {fileID: 505720291}
+  mainLight: {fileID: 0}
 --- !u!82 &1484260169
 AudioSource:
   m_ObjectHideFlags: 0
@@ -7644,13 +7655,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1653512123}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f519d4293f7dd5f4083e149c91f13139, type: 3}
+  m_Script: {fileID: 11500000, guid: aab66d576a962422ca7db615ede3d867, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  event_object: {fileID: 1131141254}
-  car_object: {fileID: 116362488}
+  eventTextObject: {fileID: 1131141254}
+  carObject: {fileID: 116362488}
   gameTimer: {fileID: 183683767}
-  size_count: 0
+  textScale: 0
 --- !u!1 &1657593026
 GameObject:
   m_ObjectHideFlags: 0

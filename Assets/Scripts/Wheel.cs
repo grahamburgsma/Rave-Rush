@@ -13,6 +13,7 @@ public class Wheel : MonoBehaviour {
 	}
 
 	void Update() {
+		//Moves the wheel mesh to match the WheelCollider suspension
 		wheelCCenter = wheelCollider.transform.TransformPoint(wheelCollider.center);
 
 		if (Physics.Raycast(wheelCCenter, -wheelCollider.transform.up, out hit, wheelCollider.suspensionDistance + wheelCollider.radius)) {

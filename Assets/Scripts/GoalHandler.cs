@@ -5,138 +5,119 @@ using UnityEngine.SceneManagement;
 
 public class GoalHandler : MonoBehaviour {
 
-	[SerializeField] Text scoreText, scoreRedText, scoreGreenText, scoreBlueText, scoreYellowText, whereToScoreText;
+	[SerializeField] Text scoreText = null, scoreRedText = null, scoreGreenText = null, scoreBlueText = null, scoreYellowText = null, whereToScoreText = null;
 	[SerializeField] GameObject arrow, ball, car, explosion, eventHandlerObject;
 
-	private Event_Handler eHandler;
-
-	private string whereToScore;
-
-	[SerializeField] AudioClip goalScored_Sound, background_intro_sound, background_body_sound,countdown_sound;
+	[SerializeField] AudioClip goalScored_Sound = null, background_intro_sound = null, background_body_sound = null, countdown_sound = null;
 	[SerializeField] AudioSource source;
+	[SerializeField] CountDown gameTimer;
 
 	public GoalTrigger redSide, blueSide, yellowSide, greenSide;
-    [SerializeField]
-    CountDown gameTimer;
+	public bool isDisco;
 
 	private int totalScored, blueGoals, redGoals, yellowGoals, greenGoals;
 	private bool endStarted;
-    public bool isDisco;
+	private EventHandler eHandler;
+	private string whereToScore;
 
 	// Use this for initialization
 	void Start() {
 		updateWhereToScore();
-		eHandler = eventHandlerObject.GetComponent<Event_Handler>();
+		eHandler = eventHandlerObject.GetComponent<EventHandler>();
 
 		source.PlayOneShot(countdown_sound, 0.1f);
 
-        if (isDisco) { 
-            StartCoroutine(backgroundMusic());
-        }
+		if (isDisco) { 
+			StartCoroutine(backgroundMusic());
+		}
 
-        eHandler.startCountdown();
-    }
+		eHandler.startCountdown();
+	}
 
-    IEnumerator backgroundMusic()
-    {
+	IEnumerator backgroundMusic() {
 
-        source.PlayOneShot(background_intro_sound,0.1f);
-        yield return new WaitForSeconds(background_intro_sound.length);
-        if (gameTimer.timerSeconds > 0)
-        {
-            yield return new WaitForSeconds(background_intro_sound.length);
-            source.PlayOneShot(background_body_sound,0.1f);
-        }
+		source.PlayOneShot(background_intro_sound, 0.1f);
+		yield return new WaitForSeconds(background_intro_sound.length);
+		if (gameTimer.timerSeconds > 0) {
+			yield return new WaitForSeconds(background_intro_sound.length);
+			source.PlayOneShot(background_body_sound, 0.1f);
+		}
 
-    }
+	}
    
 
 	// Update is called once per frame
 	void Update() {
 
-        if (isDisco)
-        {
-            discoUpdate();
-        }
-        else
-        {
-            normalUpdate();
-        }
+		if (isDisco) {
+			discoUpdate();
+		} else {
+			normalUpdate();
+		}
 		
 	}
 
-    void discoUpdate()
-    {
+	void discoUpdate() {
 
-    }
+	}
 
-    void normalUpdate()
-    {
-        Color _sideColor = Color.red;
+	void normalUpdate() {
+		Color _sideColor = Color.red;
 
-        if (gameTimer.endOfGame)
-        {
+		if (gameTimer.endOfGame) {
 
-            whereToScoreText.text = "Game Over";
+			whereToScoreText.text = "Game Over";
 
-            ball.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
-            car.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
-            car.GetComponent<LittleRocketLeague.Car>().InputEnabled = false;
+			ball.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
+			car.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
+			car.GetComponent<LittleRocketLeague.Car>().InputEnabled = false;
 
-            if (gameTimer.timerSeconds <= 0)
-            {
-                SceneManager.LoadScene(0);
-            }
+			if (gameTimer.timerSeconds <= 0) {
+				SceneManager.LoadScene(0);
+			}
 
-        }
-        else
-        {
-            switch (whereToScore)
-            {
-                case "Red":
-                    if (redSide.goalsScored > 0)
-                    {
-                        redGoals++;
-                        showExplosion(Color.red);
-                        updateGoalsScored();
+		} else {
+			switch (whereToScore) {
+				case "Red":
+					if (redSide.goalsScored > 0) {
+						redGoals++;
+						showExplosion(Color.red);
+						updateGoalsScored();
 
-                    }
-                    break;
-                case "Blue":
-                    if (blueSide.goalsScored > 0)
-                    {
-                        blueGoals++;
-                        showExplosion(Color.blue);
-                        updateGoalsScored();
+					}
+					break;
+				case "Blue":
+					if (blueSide.goalsScored > 0) {
+						blueGoals++;
+						showExplosion(Color.blue);
+						updateGoalsScored();
 
-                    }
-                    break;
-                case "Green":
-                    if (greenSide.goalsScored > 0)
-                    {
-                        greenGoals++;
-                        showExplosion(Color.green);
-                        updateGoalsScored();
+					}
+					break;
+				case "Green":
+					if (greenSide.goalsScored > 0) {
+						greenGoals++;
+						showExplosion(Color.green);
+						updateGoalsScored();
 
-                    }
-                    break;
-                case "Yellow":
-                    if (yellowSide.goalsScored > 0)
-                    {
-                        yellowGoals++;
-                        showExplosion(Color.yellow);
-                        updateGoalsScored();
+					}
+					break;
+				case "Yellow":
+					if (yellowSide.goalsScored > 0) {
+						yellowGoals++;
+						showExplosion(Color.yellow);
+						updateGoalsScored();
 
-                    }
-                    break;
-            }
+					}
+					break;
+			}
 
-            redSide.goalsScored = 0;
-            blueSide.goalsScored = 0;
-            greenSide.goalsScored = 0;
-            yellowSide.goalsScored = 0;
-        }
-    }
+			redSide.goalsScored = 0;
+			blueSide.goalsScored = 0;
+			greenSide.goalsScored = 0;
+			yellowSide.goalsScored = 0;
+		}
+	}
 
 	void updateGoalsScored() {
 		//Set Goal event text

@@ -4,8 +4,7 @@ using System;
 
 namespace LittleRocketLeague {
 
-	[Serializable]
-	public class Wheel {
+	[Serializable] public class Wheel {
 		public WheelCollider wheelCollider;
 		public Transform wheelTransform;
 		public bool steer = false;
@@ -16,7 +15,6 @@ namespace LittleRocketLeague {
 
 	public class Car : MonoBehaviour {
 		[SerializeField] Wheel[] wheels = new Wheel[0];
-		[SerializeField] Transform COM;
 
 		[Header("Driving & Steering")]
 		[SerializeField] float turnFactor = 0;
@@ -33,19 +31,17 @@ namespace LittleRocketLeague {
 		[Header("Misc")]
 		[SerializeField] float maxVelocity = 500;
 		[SerializeField] float downForce = 2500;
+		[SerializeField] GameObject eventHandler;
 			
 		[Header("Sounds")]
-		[SerializeField]AudioClip crash_Sound;
-		[SerializeField]AudioClip ball_hit_Sound;
-		[SerializeField]AudioClip jump_Sound, ball_hit_sick, ball_hit_awesome;
-		[SerializeField]AudioSource source;
+		[SerializeField] AudioClip crashSound;
+		[SerializeField] AudioClip ballHitSound, jumpSound = null, ballHitSick = null, ballHitAwesome = null;
+		[SerializeField] AudioSource source;
 
-		[Header("Event Handler")]
-		[SerializeField]GameObject eventHandlerObject;
 
 		public bool InputEnabled = true;
 		private bool CanSpin;
-		private Event_Handler eHandler;
+		private EventHandler eHandler;
 
 		private Rigidbody rigidBody;
 		private new ConstantForce constantForce;
@@ -55,14 +51,12 @@ namespace LittleRocketLeague {
 
 		// Use this for initialization
 		void Start() {
-			eHandler = eventHandlerObject.GetComponent<Event_Handler>();
+			eHandler = eventHandler.GetComponent<EventHandler>();
            
 			rigidBody = GetComponent<Rigidbody>();
 			constantForce = GetComponent<ConstantForce>();
 
 			sqrMaxVelocity = (float)Math.Pow(maxVelocity, 2);
-
-//			rigidBody.centerOfMass = COM.position;
 		}
 	 
 		//Visual updates - every frame
@@ -81,8 +75,10 @@ namespace LittleRocketLeague {
 					if (wheel.wheelCollider.isGrounded)
 						numWheelsGrounded++;
 				
+					//Rotate wheel mesh based on wheel rpm
 					wheel.wheelTransform.Rotate(Vector3.forward * wheel.wheelCollider.rpm / 60 * 360 * Time.deltaTime);
 
+					//Rotate wheel mesh based on wheel steering
 					if (wheel.steer) {
 						wheel.wheelTransform.localEulerAngles = new Vector3(-wheel.wheelCollider.steerAngle, wheel.wheelTransform.localEulerAngles.y, wheel.wheelTransform.localEulerAngles.z);
 					}
@@ -95,6 +91,7 @@ namespace LittleRocketLeague {
 					torqueCount--;
 				}
 
+				//Prevents more than one double jump
 				if (numWheelsGrounded > 0)
 					CanSpin = true;
 
@@ -102,7 +99,7 @@ namespace LittleRocketLeague {
 				if (Input.GetKeyDown(KeyCode.J)) {
 					if (numWheelsGrounded > 0) {
 						rigidBody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
-						source.PlayOneShot(jump_Sound);
+						source.PlayOneShot(jumpSound);
 					} else if (CanSpin) {
 						//rotate
 						Vector3 torqueVector = new Vector3(Input.GetAxis("Vertical") * torqueForce, 0, Input.GetAxis("Horizontal") * torqueForce * -1);
@@ -142,7 +139,7 @@ namespace LittleRocketLeague {
 					if (wheel.power)
 						wheel.wheelCollider.motorTorque = driveSpeed;
 
-					if (rigidBody.velocity.magnitude > 150 && turnSpeed > 10)
+					if (rigidBody.velocity.magnitude > 150 && turnSpeed > 10) //Less steer at high speeds
 						turnSpeed -= 5;
 
 					if (wheel.steer)
@@ -152,10 +149,10 @@ namespace LittleRocketLeague {
 				if (numWheelsGrounded > 0) {
 					constantForce.relativeForce = Vector3.down * downForce;
 
-					rigidBody.AddRelativeTorque(Vector3.up * Input.GetAxis("Horizontal") * turnForce, ForceMode.Force);
-					rigidBody.AddRelativeForce(Vector3.forward * Input.GetAxis("Vertical") * engineForce, ForceMode.Force);
+					rigidBody.AddRelativeTorque(Vector3.up * Input.GetAxis("Horizontal") * turnForce, ForceMode.Force); //Turn force
+					rigidBody.AddRelativeForce(Vector3.forward * Input.GetAxis("Vertical") * engineForce, ForceMode.Force); //Driving force
 				} else {
-					constantForce.relativeForce = Vector3.down * downForce / 2; //Maybe don't do this, see how it is
+					constantForce.relativeForce = Vector3.down * downForce / 2;
 				}
 
 				//max speed
@@ -166,30 +163,26 @@ namespace LittleRocketLeague {
 		}
 
 
-		float last_ball_hit = 0.0f;
 
 
 		void OnCollisionEnter(Collision collision) {
 
 			if (collision.gameObject.tag == "Ball") {
-				float current_hit = Time.time;
-				float difference = current_hit - last_ball_hit;
-				if (difference > 1.5f && collision.relativeVelocity.magnitude > 200) {
+				if (collision.relativeVelocity.magnitude > 200) { //If the ball is hit hard, play sound
 					System.Random r = new System.Random();
 					int coolText = r.Next(1, 3);
 					eHandler.startRandomHitBallText(coolText);
 
 					if (coolText == 1) {
-						source.PlayOneShot(ball_hit_sick, 0.5f);
+						source.PlayOneShot(ballHitSick, 0.5f);
 					} else if (coolText == 2) { 
-						source.PlayOneShot(ball_hit_awesome, 0.5f);
+						source.PlayOneShot(ballHitAwesome, 0.5f);
 					}
 				}
-				last_ball_hit = current_hit;
-				source.PlayOneShot(ball_hit_Sound);
+				source.PlayOneShot(ballHitSound);
 			} else {
-				if (collision.relativeVelocity.magnitude > 75) {
-					source.PlayOneShot(crash_Sound, (collision.relativeVelocity.magnitude / 2000));
+				if (collision.relativeVelocity.magnitude > 75) { //If the car has a hard collision, play crash sound
+					source.PlayOneShot(crashSound, (collision.relativeVelocity.magnitude / 2000));
 				}
 			}
 		}

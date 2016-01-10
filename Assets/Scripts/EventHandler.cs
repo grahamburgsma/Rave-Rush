@@ -2,18 +2,13 @@
 using System.Collections;
 using UnityEngine.UI;
 
-public class Event_Handler : MonoBehaviour {
+public class EventHandler : MonoBehaviour {
 
-	[SerializeField]
-	GameObject eventTextObject, carObject;
-
-    [SerializeField]
-    CountDown gameTimer;
-
-    private Text eventText;
-
+	[SerializeField] GameObject eventTextObject, carObject;
+	[SerializeField] CountDown gameTimer;
 	public float textScale;
 
+	private Text eventText;
 	private bool isCountdown, isGoal, isEndgame, isHitball;
 	private int counting_down = 3;
 
@@ -22,23 +17,23 @@ public class Event_Handler : MonoBehaviour {
 	private string GAME_OVER_TEXT = "Game Over";
 	private string HIT_BALL_TEXT_CUSTOM_1 = "SSSSIIIICCCKKK";
 	private string HIT_BALL_TEXT_CUSTOM_2 = "AWESOMEEEEE";
-    private Quaternion startRotation;
-    private bool isCustom1, isCustom2;
+	private Quaternion startRotation;
+	private bool isCustom1, isCustom2;
 
-    private LittleRocketLeague.Car carScript;
+	private LittleRocketLeague.Car carScript;
 
 	Transform eventTextTransform;
-    private Quaternion initialPosition;
+	private Quaternion initialPosition;
 
-    // Use this for initialization
-    void Start() {
+	// Use this for initialization
+	void Start() {
         
-        eventText = eventTextObject.GetComponent<Text>();
+		eventText = eventTextObject.GetComponent<Text>();
 		eventTextTransform = eventText.GetComponent<Transform>();
 		carScript = carObject.GetComponent<LittleRocketLeague.Car>();
-        initialPosition = eventTextTransform.rotation;
+		initialPosition = eventTextTransform.rotation;
 
-    }
+	}
 
 	//need this otherwise start is never called? confused
 	void OnEnable() {
@@ -73,8 +68,8 @@ public class Event_Handler : MonoBehaviour {
 
 	private void initGoal() {
 		eventTextObject.SetActive(true);
-        eventTextTransform.rotation = initialPosition;
-        eventTextTransform.localScale = new Vector3(0.2f, 0.2f, 0.2f);
+		eventTextTransform.rotation = initialPosition;
+		eventTextTransform.localScale = new Vector3(0.2f, 0.2f, 0.2f);
 		eventText.text = GOAL_TEXT;
 		textScale = 0;
       
@@ -134,7 +129,7 @@ public class Event_Handler : MonoBehaviour {
 			counting_down--;
 		} else if (!eventText.text.Equals(GO_TEXT)) {
 			carScript.InputEnabled = true;
-            gameTimer.startGameClock();
+			gameTimer.startGameClock();
 			eventText.text = GO_TEXT;
 			textScale = 0;
 			eventTextTransform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
@@ -149,7 +144,6 @@ public class Event_Handler : MonoBehaviour {
    */
 
 	public void startEndGame() {
-		
 		initEndGame();
 		isEndgame = true;
 	}
@@ -169,8 +163,6 @@ public class Event_Handler : MonoBehaviour {
 		} else {
 			eventTextObject.SetActive(false);
 			isEndgame = false;
-
-
 		}
 	}
 
