@@ -13,7 +13,7 @@ public class GoalHandler : MonoBehaviour {
 	[SerializeField] CountDown gameTimer;
 
 	public GoalTrigger redSide, blueSide, yellowSide, greenSide;
-	public bool isDisco;
+	public bool isRave;
 
 	private int totalScored, blueGoals, redGoals, yellowGoals, greenGoals;
 	private bool endStarted;
@@ -27,7 +27,7 @@ public class GoalHandler : MonoBehaviour {
 
 		source.PlayOneShot(countdown_sound, 0.1f);
 
-		if (isDisco) { 
+		if (isRave) { 
 			StartCoroutine(backgroundMusic());
 		}
 
@@ -49,15 +49,15 @@ public class GoalHandler : MonoBehaviour {
 	// Update is called once per frame
 	void Update() {
 
-		if (isDisco) {
-			discoUpdate();
+		if (isRave) {
+			raveUpdate();
 		} else {
 			normalUpdate();
 		}
 		
 	}
 
-	void discoUpdate() {
+	void raveUpdate() {
         Color _sideColor = Color.red;
 
         if (gameTimer.endOfGame)
@@ -77,10 +77,12 @@ public class GoalHandler : MonoBehaviour {
         }
         else
         {
+            GoalTrigger _triggerColour;
             switch (whereToScore)
             {
                 case "Red":
-                    if (redSide.goalsScored > 0)
+                    _triggerColour = getSideColour("red");
+                    if (_triggerColour.goalsScored > 0)
                     {
                         redGoals++;
                         showExplosion(Color.red);
@@ -89,7 +91,8 @@ public class GoalHandler : MonoBehaviour {
                     }
                     break;
                 case "Blue":
-                    if (blueSide.goalsScored > 0)
+                    _triggerColour = getSideColour("blue");
+                    if (_triggerColour.goalsScored > 0)
                     {
                         blueGoals++;
                         showExplosion(Color.blue);
@@ -98,7 +101,8 @@ public class GoalHandler : MonoBehaviour {
                     }
                     break;
                 case "Green":
-                    if (greenSide.goalsScored > 0)
+                    _triggerColour = getSideColour("green");
+                    if (_triggerColour.goalsScored > 0)
                     {
                         greenGoals++;
                         showExplosion(Color.green);
@@ -107,7 +111,8 @@ public class GoalHandler : MonoBehaviour {
                     }
                     break;
                 case "Yellow":
-                    if (yellowSide.goalsScored > 0)
+                    _triggerColour = getSideColour("yellow");
+                    if (_triggerColour.goalsScored > 0)
                     {
                         yellowGoals++;
                         showExplosion(Color.yellow);
@@ -122,6 +127,29 @@ public class GoalHandler : MonoBehaviour {
             greenSide.goalsScored = 0;
             yellowSide.goalsScored = 0;
         }
+    }
+
+    GoalTrigger getSideColour(string sideColour)
+    {
+        
+
+        if (redSide.Colour.Equals(sideColour))
+        {
+            return redSide;
+        }else if (blueSide.Colour.Equals(sideColour))
+        {
+            return blueSide;
+        }
+        else if (greenSide.Colour.Equals(sideColour))
+        {
+            return greenSide;
+        }
+        else if (yellowSide.Colour.Equals(sideColour))
+        {
+            return yellowSide;
+        }
+
+        return redSide;
     }
 
 	void normalUpdate() {

@@ -10,37 +10,93 @@ public class GoalTrigger : MonoBehaviour {
 	[SerializeField]
 	Light mainLight;
 
-	private Quaternion initialRotation;
+	private float initialRotation;
 	private float range1, range2, range3, range4;
+    public string first, second, third, fourth;
 
 	void Start() {
 		goalsScored = 0;
-		if (handler.isDisco) {
-			initialRotation = mainLight.GetComponent<Transform>().rotation;
-			range1 = initialRotation.y;
-			range2 = initialRotation.y + 90.0f;
-			range3 = initialRotation.y + 180.0f;
-			range4 = initialRotation.y + 270.0f;
-			range1 = (range1 > 360.0f) ? range1 - 360f : range1;
-			range2 = (range1 > 360.0f) ? range2 - 360f : range2;
-			range3 = (range1 > 360.0f) ? range3 - 360f : range3;
-			range4 = (range1 > 360.0f) ? range4 - 360f : range4;
-		}
+		if (handler.isRave) {
+			initialRotation = mainLight.GetComponent<Transform>().rotation.eulerAngles.y;
+            range1 = initialRotation;
+			range2 = initialRotation + 90.0f;
+			range3 = initialRotation + 180.0f;
+			range4 = initialRotation + 270.0f;
+           
+            range1 = (range1 > 360.0f) ? range1 : range1 - 360.0f;
+            range2 = (range1 > 360.0f) ? range2 : range2 - 360.0f;
+            range3 = (range1 > 360.0f) ? range3 : range3 - 360.0f;
+            range4 = (range1 > 360.0f) ? range4 : range4 - 360.0f;
+
+            range1 = (range1 < 0f) ? range1 + 360.0f : range1;
+            range2 = (range2 < 0f) ? range2 + 360.0f : range2;
+            range3 = (range3 < 0f) ? range3 + 360.0f : range3;
+            range4 = (range4 < 0f) ? range4 + 360.0f : range4;
+            print("1 " + range1);
+            print("2 " + range2);
+            print("3 " + range3);
+            print("4 " + range4);
+
+        }
 	}
 
 	void Update() {
         
-		if (handler.isDisco) {
-			Quaternion newRotation = mainLight.GetComponent<Transform>().rotation;
-			if (newRotation.y > range1 && newRotation.y < range2) {
-				Colour = "green";
-			} else if (newRotation.y > range2 && newRotation.y < range3) {
-				Colour = "red";
-			} else if (newRotation.y > range3 && newRotation.y < range4) {
-				Colour = "blue";
-			} else if (newRotation.y > range4 && newRotation.y < 360.0f) {
-				Colour = "yellow";
-			}
+		if (handler.isRave) {
+			float newRotation = mainLight.GetComponent<Transform>().rotation.eulerAngles.y;
+            //print(newRotation);
+            
+            
+                if (newRotation > range1 && newRotation < range2)
+                {
+                changeColour(1);
+            }
+                else if (newRotation > range2 && newRotation < range3)
+                {
+                changeColour(2);
+            }
+                else if (newRotation > range3 && newRotation < range4)
+                {
+                    changeColour(3);
+                }
+                else if (newRotation > range4 && newRotation < range1)
+                {
+                     changeColour(4);
+                 }
+            else
+            {
+                if (range1 > range2)
+                {
+                    if (newRotation > range1 || newRotation < range2)
+                    {
+                        changeColour(1);
+                    }
+                }
+                else if (range2 > range3)
+                {
+                    if (newRotation > range2 || newRotation < range3)
+                    {
+                        changeColour(2);
+                    }
+                }
+                else if (range3 > range4)
+                {
+                    if (newRotation > range3 || newRotation < range4)
+                    {
+                        changeColour(3);
+                    }
+                }
+                else if (range4 > range1)
+                {
+                    if (newRotation > range4 || newRotation < range1)
+                    {
+                        changeColour(4);
+                    }
+                }
+            }
+
+
+            
 		}
 	}
 
@@ -49,4 +105,23 @@ public class GoalTrigger : MonoBehaviour {
 			goalsScored++;  
 		}
 	}
+
+    private void changeColour(int numColour)
+    {
+        switch (numColour)
+        {
+            case 1:
+                Colour = first;
+                break;
+            case 2:
+                Colour = second;
+                break;
+            case 3:
+                Colour = third;
+                break;
+            case 4:
+                Colour = fourth;
+                break;
+        }
+    }
 }

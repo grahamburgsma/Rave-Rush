@@ -2443,9 +2443,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   goalsScored: 0
-  Colour: 
+  Colour: blue
   handler: {fileID: 505720291}
   mainLight: {fileID: 1661782580}
+  first: blue
+  second: green
+  third: red
+  fourth: yellow
 --- !u!82 &329350757
 AudioSource:
   m_ObjectHideFlags: 0
@@ -2806,9 +2810,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   goalsScored: 0
-  Colour: 
+  Colour: green
   handler: {fileID: 505720291}
   mainLight: {fileID: 684395219}
+  first: green
+  second: red
+  third: yellow
+  fourth: blue
 --- !u!82 &371676238
 AudioSource:
   m_ObjectHideFlags: 0
@@ -3320,7 +3328,7 @@ MonoBehaviour:
   blueSide: {fileID: 329350756}
   yellowSide: {fileID: 1484260168}
   greenSide: {fileID: 371676237}
-  isDisco: 1
+  isRave: 1
 --- !u!4 &505720292
 Transform:
   m_ObjectHideFlags: 0
@@ -3622,8 +3630,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 684395217}
-  m_LocalRotation: {x: 0.0012260161, y: 0.39437243, z: -0.011430532, w: 0.9188788}
-  m_LocalPosition: {x: -5, y: 54, z: -5}
+  m_LocalRotation: {x: 0.007177597, y: -0.38826382, z: -0.006755119, w: 0.92149556}
+  m_LocalPosition: {x: -5.0000453, y: 54, z: -5.000002}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 764614668}
@@ -4824,9 +4832,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   goalsScored: 0
-  Colour: 
+  Colour: red
   handler: {fileID: 505720291}
   mainLight: {fileID: 2116406984}
+  first: red
+  second: yellow
+  third: blue
+  fourth: green
 --- !u!82 &1079657921
 AudioSource:
   m_ObjectHideFlags: 0
@@ -5192,8 +5204,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1182516803}
-  m_LocalRotation: {x: 0.011824403, y: 0.9225568, z: 0.0010157556, w: -0.38567877}
-  m_LocalPosition: {x: -5, y: 54, z: -5}
+  m_LocalRotation: {x: 0.007161817, y: 0.9177855, z: 0.007318274, w: 0.3969444}
+  m_LocalPosition: {x: -5.0000453, y: 54, z: -5.000002}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 596076950}
@@ -7414,9 +7426,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   goalsScored: 0
-  Colour: 
+  Colour: yellow
   handler: {fileID: 505720291}
   mainLight: {fileID: 1182516805}
+  first: yellow
+  second: blue
+  third: green
+  fourth: red
 --- !u!82 &1484260169
 AudioSource:
   m_ObjectHideFlags: 0
@@ -8037,8 +8053,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1661782578}
-  m_LocalRotation: {x: 0.0092804255, y: 0.93487215, z: -0.007397713, w: 0.35478613}
-  m_LocalPosition: {x: -5, y: 54, z: -5}
+  m_LocalRotation: {x: 0.0102325305, y: 0.39298955, z: 0.00038413686, w: 0.9194859}
+  m_LocalPosition: {x: -5.0000453, y: 54, z: -5.000002}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2078098133}
@@ -8808,8 +8824,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2116406982}
-  m_LocalRotation: {x: -0.007516266, y: -0.36676186, z: -0.009184648, w: 0.93023914}
-  m_LocalPosition: {x: -5, y: 54, z: -5}
+  m_LocalRotation: {x: 0.0002527032, y: -0.9244566, z: -0.010236602, w: 0.38114992}
+  m_LocalPosition: {x: -5.0000453, y: 54, z: -5.000002}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 195835266}
