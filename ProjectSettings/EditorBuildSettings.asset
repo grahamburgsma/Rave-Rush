@@ -9,5 +9,5 @@ EditorBuildSettings:
     path: Assets/Levels/Menu.unity
   - enabled: 1
     path: Assets/Levels/Main.unity
-  - enabled: 0
-    path: Assets/Levels/main_scene_old.unity
+  - enabled: 1
+    path: Assets/Levels/Disco.unity

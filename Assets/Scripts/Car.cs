@@ -36,7 +36,7 @@ namespace LittleRocketLeague {
 		[Header("Sounds")]
 		[SerializeField] AudioClip crashSound;
 		[SerializeField] AudioClip ballHitSound, jumpSound = null, ballHitSick = null, ballHitAwesome = null;
-		[SerializeField] AudioSource source;
+		[SerializeField] AudioSource source, carSource;
 
 
 		public bool InputEnabled = true;
@@ -127,6 +127,8 @@ namespace LittleRocketLeague {
 			float turnSpeed = Input.GetAxis("Horizontal") * turnFactor;
 			float brakeSpeed = Input.GetAxis("Jump") * brakeFactor;
 			int numWheelsGrounded = 0;
+
+			carSource.pitch = ((Math.Abs(rigidBody.velocity.magnitude) / 150) * Math.Abs(Input.GetAxis("Vertical"))) + 1;
 
 			if (InputEnabled) {
 				foreach (Wheel wheel in wheels) {

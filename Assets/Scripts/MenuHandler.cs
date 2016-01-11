@@ -4,6 +4,8 @@ using UnityEngine.SceneManagement;
 
 public class MenuHandler : MonoBehaviour {
    
+	int scene = 1;
+
 	void Start() {
         
 	}
@@ -12,8 +14,12 @@ public class MenuHandler : MonoBehaviour {
 		Application.Quit();
 	}
 
+	public void onSceneSelected(int scene) {
+		this.scene = scene;
+	}
+
 	public void onTimeClick(int time) {
 		PlayerPrefs.SetInt("GameLength", time);
-		SceneManager.LoadScene(1);
+		SceneManager.LoadScene(scene);
 	}
 }

@@ -856,6 +856,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   goalsScored: 0
+  Colour: 
+  handler: {fileID: 0}
+  mainLight: {fileID: 0}
+  first: 
+  second: 
+  third: 
+  fourth: 
 --- !u!82 &473332234
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1954,6 +1961,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   goalsScored: 0
+  Colour: 
+  handler: {fileID: 0}
+  mainLight: {fileID: 0}
+  first: 
+  second: 
+  third: 
+  fourth: 
 --- !u!82 &1172027334
 AudioSource:
   m_ObjectHideFlags: 0
@@ -2232,6 +2246,17 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+      - m_Target: {fileID: 862923561}
+        m_MethodName: onSceneSelected
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 2
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &1181586972
@@ -2440,7 +2465,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 174}
-  m_SizeDelta: {x: 320, y: 60}
+  m_SizeDelta: {x: 320, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1245340836
 MonoBehaviour:
@@ -2463,7 +2488,7 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 12800000, guid: 74999f19ba263434b97b0c63d82d1649, type: 3}
-    m_FontSize: 24
+    m_FontSize: 78
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 0
@@ -2474,11 +2499,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: '(working titleS)
-
-    DISCO DASH
-
-    RAVE RUSH'
+  m_Text: RAVE RUSH
 --- !u!222 &1245340837
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2712,6 +2733,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   goalsScored: 0
+  Colour: 
+  handler: {fileID: 0}
+  mainLight: {fileID: 0}
+  first: 
+  second: 
+  third: 
+  fourth: 
 --- !u!82 &1631836145
 AudioSource:
   m_ObjectHideFlags: 0
@@ -2875,6 +2903,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   goalsScored: 0
+  Colour: 
+  handler: {fileID: 0}
+  mainLight: {fileID: 0}
+  first: 
+  second: 
+  third: 
+  fourth: 
 --- !u!82 &1679710274
 AudioSource:
   m_ObjectHideFlags: 0

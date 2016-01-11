@@ -1777,6 +1777,7 @@ MonoBehaviour:
   ballHitSick: {fileID: 8300000, guid: d72fd6c37165fc64ba351ebf9a842ac7, type: 3}
   ballHitAwesome: {fileID: 8300000, guid: 3c9068ddfd147be4a885d339e4508036, type: 3}
   source: {fileID: 688981871}
+  carSource: {fileID: 1746173871}
   InputEnabled: 1
 --- !u!4 &116362490 stripped
 Transform:
@@ -2089,7 +2090,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 4
+    m_RotationOrder: 0
   reverbZoneMixCustomCurve:
     serializedVersion: 2
     m_Curve:
@@ -2375,6 +2376,10 @@ MonoBehaviour:
   Colour: 
   handler: {fileID: 505720291}
   mainLight: {fileID: 0}
+  first: 
+  second: 
+  third: 
+  fourth: 
 --- !u!82 &329350757
 AudioSource:
   m_ObjectHideFlags: 0
@@ -2676,6 +2681,10 @@ MonoBehaviour:
   Colour: 
   handler: {fileID: 505720291}
   mainLight: {fileID: 0}
+  first: 
+  second: 
+  third: 
+  fourth: 
 --- !u!82 &371676238
 AudioSource:
   m_ObjectHideFlags: 0
@@ -3147,7 +3156,7 @@ MonoBehaviour:
   blueSide: {fileID: 329350756}
   yellowSide: {fileID: 1484260168}
   greenSide: {fileID: 371676237}
-  isDisco: 0
+  isRave: 0
 --- !u!4 &505720292
 Transform:
   m_ObjectHideFlags: 0
@@ -4133,6 +4142,7 @@ MonoBehaviour:
   ballHitSick: {fileID: 0}
   ballHitAwesome: {fileID: 0}
   source: {fileID: 688981871}
+  carSource: {fileID: 0}
   InputEnabled: 1
 --- !u!75 &1002794880
 ConstantForce:
@@ -4575,6 +4585,10 @@ MonoBehaviour:
   Colour: 
   handler: {fileID: 505720291}
   mainLight: {fileID: 0}
+  first: 
+  second: 
+  third: 
+  fourth: 
 --- !u!82 &1079657921
 AudioSource:
   m_ObjectHideFlags: 0
@@ -7103,6 +7117,10 @@ MonoBehaviour:
   Colour: 
   handler: {fileID: 505720291}
   mainLight: {fileID: 0}
+  first: 
+  second: 
+  third: 
+  fourth: 
 --- !u!82 &1484260169
 AudioSource:
   m_ObjectHideFlags: 0
@@ -7822,6 +7840,108 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1745921482}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1746173869
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1746173870}
+  - 82: {fileID: 1746173871}
+  m_Layer: 0
+  m_Name: Car Engine Sound
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1746173870
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1746173869}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 116362490}
+  m_RootOrder: 8
+--- !u!82 &1746173871
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1746173869}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 0bf285da984fe499c802836a62143abc, type: 3}
+  m_PlayOnAwake: 1
+  m_Volume: 0.1
+  m_Pitch: 1
+  Loop: 1
+  Mute: 0
+  Spatialize: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
 --- !u!1 &1778952203 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 100024, guid: 722a21c5e694745be9a50e3777133b54, type: 3}
