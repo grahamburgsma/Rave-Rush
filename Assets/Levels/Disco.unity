@@ -1894,7 +1894,7 @@ Prefab:
     - target: {fileID: 2300000, guid: aeba9d3bb648c4419a89f161b9d5cceb, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 9269cfecd6bd845f18d33e1788218996, type: 2}
+      objectReference: {fileID: 2100000, guid: 8b1ea3264137d42578048674c582cc50, type: 2}
     - target: {fileID: 2300000, guid: aeba9d3bb648c4419a89f161b9d5cceb, type: 3}
       propertyPath: m_Materials.Array.data[2]
       value: 
@@ -2702,7 +2702,7 @@ Light:
   m_GameObject: {fileID: 367112244}
   m_Enabled: 1
   serializedVersion: 6
-  m_Type: 1
+  m_Type: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 0.1
   m_Range: 1000
@@ -8642,7 +8642,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 0bf285da984fe499c802836a62143abc, type: 3}
+  m_audioClip: {fileID: 8300000, guid: d81767a24b2a42347bad657d3414ecf0, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 0.05
   m_Pitch: 1
