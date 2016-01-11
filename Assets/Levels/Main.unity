@@ -1763,7 +1763,7 @@ MonoBehaviour:
   turnFactor: 25
   turnForce: 200000
   engineFactor: 8000
-  engineForce: 80000
+  engineForce: 90000
   brakeFactor: 80000
   jumpForce: 40000
   torqueForce: 1000000
