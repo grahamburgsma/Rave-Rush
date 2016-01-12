@@ -21,17 +21,18 @@ public class CountDown : MonoBehaviour {
 		setTime();
 	}
 
-
+    /**
+        Starts the game clock and makes it count down
+    */
 	public void startGameClock() {
 		if (!isEndGameTimer) {
 			InvokeRepeating("decreaseTimeLeft", 1.0f, 1.0f);
 		}
 	}
 
-	void Update() {
-       
-	}
-
+    /**
+        Called repeatedly to decrease the timer every second
+    */
 	void decreaseTimeLeft() {
 		timerSeconds--;
 		if (!isEndGameTimer) {
@@ -45,7 +46,11 @@ public class CountDown : MonoBehaviour {
 		}
 		setTime();
 	}
+    
 
+    /**
+        Sets the timer text in the UI
+    */
 	void setTime() {
 		if (!isEndGameTimer) {
 			TimeSpan timeSpan = TimeSpan.FromSeconds(timerSeconds);

@@ -11,6 +11,7 @@ public class SpinTrigger : MonoBehaviour {
 	void Start() {
 	}
 
+    //spins the car every frame
 	void Update() {
 		if (torqueCount > 0) {
 			car.AddTorque(Vector3.up * 800000000 * randomDirection, ForceMode.Acceleration);
@@ -18,6 +19,7 @@ public class SpinTrigger : MonoBehaviour {
 		}
 	}
 
+    //randomly spins the car left or right
 	void OnTriggerEnter(Collider other) {
 		if (other.tag == "Car") {
 			System.Random r = new System.Random();

@@ -1,7 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.SceneManagement;
-
+/**
+    Handles all interaction with the menu
+*/
 public class MenuHandler : MonoBehaviour {
    
 	int scene = 1;

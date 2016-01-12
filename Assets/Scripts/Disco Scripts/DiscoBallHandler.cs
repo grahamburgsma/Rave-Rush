@@ -15,11 +15,7 @@ public class DiscoBallHandler : MonoBehaviour {
 	// Update is called once per frame
 	void Update() {
 
-		foreach (Transform child in discoballTransform) {
-			//if (child.rotation.y > 360.0f)
-			//{
-			//child.Rotate(0, 0, 0, Space.Self);
-			//}
+		foreach (Transform child in discoballTransform) {   //rotate every child not just part object
 			child.Rotate(0, 10f * Time.deltaTime, 0, Space.Self);
 		}
         

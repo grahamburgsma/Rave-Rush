@@ -4,24 +4,22 @@ using UnityEngine.UI;
 
 public class EventHandler : MonoBehaviour {
 
-	[SerializeField] GameObject eventTextObject, carObject;
+    private string GO_TEXT = "GO!!!!!!!!!";
+    private string GOAL_TEXT = "GGOOOOOAALLLLLLLL";
+    private string GAME_OVER_TEXT = "Game Over";
+    private string HIT_BALL_TEXT_CUSTOM_1 = "SSSSIIIICCCKKK";
+    private string HIT_BALL_TEXT_CUSTOM_2 = "AWESOMEEEEE";
+
+    [SerializeField] GameObject eventTextObject, carObject;
 	[SerializeField] CountDown gameTimer;
 	public float textScale;
 
 	private Text eventText;
 	private bool isCountdown, isGoal, isEndgame, isHitball;
 	private int counting_down = 3;
-
-	private string GO_TEXT = "GO!!!!!!!!!";
-	private string GOAL_TEXT = "GGOOOOOAALLLLLLLL";
-	private string GAME_OVER_TEXT = "Game Over";
-	private string HIT_BALL_TEXT_CUSTOM_1 = "SSSSIIIICCCKKK";
-	private string HIT_BALL_TEXT_CUSTOM_2 = "AWESOMEEEEE";
 	private Quaternion startRotation;
 	private bool isCustom1, isCustom2;
-
 	private LittleRocketLeague.Car carScript;
-
 	Transform eventTextTransform;
 	private Quaternion initialPosition;
 
@@ -58,14 +56,21 @@ public class EventHandler : MonoBehaviour {
         
 
 	}
-	/*
-    ****************************************************    GOAL RELATED **********************
-    */
+	    /**
+        * The below methods have to do with displaying the "Goal" goal text in the event text area
+        */
+
+   /**
+        Public method to call to display the goal text
+   */
 	public void startGoalDisplay() {
 		initGoal();
 		isGoal = true;
 	}
 
+    /*
+        Initializes event text settings
+    */
 	private void initGoal() {
 		eventTextObject.SetActive(true);
 		eventTextTransform.rotation = initialPosition;
@@ -76,6 +81,9 @@ public class EventHandler : MonoBehaviour {
 		eventTextObject.GetComponent<Text>().CrossFadeAlpha(0.0f, 2f, false);
 	}
 
+    /*
+        Called every frame to update the animation
+    */
 	private void goalUpdateCall() {
 		if (textScale < 0.015f) {
 			textScale += 0.0001f;
@@ -88,11 +96,11 @@ public class EventHandler : MonoBehaviour {
 		}
 	}
 
-	/*
-    ****************************************************    COUNTDOWN RELATED **********************
-    */
+        /**
+        * The below methods have to do with displaying the "3,2,1 Go!" countdown text in the event text area
+        */
 
-	public void startCountdown() {
+    public void startCountdown() {
 
 		 
 		carScript.InputEnabled = false;
@@ -101,6 +109,9 @@ public class EventHandler : MonoBehaviour {
 		isCountdown = true;
 	}
 
+    /**
+        Handles the animation of the countdown in the event text
+    */
 	private void countdownUpdateCall() {
 		if (eventText.text.Equals(GO_TEXT)) {
 			if (textScale < 0.015f) {
@@ -121,6 +132,9 @@ public class EventHandler : MonoBehaviour {
 		}
 	}
 
+    /**
+        Handles the changing text from 3 to 2 to 1 to go! in the countdown
+    */
 	private void updateCountdown() {
 		if (counting_down > 0) {
 			textScale = 0;
@@ -139,64 +153,50 @@ public class EventHandler : MonoBehaviour {
 		}
 	}
 
-	/*
-   ****************************************************    GAME OVER RELATED **********************
-   */
+        /**
+        * The below methods have to do with displaying the two custom texts that appear in event text area when hitting the ball quickly
+        */
 
-	public void startEndGame() {
-		initEndGame();
-		isEndgame = true;
-	}
 
-	private void initEndGame() {
-		eventTextObject.SetActive(true);
-
-		eventTextTransform.localScale = new Vector3(0.2f, 0.2f, 0.2f);
-		eventText.text = GAME_OVER_TEXT;
-		textScale = 0;
-	}
-
-	private void endGameUpdateCall() {
-		if (textScale < 0.015f) {
-			textScale += 0.0001f;
-			eventTextTransform.localScale += new Vector3(textScale, textScale, textScale);
-		} else {
-			eventTextObject.SetActive(false);
-			isEndgame = false;
-		}
-	}
-
-	/*
-  ****************************************************    Random Event **********************
-  */
-
-	
-
-	public void startRandomHitBallText(int whichText) {
+        /*
+            Starts the custom text to appear on the screen
+        */
+    public void startRandomHitBallText(int whichText) {
 		if (!isCustom1 || !isCustom2) {
 			startRotation = eventTextTransform.rotation;
 			if (whichText == 1) {
-				initHitBall_sick();
+				initCustomHitball(1);
 			} else if (whichText == 2) {
-				initCustomHitball2();
+				initCustomHitball(2);
 			}
-
 			isHitball = true;
 		}
 	}
 
-	private void initHitBall_sick() {
-		isCustom1 = true;
-		eventTextObject.SetActive(true);
-		eventTextTransform.localScale = new Vector3(0.2f, 0.2f, 0.2f);
-		eventText.text = HIT_BALL_TEXT_CUSTOM_1;
-		textScale = 0;
-		//eventTextObject.GetComponent<Text>().CrossFadeAlpha(0.0f, 2f, false);
-	}
+    /**
+        Initializes the custom text
+    */
+    private void initCustomHitball(int whichCustomText)
+    {
+        isCustom1 = true;
+        eventTextObject.SetActive(true);
+        eventTextTransform.localScale = new Vector3(0.2f, 0.2f, 0.2f);
+        switch (whichCustomText)
+        {
+            case 1:
+                eventText.text = HIT_BALL_TEXT_CUSTOM_1;
+                break;
+            case 2:
+                eventText.text = HIT_BALL_TEXT_CUSTOM_2;
+                break;
 
-   
-
-	private void hitBallUpdateCall() {
+        }
+        textScale = 0;
+    }
+    /**
+        Called once a frame to apply the animation
+    */
+    private void hitBallUpdateCall() {
 		if (isCustom1) {
 			if (textScale < 0.012f) {
 				textScale += 0.0001f;
@@ -229,12 +229,5 @@ public class EventHandler : MonoBehaviour {
 	}
 
 
-	private void initCustomHitball2() {
-		isCustom2 = true;
-		eventTextObject.SetActive(true);
-		eventTextTransform.localScale = new Vector3(0.2f, 0.2f, 0.2f);
-		eventText.text = HIT_BALL_TEXT_CUSTOM_2;
-		textScale = 0;
-		//eventTextObject.GetComponent<Text>().CrossFadeAlpha(0.0f, 2f, false);
-	}
+	
 }

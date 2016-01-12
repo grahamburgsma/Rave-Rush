@@ -12,10 +12,10 @@ public class GoalHandler : MonoBehaviour {
 	[SerializeField] AudioSource source;
 	[SerializeField] CountDown gameTimer;
 
-	public GoalTrigger redSide, blueSide, yellowSide, greenSide;
-	public bool isRave;
+	public GoalTrigger redSide, blueSide, yellowSide, greenSide;    //side triggers
+	public bool isRave; //if its a rave
 
-	private int totalScored, blueGoals, redGoals, yellowGoals, greenGoals;
+	private int totalScored, blueGoals, redGoals, yellowGoals, greenGoals;  //counters to keep track of the goals
 	private bool endStarted;
 	private EventHandler eHandler;
 	private string whereToScore;
@@ -27,13 +27,17 @@ public class GoalHandler : MonoBehaviour {
 
 		source.PlayOneShot(countdown_sound, 0.1f);
 
-		if (isRave) { 
+		if (isRave) { //only music when rave
 			StartCoroutine(backgroundMusic());
 		}
 
 		eHandler.startCountdown();
 	}
 
+
+    /**
+        Repeats the background music
+    */
 	IEnumerator backgroundMusic() {
 
 		source.PlayOneShot(background_intro_sound, 0.1f);
@@ -57,10 +61,13 @@ public class GoalHandler : MonoBehaviour {
 		
 	}
 
+    /**
+        Handles whether the game is over, and if a goal was scored.
+    */
 	void raveUpdate() {
         Color _sideColor = Color.red;
 
-        if (gameTimer.endOfGame)
+        if (gameTimer.endOfGame)    //if games over
         {
 
             whereToScoreText.text = "Game Over";
@@ -75,13 +82,13 @@ public class GoalHandler : MonoBehaviour {
             }
 
         }
-        else
+        else  //Game isnt over, check to see if user scored
         {
             GoalTrigger _triggerColour;
             switch (whereToScore)
             {
                 case "Red":
-                    _triggerColour = getSideColour("red");
+                    _triggerColour = getSideColour("red"); //gets which side is currently being shined on by the red light
                     if (_triggerColour.goalsScored > 0)
                     {
                         redGoals++;
@@ -122,13 +129,18 @@ public class GoalHandler : MonoBehaviour {
                     break;
             }
 
-            redSide.goalsScored = 0;
+            redSide.goalsScored = 0;//reset all the goals 
             blueSide.goalsScored = 0;
             greenSide.goalsScored = 0;
             yellowSide.goalsScored = 0;
         }
     }
 
+    /**
+        Returns which side holds the given sideColour
+
+        @param  sideColur   the colour of side you want to find
+    */
     GoalTrigger getSideColour(string sideColour)
     {
         
@@ -152,6 +164,10 @@ public class GoalHandler : MonoBehaviour {
         return redSide;
     }
 
+
+    /**
+        Called to update the normal game (non rave)
+    */
 	void normalUpdate() {
 		Color _sideColor = Color.red;
 
@@ -210,6 +226,9 @@ public class GoalHandler : MonoBehaviour {
 		}
 	}
 
+    /**
+        Updates the goals scored text on the UI
+    */
 	void updateGoalsScored() {
 		//Set Goal event text
 		eHandler.startGoalDisplay();
@@ -224,7 +243,9 @@ public class GoalHandler : MonoBehaviour {
 		updateWhereToScore();
 	}
 
-    
+    /**
+        Called after a goal is scored to determine where to score next
+    */
 	void updateWhereToScore() {
 		string[] whereCanBeScored = new string[4] { "Red", "Green", "Blue", "Yellow" };
 		System.Random r = new System.Random();
@@ -235,7 +256,7 @@ public class GoalHandler : MonoBehaviour {
     
 		Renderer[] arrowRenderer = arrow.GetComponentsInChildren<Renderer>();
 		Color _sideColor = Color.red;
-		switch (whereToScore) {   //Look at this and tell me how you would do it, i could create it into one statement but i dont know whats better
+		switch (whereToScore) {  
             
 			case "Red":
 				foreach (Renderer component in arrowRenderer) {
@@ -267,11 +288,22 @@ public class GoalHandler : MonoBehaviour {
 		makeBodyStayStill(ball.GetComponent<Rigidbody>());
 	}
 
+    /**
+        Makes the given rigidbody stop moving
+
+        @param  body    body to make stop moving
+    */
+
 	void makeBodyStayStill(Rigidbody body) { 
 		body.velocity = Vector3.zero;
 		body.angularVelocity = Vector3.zero;
 	}
 
+    /**
+        Shows an explosion where the goal was scored 
+
+        @param  explosionColour What colour to make the explosion
+    */
 	void showExplosion(Color explosionColour) {
 		Transform explosion_transform = explosion.GetComponent<Transform>();
 		Transform ball_transform = ball.GetComponent<Transform>();
