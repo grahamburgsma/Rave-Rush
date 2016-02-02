@@ -1,5 +1,9 @@
-# Rave-Rush
+# Rave Rush
 Small game created for COSC 4P98 at Brock University
+> Created by Graham Burgsma and Riley Davidson
+
+**Play Online**
+[Rave Rush](http://devbrockchat.ddns.net/raverush/)
 
 ### Controls
 - N : Nitro
@@ -11,8 +15,9 @@ Small game created for COSC 4P98 at Brock University
 
 ### Gameplay
 #### Overview
-The gameplay revolves around trying to put the ball into the specified net. When the game starts, there is a countdown and then the user is allowed to move. The game tells you where to score (As seen on the top, or the colour of the arrow on top of the car).Once the user scores, the ball is returned back to the center, and another random colour is chosen as where to score next. When the timer reaches 0, the game pauses and all motion is slowed and user input is disallowed. The game gives you 5 seconds to look at your stats before returning to the main menu.
-The user can use the ball camera (press B) or use the arrow on top of the car to locate the ball in the scene. The car can also jump and flip in various directions in order to help with hitting the ball. There are obstacles around the scene which affect the car (Spin and jump) or the ball (blows it up). When the user hits the ball hard enough, a sound and custom effect will occur.
+  The gameplay revolves around trying to put the ball into the specified net. When the game starts, there is a countdown and then the user is allowed to move. The game tells you where to score (As seen on the top, or the colour of the arrow on top of the car).Once the user scores, the ball is returned back to the center, and another random colour is chosen as where to score next. When the timer reaches 0, the game pauses and all motion is slowed and user input is disallowed. The game gives you 5 seconds to look at your stats before returning to the main menu.
+
+  The user can use the ball camera (press B) or use the arrow on top of the car to locate the ball in the scene. The car can also jump and flip in various directions in order to help with hitting the ball. There are obstacles around the scene which affect the car (Spin and jump) or the ball (blows it up). When the user hits the ball hard enough, a sound and custom effect will occur.
 
 #### Features
 - 3 Different obstacles
